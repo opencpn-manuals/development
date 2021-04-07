@@ -14,19 +14,18 @@
 ** xref:od-code-formatting.adoc[Code Formatting]
 ** xref:od-user-interface-styling.adoc[User Interface Styling]
 ** xref:od-troubleshooting.adoc[Troubleshooting]
-* Plugin Manager Development
+* Plugin Development
 ** xref:pm-plugin-guidelines.adoc[Plugin Guidelines]
 *** xref:pm-plugin-documentation.adoc[Documentation]
 *** xref:pm-plugin-dependencies.adoc[Dependencies]
 ** xref:pm-plugin-api-versions.adoc[Plugin API and ABI]
-* Plugin Manager Workflow
 ** xref:pm-overview-deployment.adoc[Deployment overview]
-** xref:pm-overview-prereq-workflow.adoc[Workflow Prerequisites]
-** xref:pm-overview-prereq-services.adoc[Prerequisite Services]
-** xref:pm-overview-prereq-other.adoc[Cloudsmith Setup]
 ** xref:pm-overview-workflow.adoc[Workflow overview]
 ** xref:pm-tp-template.adoc[Testplugin Template]
-*** xref:pm-tp-system-structure.adoc[System Structure]
+*** xref:pm-overview-prereq-workflow.adoc[Workflow Prerequisites]
+*** xref:pm-overview-prereq-services.adoc[Prerequisite Services]
+*** xref:pm-overview-prereq-other.adoc[Cloudsmith Setup]
+**** xref:pm-tp-system-structure.adoc[System Structure]
 *** xref:pm-tp-dev-setup.adoc[Developer Setup]
 *** xref:pm-tp-config-template.adoc[Configure Template]
 *** Build Locally
