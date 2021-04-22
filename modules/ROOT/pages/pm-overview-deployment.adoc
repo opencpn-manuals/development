@@ -1,7 +1,10 @@
-= Plugin Manager Deployment Overview
+= Plugin Deployment Overview
 
 The Plugin Manager (PM) installer is, from 5.2.0 the normal way to
-install plugins. The installer is designed around some concepts:
+install plugins. Prior to 5.2.2 plugins was deployed as operating
+system packages, see xref:dm-legacy-plugins.adoc[Legacy Plugins]
+
+The PM installer is designed around some concepts:
 
 Tarball::
 A tarball is (in this context) the complete plugin which the installer
