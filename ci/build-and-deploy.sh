@@ -25,5 +25,10 @@ git config --local user.name "$GITHUB_ACTOR"
 
 # Commit changes and push to gh-pages
 git add --all .
-git commit -q -m "[CI] Updating gh-pages branch from ${GITHUB_SHA:0:8}"
+orig_subject=$(git log -1 --oneline $GITHUB_SHA)
+msg= "[CI] Updating gh-pages branch from ${GITHUB_SHA:0:8}"
+if [[ "$orig_subject" == *full-linkcheck* ]]; then
+    msg="[full-linkcheck] $msg"
+fi
+git commit -q -m "$msg"
 git push -f origin gh-pages:gh-pages
