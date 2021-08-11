@@ -8,9 +8,9 @@ fi
 sudo apt install -y w3c-linkchecker
 
 if checklink  -qb --depth 3 \
-    --exclude https://www.opencpn.org \
-    --exclude https://opencpn.org/wiki/dokuwiki/doku.php \
-    --exclude https://opencpn.org/flyspray \
+    --exclude 'https://www.opencpn.org.*' \
+    --exclude 'https://opencpn.org/wiki/dokuwiki/doku.php.*' \
+    --exclude 'https://opencpn.org/flyspray.*' \
     docs/index.html &> linkcheck.log
 then
     cat linkcheck.log
