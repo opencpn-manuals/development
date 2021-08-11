@@ -1,7 +1,8 @@
 #!/bin/bash
 
+set -x
 subject=$(git log -1 --oneline)
-if [[ ! "$subject" != *full?linkcheck* ]]; then
+if [[ "$subject" != *full?linkcheck* ]]; then
     echo "No full-linkcheck annotaion found. Exiting."
     exit 0
 fi
