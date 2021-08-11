@@ -8,7 +8,9 @@ Push the current branch to the branch _build_, something like
 
     $ git push -f origin HEAD:build
 
-The results becomes available at https://github.com/opencpn-manuals/development
+Pushing to _build_ initiates a build job, progress can be followed at
+https://github.com/opencpn-manuals/development/actions. The results
+becomes available at https://github.com/opencpn-manuals/development
 after about 2-3  minutes.
 
 == Local builds
@@ -50,15 +52,15 @@ and tested:
     $ git commit -am "Describe the change"
     $ git push -f origin main:build
 
-If the build completes, the results are visible at
+If the build completes, the results becomes visible at
 https://opencpn-manuals.github.io/development/. If testing reveals errors,
-the commit can be amended since it hasn't been pushed to main.:
+the commit can be amended since it hasn't been pushed to main:
 
     $ edit-again, fixing errors
     $ git commit -a --amend
     $ git push -f origin main:build
 
-When the testing and reviewing is done, one can push to origin/main:
+When testing and reviewing is done, one can push to origin/main:
 
     $ git remote update origin
     $ git rebase origin/main
