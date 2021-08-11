@@ -15,7 +15,6 @@ antora site.yml
 touch docs/.nojekyll
 
 # Set up a git environment in docs
-set -x
 orig_subject=$(git log -1 --oneline $FETCH_HEAD)
 author_email=$(git log -1 --pretty=format:"%ae")
 cd docs
@@ -29,7 +28,6 @@ git config --local user.name "$GITHUB_ACTOR"
 git add --all .
 git fetch origin $GITHUB_SHA
 msg="[CI] Updating gh-pages branch from ${GITHUB_SHA:0:8}"
-echo "Original subject: $orig_subject"
 if [[ "$orig_subject" == *full?linkcheck* ]]; then
     msg="[full-linkcheck] $msg"
 fi
