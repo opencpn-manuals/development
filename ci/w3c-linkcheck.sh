@@ -7,7 +7,12 @@ if [[ "$subject" != *full?linkcheck* ]]; then
 fi
 sudo apt install -y w3c-linkchecker
 
-if checklink  -qb --depth 3 docs/index.html &> linkcheck.log; then
+if checklink  -qb --depth 3 \
+    --exclude https://www.opencpn.org \
+    --exclude https://opencpn.org/wiki/dokuwiki/doku.php \
+    --exclude https://opencpn.org/flyspray \
+    docs/index.html &> linkcheck.log
+then
     cat linkcheck.log
 else
     tail -20 linkcheck.log

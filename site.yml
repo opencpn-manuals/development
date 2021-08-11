@@ -8,6 +8,12 @@ content:
     - url: ./
       branches: HEAD
       edit_url: false
+    - url: https://github.com/leamas/ocpn-pi-docs.git
+      branches: main
+      edit_url: true
+    - url: https://github.com/Rasbats/managed_plugins
+      branches: asciidoc
+      start_path: manual
 
 ui:   
   bundle:
