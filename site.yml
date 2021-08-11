@@ -1,6 +1,6 @@
 site:
   title: OpenCPN Developer Manual
-  url: https://leamas.github.io/ocpn-manuals/
+  url: https://opencpn-manuals.github.io/development/
   start_page:  ocpn-dev-manual:ROOT:intro-AboutThisManual.adoc
 
 content:
@@ -8,16 +8,11 @@ content:
     - url: ./
       branches: HEAD
       edit_url: false
+
 ui:   
   bundle:
     url: ./ui-bundle.zip
     snapshot: true
-  supplemental_files:
-    - path: ui.yml
-      contents: |
-        static_files: [ .nojekyll ]
-    - path: .nojekyll
-
 
 output:
   dir: ./docs
