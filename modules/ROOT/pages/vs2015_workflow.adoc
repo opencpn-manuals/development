@@ -538,7 +538,7 @@ image:vs_release_success.png[vs_release_success.png]
 == Make a package to install OpenCPN
 
 This assumes that you have installed 'NSIS' (The guide was
-link:compiling_windows-steps-example.adoc[here]).
+xref:compiling_windows-steps-example.adoc[here]).
 
 * The folder 'C:\Example\OpenCPN\buildwin\wxwidgets' has 16 wxWidgets
 '.dll' files

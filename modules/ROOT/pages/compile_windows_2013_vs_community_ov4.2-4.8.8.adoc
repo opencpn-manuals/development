@@ -1,6 +1,6 @@
 = Compile 2013 VS Community Ov4.2-4.8.8 Workflow
 
-image::vista_0.png[vista_0.png,width=60]
+//image::vista_0.png[vista_0.png,width=60]  FIXME: lost image
 
 The officially supported Windows build platform for OpenCPN 4.1 beta to
 OpenCPN 4.8.8 is *Microsoft Visual Studio 2013* Express for Windows
@@ -450,7 +450,7 @@ Both Debugging and running Release (bypassing installation) require certain file
 There are two choices for setting up & maintaining the build, release and debug directories:
 
 . 6.1 Setup Batch Files just below(which may be the quickest and easiest method).
-. **link:{attachmentsdir}#step_by_step_manual_copy_of_setup_files[Step by Step Manual copy of files]**
+. **link:{attachmentsdir}/#step_by_step_manual_copy_of_setup_files[Step by Step Manual copy of files]**
 
 === 6.1 Setup Batch Files
 
