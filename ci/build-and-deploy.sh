@@ -27,7 +27,7 @@ git config --local user.name "$GITHUB_ACTOR"
 git add --all .
 orig_subject=$(git log -1 --oneline $GITHUB_SHA)
 msg= "[CI] Updating gh-pages branch from ${GITHUB_SHA:0:8}"
-if [[ "$orig_subject" == *full-linkcheck* ]]; then
+if [[ "$orig_subject" == *full?linkcheck* ]]; then
     msg="[full-linkcheck] $msg"
 fi
 git commit -q -m "$msg"
