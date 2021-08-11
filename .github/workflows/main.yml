@@ -6,7 +6,6 @@ on:
     branches:
       - build
 env:
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
