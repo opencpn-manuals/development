@@ -17,3 +17,17 @@ ui:
 output:
   dir: ./docs
   clean: true
+
+asciidoc:
+  attributes:
+    page-resource_1_title: OpenCPN.org
+    page-resource_1_url: https://www.opencpn.org/
+    page-resource_2_title: User Manual
+    page-resource_2_url: |
+      https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual
+    page-resource_3_title: Github Site
+    page-resource_3_url: https://github.com/opencpn/OpenCPN
+    page-resource_4_title: Bugtracker
+    page-resource_4_url: https://opencpn.org/flyspray/
+    page-resource_5_title: Plugin Manual (WIP)
+    page-resource_5_url: https://opencpn-manuals.github.io/plugins/
