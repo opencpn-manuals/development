@@ -24,7 +24,7 @@ For larger changes it's easier to follow the ordinary git/GitHub workflow. This
 starts with forking https://github.com/rgleason/ocpn-dev-manual[].
 
 After this follow the
-https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request[usual procedure]
+https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request/[usual procedure]
 to create a pull request (PR).
 
 The pages are written in Asciidoc, a simple markup language. Smaller changes
@@ -32,5 +32,5 @@ are possible to do without any Asciidoc knowledge. For bigger changes,
 these are important resources:
 
 * https://powerman.name/doc/asciidoc[Asciidoc cheat sheat]
-* https://docs.asciidoctor.org/asciidoc/latest[Asciidoc Reference Documentation]
+* https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc Reference Documentation]
 * https://docs.antora.org/antora/2.2/page/[Antora Page documentation]

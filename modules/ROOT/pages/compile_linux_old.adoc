@@ -205,7 +205,7 @@ DEB package that is made.
 
 You can use various IDEs to edit OpenCPN's code on Linux, to have an
 easy life, choose one of *http://www.codeblocks.org/[Code::Blocks]*,
-**http://kdevelop.org/[KDevelop]**and *http://eclipse.org/cdt/[Eclipse]*
+**https://www.kdevelop.org/[KDevelop]**and *http://eclipse.org/cdt/[Eclipse]*
 **http://eclipse.org/cdt/[CDT]**as cmake supports generating their
 project files. To do so, replace the cmake configuration step with one
 of the following, corresponding to the IDE of your choice. In all cases

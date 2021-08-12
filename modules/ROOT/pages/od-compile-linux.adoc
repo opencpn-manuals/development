@@ -122,7 +122,7 @@ NOTE: Fixme
 
 It is possible to use various IDEs to edit OpenCPN's code on Linux.
 Choosing one of *http://www.codeblocks.org/[Code::Blocks]*,
-*http://kdevelop.org/[KDevelop]* or *http://eclipse.org/cdt/[Eclipse]*
+*https://www.kdevelop.org/[KDevelop]* or *http://eclipse.org/cdt/[Eclipse]*
 *http://eclipse.org/cdt/[CDT]* simplifies since cmake supports
 generating their project files. To this end replace the cmake configuration
 step with one of the following, corresponding to the used IDE.

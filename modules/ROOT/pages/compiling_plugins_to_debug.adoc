@@ -185,7 +185,7 @@ TO  source\build\plugins\DATA
 
 TransmitterDan has suggested creating a link to point to the Debug DLL
 in
-http://www.cruisersforum.com/forums/f134/development-debugging-environment-setup-help-87680.html#post2339557[Cruiser
+https://www.cruisersforum.com/forums/f134/development-debugging-environment-setup-help-87680.html#post2339557[Cruiser
 Forums Development Environment Thread]
 
 When building plugins and debugging you can create a link to the plugin
@@ -229,7 +229,7 @@ should be modified with this added information, which adds the dll to
 the plugin manager and permits MSVC++ to find and run the debug plugin.
 
 See Cruiser Forum Post:
-http://www.cruisersforum.com/forums/f134/navico-radar-plugin-v3-0-beta3-v3-907-released-190692.html#post2483769
+https://www.cruisersforum.com/forums/f134/navico-radar-plugin-v3-0-beta3-v3-907-released-190692.html#post2483769
 
 "Normally from MSVS++ Run OpenCPN in debug mode with the plugin built
 internally similar to Dashboard or Chartdownloader. To Debug externally

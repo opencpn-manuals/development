@@ -1,15 +1,15 @@
 = Plugin Submissions
 
 Pavel Kalian (nohal on the
-http://www.cruisersforum.com/forums/f134/[Cruisers Forum]) looks after
+https://www.cruisersforum.com/forums/f134/[Cruisers Forum]) looks after
 the publication of plugins on the main OpenCPN website. He is able to
 make installers for the different operating systems and update that
 website.
 
 When you are ready for publication
-http://www.cruisersforum.com/forums/private.php?do=newpm&u=33453[Send
+https://www.cruisersforum.com/forums/private.php?do=newpm&u=33453[Send
 Pavel a PM] (Private Message) from the
-http://www.cruisersforum.com/forums/f134/[Cruisers Forum].
+https://www.cruisersforum.com/forums/f134/[Cruisers Forum].
 
 The website entry for your plugin will contain a link to the sourcecode.
 By users registering with GitHub (for example) issues can be raised with

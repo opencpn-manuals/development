@@ -14,11 +14,11 @@ entirely at your own risk.
 Plugin authors who wish to have a link to their new plugin hosted here
 should contact one of the following by PM (Private Message): Rick
 Gleason (rgleason)
-http://www.cruisersforum.com/forums/private.php?do=newpm&u=100424.html[PM
+https://www.cruisersforum.com/forums/private.php?do=newpm&u=100424.html[PM
 Rick], Mike Rossiter (Rasbats)e
-http://www.cruisersforum.com/forums/private.php?do=newpm&u=105199[PM
+https://www.cruisersforum.com/forums/private.php?do=newpm&u=105199[PM
 Mike], preferably, from the
-http://www.cruisersforum.com/forums/f134/[Cruisers Forum]. They will
+https://www.cruisersforum.com/forums/f134/[Cruisers Forum]. They will
 create an entry in FIXME
 
 === Testing

@@ -5,7 +5,7 @@
 This is much more convenient than building under windows, and the build
 is usually faster. The resulting binary can be tested in wine. If you have
 any questions Cruisers Forum Thread is
-http://www.cruisersforum.com/forums/f134/building-opencpn-using-mingw-gcc-on-windows-121802.html#post1600285[here].
+https://www.cruisersforum.com/forums/f134/building-opencpn-using-mingw-gcc-on-windows-121802.html#post1600285[here].
 
 The info here is based on the CI scripts which lives in the _ci/_
 directory. These scripts, which are continously tested is the

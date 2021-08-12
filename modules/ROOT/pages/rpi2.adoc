@@ -104,7 +104,7 @@ thing runs now since several days beton stable and I can do whatever I
 want w/out being able to crash it ! This is due to a bug in OpenCPN.
 Please refer to:
 
-http://www.cruisersforum.com/forums/f134/opencpn-on-raspberry-pi2-140940-18.html#post2322329
+https://www.cruisersforum.com/forums/f134/opencpn-on-raspberry-pi2-140940-18.html#post2322329
 
 Why am I so picky about power bursts? Because in a normal computer, big
 capacitors are added and power supplies are fast regulators to deal with
@@ -117,18 +117,18 @@ there is a high performance beast of burden!! Due to the size of the Pi,
 they had no chances putting big capacitors onto the board, and they
 unloaded the burst problem to an external power supply, which is then by
 many users replaced by a simple Mobile wall
-http://www.cruisersforum.com/forums/tags/plug.html[plug],
+https://www.cruisersforum.com/forums/tags/plug.html[plug],
 underestimating the untold power requirements of the Pi.
 
 One more word concerning Power. I have seen specs for the Pi, saying it
 should be supplied w/ 5.1V ! That's essential, because the Pi has at the
 entry a self healing poly-fuse and a diode to protect it against power
 connections in the wrong sense (+/-). The
-http://www.cruisersforum.com/forums/tags/price.html[price] to pay for is
+https://www.cruisersforum.com/forums/tags/price.html[price] to pay for is
 that the self healing fuse has a significant internal resistance; That
 means that right at the power entry to the Pi there is a loss of 100-200
 mV, variable with the current intake. Just running it at a Mobile
-http://www.cruisersforum.com/forums/tags/charger.html[charger], which
+https://www.cruisersforum.com/forums/tags/charger.html[charger], which
 are not so stable and go under heavy load even below 5V, the Pi is
 starving for Power. For the full story and differences between Pi2/3,
 please refer to the original page, which shows IMHO a bit an optimistic

@@ -54,7 +54,7 @@ The workflow: image:i18n.png[]
   the https://crowdin.net/project/opencpn[Crowdin] web service, as
   exemplified https://support.crowdin.com/online-editor[here].
 * A note in the
-  http://www.cruisersforum.com/forums/f134/opencpn-internationalization-i18n-34181.html[i18n thread]
+  https://www.cruisersforum.com/forums/f134/opencpn-internationalization-i18n-34181.html[i18n thread]
   from translator when she is completed is appreciated.
 * The maintainers downloads the translated po files to and makes
   a PR against the plugin

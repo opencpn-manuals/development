@@ -5,7 +5,7 @@
 * In 'Fork and Build' we built the 'DR_pi' plugin.
 
 * In Part 1 of this guide the 'DR_pi' plugin is renamed 'oplaydo1_pi'.
-The xref:oplaydo1.adoc#_gimp_to_make_new_icons[icon is changed].
+The xref:oplaydo1.adoc#_using_gimp_to_make_new_icons[icon is changed].
 * In
 xref:oplaydo1.ado#_part_2_edit_the_plugin_for_new_user_actions[Part 2]
 the dialog is changed to allow the user to input 'Start' and 'Finish'
@@ -111,7 +111,6 @@ will be changed to a new icon shortly.
 image:op_icon_fixed.png[op_icon_fixed.png]
 
 == Using GIMP to make new icons
-
 - Use https://www.gimp.org/downloads/[GIMP] to create an image file
 32×32 px in size.
 

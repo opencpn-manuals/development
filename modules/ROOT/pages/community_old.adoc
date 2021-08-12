@@ -39,7 +39,7 @@ User Feedback: Suggestions, User Interface Suggestions, Feature
 Requests, Bugs +
 should be done [.underline]#exclusively# via:
 
-* http://www.cruisersforum.com/forums/f134/[OpenCPN Cruiser's Forum]
+* https://www.cruisersforum.com/forums/f134/[OpenCPN Cruiser's Forum]
 Find or make an appropriate thread For discussion.
 * https://opencpn.org/flyspray/[Tracker] Sometimes called Flyspray. You
 must register first.
@@ -143,7 +143,7 @@ https://www.gnu.org/software/ddd/manual/pdf/ddd.pdf[Manual]
 * xref:compiling_windows.adoc[Windows Compile & Debug] -
 https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/[Windows
 Debuggers]
-* xref:compiling_mac_osx.adoc[Compile & Debug on MacOS]
+* xref:compile_mac_osx.adoc[Compile & Debug on MacOS]
 
 Online Repositories - Free to Opensource
 

@@ -11,7 +11,7 @@ builds of linux and osx, and to create those packages and releases.
 == How to push a .Travis 'built' file to a new Github 'Release'
 
 For travis refer to
-http://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910[Petri's
+https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910[Petri's
 post #637]
 
 === A. Configure CMake and the Travis file for security and permissions
@@ -25,7 +25,7 @@ courtesy from Sean d'Epagnier's repositories.
 particular
 https://github.com/canne/dashboard_tactics_pi/blob/master/cmake/PluginPackage.cmake[PluginPackage.cmake]
 note the MacOSX entries. Also see
-http://www.cruisersforum.com/forums/f134/tactics-plugin-166909-12.html#post2904905[this
+https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-12.html#post2904905[this
 post and necessary changes by Nereus32] (There may be some other changes
 to cmake needed..Petri?)`+'- SET(TACTICS_INSTRUMENTS ON)'
 IF (TACTICS_INSTRUMENTS)
@@ -344,13 +344,13 @@ is what I've done on my repository:
 
 === More information for Appveyor
 
-* http://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2876644[Post
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2876644[Post
 #2396]
-* http://www.cruisersforum.com/forums/f134/beta-test-technical-30929-6.html#post2887625[Post
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-6.html#post2887625[Post
 #2047]
-* http://www.cruisersforum.com/forums/f134/beta-test-technical-30929-4.html#post2894107[Post
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-4.html#post2894107[Post
 #2425]
 * https://github.com/seandepagnier/weatherfax_pi/issues/134[Use of
 appveyor 'auth_token' to push a new github release #134]
-* http://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2873659[Getting
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2873659[Getting
 auth token]

@@ -21,7 +21,7 @@ https://github.com/OpenCPN/OpenCPN
 * xref:prerequisites.adoc[Prerequisites]
 * xref:compiling_linux.adoc[Compiling Linux]
 * xref:compiling_windows.adoc[Compiling Windows]
-* xref:compiling_mac_osx.adoc[Compiling macOS]   FIXME:  missing page
+* xref:compile_mac_osx.adoc[Compiling macOS]   FIXME:  missing page
 * xref:pm-overview-workflow.adoc[Workflow Overview]
 * xref:legacy-plugins.adoc[Legacy Plugin Packages]
 * xref:cmake.adoc[Cmake]  What title here?

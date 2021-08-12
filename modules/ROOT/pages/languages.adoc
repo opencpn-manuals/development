@@ -52,7 +52,7 @@ process to embed the translations into OpenCPN or the Plugins. This is
 not an instantaneous thing and requires communication and coordination
 with the translators. So translators should leave messages in the forum
 when they are done. We suggest using the
-http://www.cruisersforum.com/forums/f134/opencpn-internationalization-i18n-34181.html[Internationalization
+https://www.cruisersforum.com/forums/f134/opencpn-internationalization-i18n-34181.html[Internationalization
 thread] for leaving messages of this nature.
 
 == Basic Steps Required to create Language files

@@ -11,7 +11,7 @@ and to create Linux packages to deploy to your Launchpad.
 == How to push a .Travis 'built' file to your Launchpad
 
 For travis refer to
-http://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910[Petri's
+https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910[Petri's
 post #637]
 
 === A. Configure the Travis file for security and permissions

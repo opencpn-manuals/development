@@ -36,11 +36,10 @@
 *** xref:pm-tp-odapi-messaging.adoc[Odapi Messages]
 *** xref:pm-tp-odapi.adoc[Odapi for oDraw]
 *** xref:pm-tp-ocpn_draw_odapi.adoc[Ocpn_Draw Odapi]
-** xref:AlternativeWorkflow:ROOT:index.adoc[Shipdriver Template Alternative Workflow]
-** xref:Managed_Plugins:ROOT:nav.adoc[Shipdriver Templates Managed Plugins Workflow]  FIXME: wrong link
-
+** xref:AlternativeWorkflow:ROOT:index.adoc[Shipdriver Templates Managed Plugins Workflow]
 * xref:plugin-installer:ROOT:index.adoc[Plugin Manager Installer Documentation]
-* xref:opencpn-master-plugins:ROOT:index.adoc[Plugin  Manual]
+* https://opencpn-manuals.github.io/plugins/opencpn-plugins/0.1/index.html[Plugin  Manual] 
+// FIXME: Include top-level plugins manual source? or?
 * xref:dm-legacy-plugins.adoc[Legacy Plugin Packaging]
 * xref:dm-manual-maint.adoc[Maintenance of this Manual]
 * xref:dm-i18n.adoc[Internationalization]
@@ -61,7 +60,7 @@
 ** Reference
 *** xref:languages.adoc[Internationalization]
 *** xref:prerequisites.adoc[Prerequisites]
-*** xref:compiling_mac_osx.adoc[Compiling on macOS]
+*** xref:compile_mac_osx.adoc[Compiling on macOS]
 *** xref:compile_linux_old.adoc[Compiling on Linux]
 *** xref:rpi2.adoc[Compile on Raspberry PI]
 *** xref:building_and_installing_on_cubieboard_2_with_hw_acceleration.adoc[Cubieboard 2 with HW acceleration]
@@ -92,7 +91,7 @@
 ** xref:prerequisites.adoc[Prerequisites -Just found this]
 ** Developer Plugins
 ** Plugin API
-*** xref:ocpn_draw_odapi.adoc[OCPN Draw ODAPI]
+*** xref:pm-tp-odapi.adoc[OCPN Draw ODAPI]
 ** xref:beta_plugins.adoc[Beta Plugins]
 ** Learning
 *** xref:coding_solutions.adoc[Coding Solutions]
