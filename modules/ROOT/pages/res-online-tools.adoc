@@ -14,7 +14,7 @@ http://www.hhhh.org/wiml/proj/nmeaxor.html[MTK NMEA checksum calculator]
 
 https://www.nmeagen.org/[Nmea Generator]]
 
-https://gpsgate.com/support/gps_simulator[GPS Gate Simulator]
+https://support.gpsgate.com/support/gps_simulator[GPS Gate Simulator]
 
 http://openskipper.org/[OpenSkipper] Open Source C# code for Windows for
 integrating and displaying NMEA 0183, NMEA 2000 and AIS data from

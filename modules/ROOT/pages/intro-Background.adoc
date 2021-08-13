@@ -10,7 +10,7 @@ xref:Community.adoc[the Community Page]
 image:dave02.jpg[Dave and Kathi]
 
 Dave Register, a programmer, and Kathi began full time cruising in
-2000 aboard http://bigdumboat.com/faq.html[m/v Dyad]]. Dave wasn't
+2000 aboard https://bigdumboat.com/faq.html[m/v Dyad]]. Dave wasn't
 satisfied with the commercial chart plotters available. He began to
 develop his own and named it OpenCPN. For years, OpenCPN was their own
 personal chart plotter. It reliably got them to wherever they were headed;
@@ -20,7 +20,7 @@ the time.
 Dave began sharing the program with other cruisers here and there, which
 planted the idea to put it out publicly for anyone to download as open
 source. It's first online presence was on Dave's website,
-http://bigdumboat.com/[bigdumboat.com]. https://opencpn.org[OpenCPN.org]
+https://bigdumboat.com/[bigdumboat.com]. https://opencpn.org[OpenCPN.org]
 was created in 2009.
 
 The program now has a worldwide following, and a team of brilliant

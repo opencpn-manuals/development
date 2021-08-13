@@ -4,7 +4,7 @@
 
 * for OpenCPN v5.0.0
 * with wxWidgets v3.1.2
-* xref:plugin_api_versions.adoc[Plugin
+* xref:pm-plugin-api-versions.adoc[Plugin
 API] starts with API 1.16 (Supports plugins with earlier API but they
 must be compiled again for OpenCPN v5.0 due to the change in wxWidgets.)
 * Highest chance of success if these steps are followed exactly.

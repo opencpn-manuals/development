@@ -16,7 +16,7 @@ for some of the programs used here. This applies to:
 * 7Zip
 
 The steps will follow the instructions
-xref:compiling_windows.adoc[here].
+xref:od-compiling_windows.adoc[here].
 
 'Navigate' means using 'Windows Explorer' to find a folder or file.
 
@@ -86,7 +86,7 @@ committing CR/LF makes the commits huge and hides their real content.
 === Install CMake
 
 * Get the latest CMake installation packages from
-*https://www.cmake.org/[https://www.cmake.org]*
+*https://cmake.org/[https://cmake.org]*
 
 image:cmake_web1.png[cmake_web1.png]
 
@@ -103,7 +103,7 @@ image:cmake_path.png[cmake_path.png]
 === Install Poedit
 
 Get the latest 'Poedit' installation package from
-https://www.poedit.net/[https://www.poedit.net]
+https://poedit.net/[https://poedit.net]
 
 . Install 'Poedit'.
 . Add *'C:\Program Files\Poedit\GettextTools\bin'* to the *PATH*

@@ -32,7 +32,7 @@ This is  one of four manuals available:
 * https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual[User's Manual]
 * http://nowhere.net[Advanced User's Manual]
 * https://opencpn-manuals.github.io/plugins/opencpn-plugins/0.1/index.html[User Plugin Manual]
-* https://opencpn-manuals.github.io/development/ocpn-dev-manual/5.3.1/AboutThisManual.html[Development manual - Leamas]
+* https://opencpn-manuals.github.io/development/ocpn-dev-manual/5.3.1/intro-AboutThisManual.html[Development manual - Leamas]
 *
 
 IMPORTANT: FIXME manual links

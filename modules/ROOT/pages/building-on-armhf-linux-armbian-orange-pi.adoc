@@ -1,6 +1,6 @@
 = Building on armhf linux - Armbian - Orange Pi
 
-http://www.armbian.com/[Armbian.com] offers opensource "Linux for arm"
+https://www.armbian.com/[Armbian.com] offers opensource "Linux for arm"
 kernels with Debian and Ubuntu distros. They have come from Rev 5.05 in
 Apr, 2016 to 5.38 now. +
  +

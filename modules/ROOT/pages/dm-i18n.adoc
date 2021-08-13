@@ -52,7 +52,7 @@ The workflow: image:i18n.png[]
   under the opencpn project.
 * Translators translates the pot file to all sorts of languages using
   the https://crowdin.com/project/opencpn[Crowdin] web service, as
-  exemplified https://support.crowdin.com/online-editor[here].
+  exemplified https://support.crowdin.com/online-editor/[here].
 * A note in the
   https://www.cruisersforum.com/forums/f134/opencpn-internationalization-i18n-34181.html[i18n thread]
   from translator when she is completed is appreciated.

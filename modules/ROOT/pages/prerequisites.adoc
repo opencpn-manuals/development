@@ -4,7 +4,7 @@ The following assumes you are able to build OpenCPN from source and have
 the needed tools. You can find the detailed instructions at
 xref:od-compile-linux.adoc[Compiling
 Linux] and
-xref:compiling_windows.adoc[Compiling
+xref:od-compiling_windows.adoc[Compiling
 Windows]
 
 == Git magic

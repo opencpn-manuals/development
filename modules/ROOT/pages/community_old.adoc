@@ -74,7 +74,7 @@ duplicate every piece of documentation out there.
 Dave has suggested these websites for Training in C++ which is the most
 basic skill required. In any case they should be bookmarked and studied.
 
-* http://www.learncpp.com/[LearnCpp]
+* https://www.learncpp.com/[LearnCpp]
 * http://www.cplusplus.com/doc/tutorial/[CSplusplus]
 * https://github.com/open-source[Github Opensource]
 https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository[Getting
@@ -140,7 +140,7 @@ Debugging see the "Compiling" pages"
 Debugger Webpage]
 http://knuth.luther.edu/~leekent/tutorials/ddd.html[Intro to DDD]
 https://www.gnu.org/software/ddd/manual/pdf/ddd.pdf[Manual]
-* xref:compiling_windows.adoc[Windows Compile & Debug] -
+* xref:od-compiling_windows.adoc[Windows Compile & Debug] -
 https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/[Windows
 Debuggers]
 * xref:compile_mac_osx.adoc[Compile & Debug on MacOS]

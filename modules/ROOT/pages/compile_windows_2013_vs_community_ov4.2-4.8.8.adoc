@@ -61,14 +61,14 @@ Build directory Path: C:\\Users[username]\Documents\GitHub\Ocpn\build
 === 1.3 CMake
 
 Get the latest CMake installation packages from
-*https://www.cmake.org/[https://www.cmake.org]*
+*https://cmake.org/[https://cmake.org]*
 
 Install and let it register in the *PATH* environment variable
 
 === 1.4 POedit
 
 Get the latest POedit installation package from
-*https://www.poedit.net/[https://www.poedit.net]*
+*https://poedit.net/[https://poedit.net]*
 
 . Install
 . On 32bit Windows, add *C:\Program Files\Poedit\GettextTools\bin* to *PATH* environment variable. On a 64bit system, the path will be C:\Program Files (x86)\Poedit\GettextTools\bin

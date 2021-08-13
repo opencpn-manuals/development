@@ -14,7 +14,7 @@ https://opencpn.org/OpenCPN/info/downloadplugins.html[].
 
 Should there be a need to publish new legacy packages, Pavel (@nohal)
 or Dave (@bdbcat) should be contacted so the information at
-opencpn.org can be updated. The xref:plugin_guidelines.adoc[rules]
+opencpn.org can be updated. The xref:pm-plugin-guidelines.adoc[rules]
 described for modern plugins applies also for legacy ones.
 
 Both the xref:AlternativeWorkflow:ROOT:index.adoc[Shipdriver] and the

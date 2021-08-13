@@ -1,7 +1,7 @@
 = CI: Advanced Debug Tips
 
 Further reading:
-https://www.hanselman.com/blog/AppVeyorAGoodContinuousIntegrationSystemIsAJoyToBehold.aspx[AppVeyor
+https://www.hanselman.com/blog/appveyor-a-good-continuous-integration-system-is-a-joy-to-behold[AppVeyor
 - A good continuous integration system is a joy to behold]
 
 == How to use CI Tools: Appveyor

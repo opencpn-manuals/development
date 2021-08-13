@@ -61,7 +61,7 @@ committing CR/LF makes the commits huge and hides their real content.
 === Install CMake
 
 * Get the latest CMake installation packages from
-https://www.cmake.org/[https://www.cmake.org]
+https://cmake.org/[https://cmake.org]
 
 image:cmake_web1.png[cmake_web1.png]
 
@@ -78,7 +78,7 @@ image:cmake_path.png[cmake_path.png]
 ==== Install Poedit
 
 Get the latest 'Poedit' installation package from
-*https://www.poedit.net/[https://www.poedit.net]*
+*https://poedit.net/[https://poedit.net]*
 
 . Install 'Poedit'.
 . Add *'C:\Program Files\Poedit\GettextTools\bin'* to the *PATH*

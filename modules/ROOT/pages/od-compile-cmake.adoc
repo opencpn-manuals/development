@@ -80,7 +80,7 @@ technical reasons. Thus, using  _OCPN_BUNDLE_DOCS=OFF_ avoids
 bundling non-free stuff in generated package
 
 The documentation is available as a separate download from
-http://www.opencpn.org for installations built without the bundled
+https://www.opencpn.org for installations built without the bundled
 docs.
 
 == Current and Tide Data -- TCDATA

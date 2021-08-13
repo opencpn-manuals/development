@@ -11,7 +11,7 @@ External Standalone Plugins which need debugging generally should be
 compiled within an existing operational OpenCPN Debug environment in
 order to be debugged and have the code fixed. To do this you first need
 to have a working
-xref:compiling_windows.adoc[Windows
+xref:od-compiling_windows.adoc[Windows
 Development Environment for Compiling using MS Visual Studio 2013].
 
 **Finding Errors & Fixing them ** +

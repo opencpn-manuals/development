@@ -141,7 +141,7 @@ You may Upload the [Plugin_pi].pot file to Hakan via the forum as
 attachment or via email.* +
 **weather_routing_pi.pot ** (take off the pdf) +
 So I just uploaded the file to the forum thread
-http://www.cruisersforum.com/forums/f134/weather-routing-100060.html#post2040511[here
+https://www.cruisersforum.com/forums/f134/weather-routing-100060.html#post2040511[here
 as an example] and very soon afterwards Hakan reported that the files on
 Crowd Source were updated and ready for the Translators. +
 
