@@ -19,7 +19,7 @@ Integration (CI) setup for every build which:
 
 Most plugins use one of the templates below to establish the Plugin Manager system:
 
-* xref:managed-plugins:ROOT:index.adoc[Shipdriver]
+* xref:AlternativeWorkflow:ROOT:index.adoc[Shipdriver]
 * xref:pm-tp-template.adoc[Testplugin]
 
 
@@ -40,5 +40,5 @@ Both frameworks use the same free opensource cloud services:
 The setup of these services is also very similar, but there are differences.
 For a good conceptual graphic see xref:pm-overview-deployment.adoc[Deployment overview]
 
-For Prerequisites see xref:pm-overview-prerequisite.adoc[Prerequisite Overview] and
+For Prerequisites see xref:prerequisites.adoc[Prerequisite Overview] and
 xref:pm-overview-prereq-services.adoc[Prerequisite Services]

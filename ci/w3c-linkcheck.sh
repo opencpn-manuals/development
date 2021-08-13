@@ -7,4 +7,7 @@ if [[ "$subject" != *full?linkcheck* ]]; then
 fi
 sudo apt install -y w3c-linkchecker
 
-checklink --exclude opencpn.org  --depth 4 -s docs/index.html
+checklink --exclude opencpn.org \
+          --exclude bigdumboat.com \
+          --exclude cubian.org \
+          --depth 4 -s docs/index.html

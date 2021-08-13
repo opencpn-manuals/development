@@ -30,7 +30,7 @@ Assist plugin developers to convert their plugins to the Plugin Manager system w
 * Plugins are installed from within OpenCPN **Options > Plugins** +
 * User selects a Plugin to download, install or enable from an updated Catalog. +
 
-The template configuration is found in  http://github.com/jongough/testplugin_pi.
+The template configuration is found in  https://github.com/jongough/testplugin_pi.
 
 == Rename Existing Directories and Files
 

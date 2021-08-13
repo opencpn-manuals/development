@@ -9,7 +9,7 @@
 == Documentation
 
 *Please make a User Guide. More information is given
-xref:plugin_documentation.adoc[here].
+xref:pm-plugin-documentation.adoc[here].
 
 == User Guide
 

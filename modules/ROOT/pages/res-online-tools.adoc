@@ -12,7 +12,7 @@ https://nmeachecksum.eqth.net/[NmeaChecksum Calculator]
 
 http://www.hhhh.org/wiml/proj/nmeaxor.html[MTK NMEA checksum calculator]
 
-https://nmeagen.org/[Nmea Generator]]
+https://www.nmeagen.org/[Nmea Generator]]
 
 https://gpsgate.com/support/gps_simulator[GPS Gate Simulator]
 
@@ -33,7 +33,7 @@ http://www.kave.fi/Apps/[Dave Koy Apps Page]
 https://chrome.google.com/webstore/detail/nmea-simulator/dfhcgoinjchfcfnnkecjpjcnknlipcll?hl=en[Chrome
 Nmea Simulator to TCP]
 
-http://www.sailsoft.nl/freeware.html[Sailsoft Freeware -
+https://www.sailsoft.nl/freeware.html[Sailsoft Freeware -
 WaypointCreator, IpaNmea, NmeaFileReader]
 
 http://www.kagstrom.no/nmea_simulator.htm[Max Kagstrom Nmea Simulator
@@ -45,10 +45,10 @@ Reed GPS Nmea Simulator]
 http://catb.org/gpsd/AIVDM.html[AIVDM/AIVDO protocol decoding] Eric
 Raymond
 
-http://www.aggsoft.com/ais-decoder.htm[AIS Online Decoder. AIVDM & AIVDO
+https://www.aggsoft.com/ais-decoder.htm[AIS Online Decoder. AIVDM & AIVDO
 NMEA Messages]
 
-http://www.maritec.co.za/?page_id=1051[AIS VDM & VDO Message Decoder]
+https://www.maritec.co.za/?page_id=1051[AIS VDM & VDO Message Decoder]
 
 http://ais.tbsalling.dk/[Online AIS Message Decoder]
 

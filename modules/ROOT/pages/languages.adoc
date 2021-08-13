@@ -1,7 +1,7 @@
 = Languages
 
 The overall internationalization system is described in the
-xref:i18n.adoc[Plugins i18n page].
+xref:dm-i18n.adoc[Plugins i18n page].
 
 Using Weather_routing_pi as an example
 

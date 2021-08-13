@@ -25,7 +25,7 @@ mkdir obeta
 cd obeta
 git clone https://github.com/OpenCPN/OpenCPN.git
 cd Opencpn
-powershell -Command "(New-Object Net.WebClient).DownloadFile('http://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/OpenCPN_buildwin.7z/download', 'OpenCPN_buildwin.7z')"
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/OpenCPN_buildwin.7z/download', 'OpenCPN_buildwin.7z')"
 "C:\Program Files (x86)\7-Zip\7z" x -y OpenCPN_buildwin.7z
 mkdir build
 ECHO Change to build directory & copy batch files

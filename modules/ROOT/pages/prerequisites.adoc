@@ -2,7 +2,7 @@
 
 The following assumes you are able to build OpenCPN from source and have
 the needed tools. You can find the detailed instructions at
-xref:compiling_linux.adoc[Compiling
+xref:od-compile-linux.adoc[Compiling
 Linux] and
 xref:compiling_windows.adoc[Compiling
 Windows]
@@ -86,7 +86,7 @@ on the net.
 == Code formatting
 
 Please read the page on
-xref:code_formatting.adoc[Code
+xref:od-code-formatting.adoc[Code
 Formatting] before writing new code for OpenCPN.
 
 == Publishing your code

@@ -40,7 +40,7 @@ all the optional features offered to save space.
 === Install Git
 
 Get the Git installation packages from
-*https://git-for-windows.github.io/*
+*https://gitforwindows.org/*
 
 * Install and let it register in the *PATH* environment variable
 * The defaults for all the installation settings are fine except for
@@ -61,7 +61,7 @@ committing CR/LF makes the commits huge and hides their real content.
 === Install CMake
 
 * Get the latest CMake installation packages from
-http://www.cmake.org/[http://www.cmake.org]
+https://www.cmake.org/[https://www.cmake.org]
 
 image:cmake_web1.png[cmake_web1.png]
 
@@ -78,7 +78,7 @@ image:cmake_path.png[cmake_path.png]
 ==== Install Poedit
 
 Get the latest 'Poedit' installation package from
-*http://www.poedit.net/[http://www.poedit.net]*
+*https://www.poedit.net/[https://www.poedit.net]*
 
 . Install 'Poedit'.
 . Add *'C:\Program Files\Poedit\GettextTools\bin'* to the *PATH*
@@ -343,7 +343,7 @@ the same way as for the files from 'git clone' (the Beta version).
 Sorry, this needs another program - *7Zip.*
 
 ....
- * Get the installer from [[http://www.7-zip.org/download.html|here. ]]
+ * Get the installer from [[https://www.7-zip.org/download.html|here. ]]
 * 7z files are compressed files making them smaller and faster to download. The '7Zip' program allows you to extract the original files. {{opencpn:dev:developer_guide:compiling_windows:7z_download.png?nolink&}}
 ....
 
@@ -356,7 +356,7 @@ image:7z_restart.png[7z_restart.png]
 *'7z'* files can now be opened and extracted with this program.
 
 * Download
-*http://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/OpenCPN_buildwin.7z/download[OpenCPN_buildwin.7z]*
+*https://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/OpenCPN_buildwin.7z/download[OpenCPN_buildwin.7z]*
 
 image:o_build_win.png[o_build_win.png]
 

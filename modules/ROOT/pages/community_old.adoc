@@ -136,7 +136,7 @@ of experience. Respect each other and work together when possible.
 
 Debugging see the "Compiling" pages"
 
-* xref:compiling_linux.adoc[Linux Compile & Debug] - https://www.gnu.org/software/ddd/[GNU Data Display
+* xref:od-compile-linux.adoc[Linux Compile & Debug] - https://www.gnu.org/software/ddd/[GNU Data Display
 Debugger Webpage]
 http://knuth.luther.edu/~leekent/tutorials/ddd.html[Intro to DDD]
 https://www.gnu.org/software/ddd/manual/pdf/ddd.pdf[Manual]
@@ -148,7 +148,7 @@ Debuggers]
 Online Repositories - Free to Opensource
 
 * https://github.com/open-source[Github Opensource]
-* https://help.github.com/[Help]
+* https://docs.github.com/[Help]
 * https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository[Getting
 Started] 
 * https://github.com/OpenCPN/OpenCPN[OpenCPN Github] Plugin

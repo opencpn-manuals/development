@@ -41,7 +41,7 @@ https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs[https:/
 
 === 1.2 Git
 
-Get the Git installation packages from  https://git-for-windows.github.io/[git-for-windows.github.io]]
+Get the Git installation packages from  https://gitforwindows.org/[git-for-windows.github.io]]
 
 . Install and let it register in the *PATH* environment variable
 . The defaults for all the installation settings are fine except the following:
@@ -61,14 +61,14 @@ Build directory Path: C:\\Users[username]\Documents\GitHub\Ocpn\build
 === 1.3 CMake
 
 Get the latest CMake installation packages from
-*http://www.cmake.org/[http://www.cmake.org]*
+*https://www.cmake.org/[https://www.cmake.org]*
 
 Install and let it register in the *PATH* environment variable
 
 === 1.4 POedit
 
 Get the latest POedit installation package from
-*http://www.poedit.net/[http://www.poedit.net]*
+*https://www.poedit.net/[https://www.poedit.net]*
 
 . Install
 . On 32bit Windows, add *C:\Program Files\Poedit\GettextTools\bin* to *PATH* environment variable. On a 64bit system, the path will be C:\Program Files (x86)\Poedit\GettextTools\bin
@@ -80,7 +80,7 @@ Get the latest POedit installation package from
 
 ==== Current codebase
 
-Get the current version 3.x of the NSIS installer from http://nsis.sourceforge.net/ and install it.
+Get the current version 3.x of the NSIS installer from https://nsis.sourceforge.net/ and install it.
 
 === 1.6 wxWidgets 3
 
@@ -190,12 +190,12 @@ git fetch -–all
 
 === 3.1 Get the binary dependencies
 
-Download  **http://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/OpenCPN_buildwin.7z/download[OpenCPN_buildwin.7z]** and extract the dependencies into your top level OpenCPN directory.
+Download  **https://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/OpenCPN_buildwin.7z/download[OpenCPN_buildwin.7z]** and extract the dependencies into your top level OpenCPN directory.
 
 . Note the Setup Batch File "Git_opencpn.bat" will download and expand OpenCPN_buildwin.7z into source\buildwin.
 . The dependencies top directory is buildwin and hence the files and dirs will be placed under that directory.
 . In case you are using Visual Studio 2010, you must build your own dependencies) and extract the archive into your toplevel OpenCPN source directory created by the clone operation above. The archive contains some binary files needed to link OpenCPN and produce the installer.
-. In case you need the PDB files for the prebuilt libraries (unlikely, really, if you don't know what for, you don't), get them from http://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/[here].
+. In case you need the PDB files for the prebuilt libraries (unlikely, really, if you don't know what for, you don't), get them from https://sourceforge.net/projects/opencpnplugins/files/opencpn_packaging_data/[here].
 . When extracting the libraries into the build tree, don't overwrite existing files. This will cause problems with pull requests. The  *_buildwin_* directory after extraction should look like this:
 
 ....

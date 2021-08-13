@@ -1,6 +1,6 @@
 = TestQuality -Test Management
 
-http://www.testquality.com/[Test Quality Website]
+https://www.testquality.com/[Test Quality Website]
 
 ....
 Build test plans, test suites, test cases quicker

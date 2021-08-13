@@ -33,10 +33,10 @@ po-files to the project
 
 The OpenCPN plugins shares the i18n infrastructure with the main
 opencpn program. In particular, plugins are subprojects in the
-main opencpn project at https://crowdin.net/[Crowdin].
+main opencpn project at https://crowdin.com/[Crowdin].
 
 The workflow is based on the gettext tools and the
-https://crowdin.net/project/opencpn[Crowdin] translation web service.
+https://crowdin.com/project/opencpn[Crowdin] translation web service.
 In the end this converts all strings like `_(some string)` to translated
 content in runtime, content which is taken from machine-dependent,
 binary mo-files.
@@ -51,7 +51,7 @@ The workflow: image:i18n.png[]
   the crowdin web translation service. Here, each plugin is a sub-project
   under the opencpn project.
 * Translators translates the pot file to all sorts of languages using
-  the https://crowdin.net/project/opencpn[Crowdin] web service, as
+  the https://crowdin.com/project/opencpn[Crowdin] web service, as
   exemplified https://support.crowdin.com/online-editor[here].
 * A note in the
   https://www.cruisersforum.com/forums/f134/opencpn-internationalization-i18n-34181.html[i18n thread]
@@ -91,4 +91,4 @@ that the difference is big, one different character is enough.
 +
 Plugins can be configured to just use translations from the plugin,
 avoiding the overlap with the main program. See the
-xref:plugin-workflows.adoc[plugin templates] page.
+xref:pm-overview-workflow.adoc[plugin templates] page.

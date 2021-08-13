@@ -3,7 +3,7 @@
 == Publishing rules
 
 These are the guidelines for publishing OpenCPN Plugins in the
-plugin xref:catalog.adoc[catalog] or on OpenCPN.org
+plugin xref:AlternativeWorkflow::Catalog.adoc[catalog] or on OpenCPN.org
 
 
 Plugins  must be distributed under the license
@@ -25,22 +25,22 @@ strive to make their Plugins available for all OpenCPN platforms._
 . Plugin binaries may exist on the OpenCPN.org server or elsewhere
 
 New plugins are published using the
-xref:installer-overview.adoc[Plugin Installer] available since 5.2.0.
+xref:pm-overview-workflow.adoc[Plugin Installer] available since 5.2.0.
 This means that plugins are published after pull request to the
 plugins project as described in
-xref:catalog.adoc[the catalog documenation].
+xref:AlternativeWorkflow::Catalog.adoc[the catalog documenation].
 
 == Documentation
 
 Plugins should properly documented as described in the
-xref:plugin_documentation.adoc[documentation page].
+xref:pm-plugin-documentation.adoc[documentation page].
 
 == Internationalization (i18n)
 
 There is an i18n infrastrucure based on the gettext tools and the
 https://crowdin.com/[] web-based translator service. Plugin in need
 of i18n should use this infrastructure as described in the
-xref:plugin_i18n.adoc[i18n] page.
+xref:dm-i18n.adoc[i18n] page.
 
 
 == Dependencies
@@ -52,4 +52,4 @@ Plugins should bundle all dependencies. This has two consequences:
   is updated.
 * Plugins should not depend on operating systems libraries beyond those
   linked to the main binary since users will not have these installed.
-  See the xref:pi_dependencies.adoc[dependencies page].
+  See the xref:pm-plugin-dependencies.adoc[dependencies page].

@@ -35,7 +35,7 @@ We hope you understand and have completed these steps,
 including completing Services and Cloudsmith Setup.
 
 * xref:pm-overview-deployment.adoc[Deployment Overview]
-* xref:pm-overview-prerequisite.adoc[Prerequisites Overview]
+* xref:prerequisites.adoc[Prerequisites Overview]
 * xref:pm-overview-prereq-services.adoc[Prerequisite Services]
 * xref:pm-overview-prereq-other.adoc[Cloudsmith Setup]
 * xref:pm-overview-workflow.adoc[Workflow overview]

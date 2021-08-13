@@ -1,6 +1,5 @@
 = PI Manager Dev Procedure
 
-//* https://github.com/leamas/OpenCPN/wiki[PIugin Manager Github Wiki]
 * xref:plugin-installer:ROOT:Home.adoc[Plugin Manager Github Wiki]
 Extensive documentation
 * https://github.com/opencpn-radar-pi/radar_pi/blob/ci/RELEASE.md[Example:
@@ -34,7 +33,7 @@ Opencpn version and the beta-ocpn-plugins.xml
 . Beta testers need to load and test with their OS version of Opencpn
 with PI Installer using
 
-. Example: [[https://github.com/rgleason/plugins|https://github.com/rgleason/plugins]] using the beta-ocpn-plugins.xml file.
+. Example: [[https://github.com/rgleason/plugins]] using the beta-ocpn-plugins.xml file.
 . URL [eg] will be: [[https://raw.githubusercontent.com/rgleason/plugins/master/beta-ocpn-plugins.xml|https://raw.githubusercontent.com/rgleason/plugins/master/beta-ocpn-plugins.xml]]
 . Confirm the plugin loads and works properly.
 . Beta testers then notify acceptance via Cruiser Forum thread.

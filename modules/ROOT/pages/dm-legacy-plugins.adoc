@@ -17,7 +17,7 @@ or Dave (@bdbcat) should be contacted so the information at
 opencpn.org can be updated. The xref:plugin_guidelines.adoc[rules]
 described for modern plugins applies also for legacy ones.
 
-Both the xref:managed-plugins:ROOT:index.adoc[Shipdriver] and the
+Both the xref:AlternativeWorkflow:ROOT:index.adoc[Shipdriver] and the
 xref:pm-tp-template.adoc[Testplugin] templates supports creation of
 legacy packages.
 

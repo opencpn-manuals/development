@@ -137,7 +137,7 @@ respective power chapter in the text. Notice the 2.5A under RPI3 and be
 aware that the RPI 3 Documentation still lucks individual updates,
 because the RPI3 is so much similar to the RPI2, except for power !
 
-http://elinux.org/RPi_Hardware
+https://elinux.org/RPi_Hardware
 
 In the new PIXEL Desktop, there should be an indication of low power, ….
 if the Pi still has got enough to switch it on….
