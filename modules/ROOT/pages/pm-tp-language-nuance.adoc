@@ -233,4 +233,4 @@ few mouse clicks); +
  +
 The Excel Add On I use adds additional functionality, of which I only
 used two for this procedure. You can find it here:
-http://www.asap-utilities.com/[ASAP Utilities]
+https://www.asap-utilities.com/[ASAP Utilities]

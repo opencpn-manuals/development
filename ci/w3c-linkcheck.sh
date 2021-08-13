@@ -5,7 +5,10 @@ if [[ "$subject" != *full?linkcheck* ]]; then
     echo "No [full-linkcheck] annotation found. Exiting."
     exit 0
 fi
-sudo apt install -qq  -y w3c-linkchecker
+sudo apt-get install -q  -y cpanminus
+sudo cpanm install--reinstall W3C::LinkChecker
+echo "Allowed_Protocols = http,https,ftp,file" > /tmp/checklink.conf
+export  W3C_CHECKLINK_CFG="/tmp/checklink.conf"
 
 checklink \
     --suppress-broken '-1:https://opencpn.org/' \
@@ -21,4 +24,4 @@ checklink \
     --exclude bigdumboat.com \
     --exclude 'https://opencpn.org/wiki/dokuwiki/' \
     --exclude opencpn.org \
-    --depth 4 -s docs/index.html 
+    --depth 4 -s docs/index.html |& grep -v "Use of uninitialized value"
