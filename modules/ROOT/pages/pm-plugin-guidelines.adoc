@@ -3,7 +3,7 @@
 == Publishing rules
 
 These are the guidelines for publishing OpenCPN Plugins in the
-plugin xref:AlternativeWorkflow::Catalog.adoc[catalog] or on OpenCPN.org
+plugin xref:plugin-installer::Catalog.adoc[catalog] or on OpenCPN.org
 
 
 Plugins  must be distributed under the license
@@ -28,7 +28,7 @@ New plugins are published using the
 xref:pm-overview-workflow.adoc[Plugin Installer] available since 5.2.0.
 This means that plugins are published after pull request to the
 plugins project as described in
-xref:AlternativeWorkflow::Catalog.adoc[the catalog documenation].
+xref:plugin-installer::Catalog.adoc[the catalog documenation].
 
 == Documentation
 

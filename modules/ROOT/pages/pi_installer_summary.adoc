@@ -115,9 +115,7 @@ tarball containing what to install. Together with existing packages
 . I have forked four example plugins to make them build the necessary
 stuff for the installer: oesenc
 https://github.com/leamas/oesenc_pi/[[4]], squiddio
-https://github.com/mauroc/squiddio_pi/issues/71[[3]], radar
-https://github.com/opencpn-radar-pi/radar_pi/pull/120[[2]] and bsb4
-https://github.com/leamas/bsb4_pi/[[5]].
+https://github.com/mauroc/squiddio_pi/issues/71[[3]], radar and
 . I have made two pull requests based on my forks: squiddio (merged) and
 radar_pi https://github.com/opencpn-radar-pi/radar_pi/pull/120[[2]].
 . The question now discussed is basically how to deploy the stuff built
@@ -138,7 +136,6 @@ https://github.com/OpenCPN/OpenCPN/pull/1457[https:__github.com/OpenCPN/OpenCPN/
 [4] Oesenc_pi
 [[https:__github.com/leamas/oesenc_pi/|https:__github.com/leamas/oesenc_pi/]] +
 [5] Bsb4_pi
-[[https:__github.com/leamas/bsb4_pi/|https://github.com/leamas/bsb4_pi/]
 
 == Questions
 

@@ -8,7 +8,7 @@ additional dependencies.
 == Prerequisites
 
 Set up a working development environment as decribed on
-xref:od-compiling_windows.adoc[here],
+xref:od-compile-windows.adoc[here],
 including all
 xref:compiling_windows#_prerequisities[prerequisites].
 Make sure that you're able to create an install package for OpenCPN

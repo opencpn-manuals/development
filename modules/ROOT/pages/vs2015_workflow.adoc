@@ -16,7 +16,7 @@ for some of the programs used here. This applies to:
 * 7Zip
 
 The steps will follow the instructions
-xref:od-compiling_windows.adoc[here].
+xref:od-compile-windows.adoc[here].
 
 'Navigate' means using 'Windows Explorer' to find a folder or file.
 

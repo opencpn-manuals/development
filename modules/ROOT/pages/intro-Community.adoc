@@ -31,7 +31,7 @@ program.
 The project has no common communication channel lika a mailing list or
 a developer forum; the core synchronization tool is Github issues.
 
-xref:devel_manual#_thank_you_dave[Dave] (@bdbcat) is the lead developer
+xref:developer_manual.adoc#_thank_you_dave[Dave] (@bdbcat) is the lead developer
 and makes decisions on if/when/how to merge a PR. Also
 https://github.com/nohal[Pavel] (@nohal) has commit rights in the
 project. There are no formal roles besides these.

@@ -166,9 +166,7 @@ GTK2_GTK_INCLUDE_DIR:PATH=/usr/include/gtk-2.0
 
 == 4. Install it or create a package
 
-Make sure to refer to the
-*xref:modularized_packaging.adoc[]*
-chapter of this guide to understand what gets installed/packaged for you
+Make sure to understand what gets installed/packaged for you
 and how to influence it. To install your build product on your local
 machine, simply issue
 

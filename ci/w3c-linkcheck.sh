@@ -24,4 +24,5 @@ checklink \
     --exclude bigdumboat.com \
     --exclude 'https://opencpn.org/wiki/dokuwiki/' \
     --exclude opencpn.org \
+    --exclude apple.com \
     --depth 4 -s docs/index.html |& grep -v "Use of uninitialized value"

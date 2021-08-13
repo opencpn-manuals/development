@@ -140,7 +140,7 @@ Debugging see the "Compiling" pages"
 Debugger Webpage]
 http://knuth.luther.edu/~leekent/tutorials/ddd.html[Intro to DDD]
 https://www.gnu.org/software/ddd/manual/pdf/ddd.pdf[Manual]
-* xref:od-compiling_windows.adoc[Windows Compile & Debug] -
+* xref:od-compile-windows.adoc[Windows Compile & Debug] -
 https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/[Windows
 Debuggers]
 * xref:compile_mac_osx.adoc[Compile & Debug on MacOS]

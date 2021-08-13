@@ -19,7 +19,7 @@ More Detail:
 . Then from the online remote, makes a pull requesst to the 'library' opencpn/plugins master branch.
 
 . The metadate.xml file contains information necessary to download the essential Plugin tarball files into OpenCPN when the user chooses.
-. Refer to https://github.com/OpenCPN/plugins/blob/master/DEVELOPER-INFO.md[OpenCPN plugins project README]
+. Refer to https://github.com/OpenCPN/plugins/blob/master/README.md[OpenCPN plugins project README]
 
 == Library Maintainer Dave reviews Pull Request:
 

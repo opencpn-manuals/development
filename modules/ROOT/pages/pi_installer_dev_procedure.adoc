@@ -2,7 +2,7 @@
 
 * xref:plugin-installer:ROOT:Home.adoc[Plugin Manager Github Wiki]
 Extensive documentation
-* https://github.com/opencpn-radar-pi/radar_pi/blob/ci/RELEASE.md[Example:
+* https://github.com/opencpn-radar-pi/radar_pi/blob/master/RELEASE.md[Example:
 Kees on How to Publish radar_pi]
 
 == Build and Deploy

@@ -20,7 +20,7 @@ https://github.com/OpenCPN/OpenCPN
 
 * xref:prerequisites.adoc[Prerequisites]
 * xref:od-compile-linux.adoc[Compiling Linux]
-* xref:od-compiling_windows.adoc[Compiling Windows]
+* xref:od-compile-windows.adoc[Compiling Windows]
 * xref:compile_mac_osx.adoc[Compiling macOS]   FIXME:  missing page
 * xref:pm-overview-workflow.adoc[Workflow Overview]
 * xref:dm-legacy-plugins.adoc[Legacy Plugin Packages]

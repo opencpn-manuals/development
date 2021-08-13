@@ -42,7 +42,7 @@ There are two examples on the this process
 
   - [oesenc_pi](https://github.com/bdbcat/oesenc_pi/). This is as complicated
     as it gets with binary helpers, extra libs and data.
-  - [ShipDriver_pi](https://github.com/Rasbats/shipdriver_pi.git) is simpler
+  - [ShipDriver_pi](https://github.com/Rasbats/shipdriver_pi) is simpler
     example, but still complex enough to cover most plugin cases. The repo
     contains a branch called *patches* which a clean , rewritten history how
     the adaptation is done.
@@ -64,4 +64,4 @@ The preferred style for cmake files is the modern one with lower_case commands, 
       set(_msvc_flag "some value")
     endif ()
 
-This is supported by the cmake-format utility, https://github.com/cheshirekow/cmake_format. A .cmake-format options file to use is part of the  [ShipDriver_pi](https://github.com/Rasbats/shipdriver_pi.git)  plugin. cmake-format has also been used with the same settings in the main opencpn project where it has been used to format several thousand of lines with good results.
+This is supported by the cmake-format utility, https://github.com/cheshirekow/cmake_format. A .cmake-format options file to use is part of the  [ShipDriver_pi](https://github.com/Rasbats/shipdriver_pi)  plugin. cmake-format has also been used with the same settings in the main opencpn project where it has been used to format several thousand of lines with good results.
