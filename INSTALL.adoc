@@ -1,6 +1,9 @@
 = Building the development manual
 
-The manual can be built locally or published on Github Pages
+This document describes the basic steps to build and publish the
+manual. See the file WORKFLOWS for other steps such as initiating
+a new repo, editing  files etc.
+
 
 == Publish to Github Pages
 
@@ -13,6 +16,7 @@ https://github.com/opencpn-manuals/development/actions. The results
 becomes available at https://github.com/opencpn-manuals/development
 after about 2-3  minutes.
 
+
 == Local builds
 
 Local builds requires Nodejs and Antora installed. See
@@ -22,8 +26,9 @@ With these tools in place, build using
 
     $ antora site.yml
 
-The resulting website is placed in the directory docs/. Check the
+The resulting website is placed in the directory _docs_. Check the
 results by pointing the browser to the _docs/index.html_ file.
+
 
 == Automated link tests
 
@@ -34,57 +39,4 @@ https://github.com/opencpn-manuals/development/actions
 If the commit subject contains the string [full linkcheck] site is checked
 using the checklink program from the w3c-linkchecks suite. This is a
 very slow process (currently about ten minutes) which however reveals more
-errors, notably related to url fragments and corresponding anchors. At the
-time of writing it is not clear if all errors reported here actually should
-be fixed.
-
-== Git workflows
-
-Since Antora is based on git, all sorts of workflows are possible. Here is
-some  examples for maintaining this manual.
-
-=== Basic, minor change
-
-Simple fixes could just be edited on the main branch, committed
-and tested:
-
-    $ edit-some-file
-    $ git commit -am "Describe the change"
-    $ git push -f origin main:build
-
-If the build completes, the results becomes visible at
-https://opencpn-manuals.github.io/development/. If testing reveals errors,
-the commit can be amended since it hasn't been pushed to main:
-
-    $ edit-again, fixing errors
-    $ git commit -a --amend
-    $ git push -f origin main:build
-
-When testing and reviewing is done, one can push to origin/main:
-
-    $ git remote update origin
-    $ git rebase origin/main
-    $ git push origin main:main
-
-The rebase operation is not always strictly required. However, it never
-hurts and sometimes prevents otherwise complicated problems.
-
-=== Complex changes on separate branch
-
-When doing more complex changes using a separate branch makes things easier:
-
-    $ git checkout -b my-branch
-
-On the new branch, one can make all sorts of changes without affecting the
-main branch. Testing is done using
-
-    $ git push -f origin my-branch:build
-
-Note that this will publish the test branch on the Github Pages url
-https://opencpn-manuals.github.io/development/.
-
-Pushing the branch onto origin after completing the change is done using
-
-    $ git remote update origin
-    $ git rebase origin/main
-    $ git push origin my-branch:main
+errors, notably related to url fragments and corresponding anchors.
