@@ -11,7 +11,7 @@ builds of linux and osx, and to create those packages and releases.
 == How to push a .Travis 'built' file to a new Github 'Release'
 
 For travis refer to
-https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910[Petri's
+https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910/[Petri's
 post #637]
 
 === A. Configure CMake and the Travis file for security and permissions
@@ -25,8 +25,7 @@ courtesy from Sean d'Epagnier's repositories.
 particular
 https://github.com/canne/dashboard_tactics_pi/blob/master/cmake/PluginPackage.cmake[PluginPackage.cmake]
 note the MacOSX entries. Also see
-https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-12.html#post2904905[this
-post and necessary changes by Nereus32] (There may be some other changes
+https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-12.html#post2904905/[this post and necessary changes by Nereus32] (There may be some other changes
 to cmake needed..Petri?)`+'- SET(TACTICS_INSTRUMENTS ON)'
 IF (TACTICS_INSTRUMENTS)
 PROJECT(dashboard_tactics_pi)
@@ -78,11 +77,11 @@ the GitHub token. The encrypted string is put in your personal
 encryption service, that's why you need to start with a travis CLI
 installation
 
-* [[https://github.com/travis-ci/travis.rb|Travis CLI Tool]] for Windows Developers use [[opencpn:developer_manual:ci_travis_encryption_windows|Rubyinstaller/Gem/Travis]] which still uses 1Gb of disk space but is the easiest alternative.
+* https://github.com/travis-ci/travis.rb/[Travis CLI Tool] for Windows Developers use https://opencpn:developer_manual:ci_travis_encryption_windows/[ Rubyinstaller/Gem/Travis] which still uses 1Gb of disk space but is the easiest alternative.
 * Travis CLI installation instructions for Windows (Suggest use of "Travis CLI Tool" above). When you are sure that you have travis CLI up and working, you can start to create the encrypted key. Without it, deployment to GitHub does not work.
 * Travis CLI installation instructions for Linux are just below. Note that Windows10 users can:
 ** Install a Travis CLI Tool as listed above (easiest).
-** Create a [[https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:supplementary_software:run-ubuntu-in-win10|WSL-Windows Subsystem for Linux (Ubuntu 18.04LTS) on Win10 Installation]].
+** Create a https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:supplementary_software:run-ubuntu-in-win10/[WSL-Windows Subsystem for Linux (Ubuntu 18.04LTS) on Win10 Installation].
 ** or create a Virtual Box and install Ubuntu Linux.
 
 and then from the linux command prompt execute:`
@@ -100,7 +99,7 @@ and then from the linux command prompt execute:`
 === D. Encrypt a Github API Token with Travis encrytion
 
 * Create a Github API token for travis in GitHub here
-https://github.com/settings/tokens[Developer tools]. Select all rights
+https://github.com/settings/tokens/[Developer tools]. Select all rights
 to repository "repo" and repository only (that's enough - if it does not
 work, it is something else). Don't close the window until you have made
 a copy of your key.
@@ -147,7 +146,10 @@ ways to do this.
 * In GitHub create a repository, like v1.2.3 as 'tag', description can be anything, but it best to include the version. This is where Travis and AppVeyor both deploy the built contents.
 * When you hit the create button, Travis and AppVeyor will create the 'build' and deploy (the condition flags in the configuration file are define this action) to the Github 'Release' Tag.
 * That's why it's important to check before you create the 'Tag' that all builds do pass faultlessly. (Repositories cannot be deleted since they are, in fact defined by tags.)
-* If you observe 401 error at the deployment phase in travis logs search in google.com with the following phrase for possible causes "travis github [[https://api.github.com/user|https://api.github.com/user]]: 401 - bad credentials"
+* If you observe 401 error at the deployment phase in travis logs search in google.com with the following phrase for possible causes 
+
+      travis github https://api.github.com/user/: 401 - bad credentials
+
 * Option 2: Command Line - Make a 'Tag' locally and push it to your remote.
 ** From your command line create a new tag locally, and then push that tag to your remote repository.
 ** All the same cautions apply, make sure it builds properly first.<code>
@@ -215,13 +217,13 @@ deploy:
 ----
 
 You can also use this Weatherfax_pi
-https://github.com/seandepagnier/weatherfax_pi/files/3112304/appveyor.yml.txt[appveyor.yml]
+https://github.com/seandepagnier/weatherfax_pi/files/3112304/appveyor.yml.txt/[appveyor.yml]
 file for reference and there are some
-https://github.com/seandepagnier/weatherfax_pi/issues/134[in process
+https://github.com/seandepagnier/weatherfax_pi/issues/134/[in process
 notes] available.
 
 Login to your Appveyor Account and Create a
-_https://github.com/settings/tokens[Github API Public Security Token]_
+_https://github.com/settings/tokens/[Github API Public Security Token]_
 under _New Personal Token_, entering a "Note" similar to
 _Appveyor_auth_token_[plugin_name]_ and then select a Permissions
 "Scope" for "REPO" by checking "Repo".
@@ -230,7 +232,7 @@ is the last time you will have access to the public key.
 
 === B. Encrypt a Github secure public key using Appveyor Encrypt Service
 
-. Sign into the https://ci.appveyor.com/tools/encrypt[Appveyor
+. Sign into the https://ci.appveyor.com/tools/encrypt/[Appveyor
 Encryption Service] and paste the public key into the field.
 . Push "Encrypt". Copy the result to clipboard.
 
@@ -267,7 +269,10 @@ ways to do this.
 * In GitHub create a repository, like v1.2.3 as 'tag', description can be anything, but it best to include the version. This is where Travis and AppVeyor both deploy the built contents.
 * When you hit the create button, Travis and AppVeyor will create the 'build' and deploy (the condition flags in the configuration file are define this action) to the Github 'Release' Tag.
 * That's why it's important to check before you create the 'Tag' that all builds do pass faultlessly. (Repositories cannot be deleted since they are, in fact defined by tags.)
-* If you observe 401 error at the deployment phase in travis logs search in google.com with the following phrase for possible causes "travis github [[https://api.github.com/user|https://api.github.com/user]]: 401 - bad credentials"
+* If you observe 401 error at the deployment phase in travis logs search in google.com with the following phrase for possible causes 
+
+  travis github https://api.github.com/user/: 401 - bad credentials
+
 * Option 2: Command Line - Make a 'Tag' locally and push it to your remote.
 ** From your command line create a new tag locally, and then push that tag to your remote repository.
 ** All the same cautions apply, make sure it builds properly first.<code>
@@ -292,14 +297,14 @@ GitHub "Releases", which now contains the results of the - - Appveyor
 build under the "Assets" label. You should find a file similar to
 "weatherfax_pi-1.9.3-ov42-win32.exe".
 * See
-https://github.com/rgleason/weatherfax_pi/releases/tag/v1.9.3-ov42-test[https:__github.com/rgleason/weatherfax_pi/releases/tag/v1.9.3-ov42-test]]
+https://github.com/rgleason/weatherfax_pi/releases/tag/v1.9.3-ov42-test/[https:__github.com/rgleason/weatherfax_pi/releases/tag/v1.9.3-ov42-test]]
 * The Appveyor 'Console Tab' shows:
-[[https:__ci.appveyor.com/project/rgleason/weatherfax-pi|https:__ci.appveyor.com/project/rgleason/weatherfax-pi]]
+https:__ci.appveyor.com/project/rgleason/weatherfax-pi/[https:__ci.appveyor.com/project/rgleason/weatherfax-pi]
 * The Appveyor "Artifacts Tab" shows the file pushed to Github
 
 ----
 'Release':
-https:__ci.appveyor.com/project/rgleason/weatherfax-pi/build/artifacts|https://ci.appveyor.com/project/rgleason/weatherfax-pi/build/artifacts`+  Collecting artifacts...
+https:__ci.appveyor.com/project/rgleason/weatherfax-pi/build/artifacts/|https://ci.appveyor.com/project/rgleason/weatherfax-pi/build/artifacts`+  Collecting artifacts...
   Found artifact 'build\weatherfax_pi-1.9.3-ov42-win32.exe' matching 'build\*.exe' path
   Uploading artifacts...
   [1/1] build\weatherfax_pi-1.9.3-ov42-win32.exe (721,873 bytes)...100%
@@ -330,7 +335,7 @@ notes in Appveyor Forum discussions:
 built Artifact .exe to Github "Release" (opensource, public repos, dev
 account) Post 13 by fcgleason on Apr 23, 2019 @ 09:31 PM]
 * See
-https://help.appveyor.com/discussions/questions/36997-git-branch-delete-and-git-squash-effect-on-appveyor[Git
+https://help.appveyor.com/discussions/questions/36997-git-branch-delete-and-git-squash-effect-on-appveyor/[Git
 branch --delete and Git Squash -Effect on Appveyor]
 
 It just updates the patch number and updates the Appveyor file so that
@@ -344,13 +349,12 @@ is what I've done on my repository:
 
 === More information for Appveyor
 
-* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2876644[Post
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2876644/[Post
 #2396]
-* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-6.html#post2887625[Post
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-6.html#post2887625/[Post
 #2047]
-* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-4.html#post2894107[Post
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-4.html#post2894107/[Post
 #2425]
-* https://github.com/seandepagnier/weatherfax_pi/issues/134[Use of
-appveyor 'auth_token' to push a new github release #134]
-* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2873659[Getting
+* https://github.com/seandepagnier/weatherfax_pi/issues/134[Use of appveyor 'auth_token' to push a new github release #134]
+* https://www.cruisersforum.com/forums/f134/beta-test-technical-30929-7.html#post2873659/[Getting
 auth token]

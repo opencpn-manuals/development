@@ -4,7 +4,7 @@ The purpose of this manual is provide necessary info about OpenCPN
 development for new and old contributors. It's currently a work in
 progress and should not be used to obtain information. The currently
 used manual is available at
-https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:developer_manual[The OpenCPN website]
+https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:developer_manual/[The OpenCPN website]
 
 The manual is written for readers with basic programming skills.
 
@@ -29,8 +29,8 @@ some value in specific situations.
 == Context
 This is  one of four manuals available:
 
-* https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual[User's Manual]
-* http://nowhere.net[Advanced User's Manual]
+* https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual/[User's Manual]
+* [Advanced User's Manual]
 * https://opencpn-manuals.github.io/plugins/opencpn-plugins/0.1/index.html[User Plugin Manual]
 * https://opencpn-manuals.github.io/development/ocpn-dev-manual/5.3.1/intro-AboutThisManual.html[Development manual]
 *

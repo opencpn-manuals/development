@@ -1,6 +1,6 @@
 = Deployment
 
-See and follow xref:pm-overview-prereq-other.adoc[Setup free opensource Cloudsmith Account]
+See and follow xref:pm-overview-prereq-other.adoc/[Setup free opensource Cloudsmith Account]
 
 
 
@@ -17,7 +17,7 @@ See and follow xref:pm-overview-prereq-other.adoc[Setup free opensource Cloudsmi
 
 . Once you are accepted as a member
 .. You will be able to create three repositories for your plugin.
-.. Follow these details to xref:pm-overview-prereq-other.adoc#_create_open_source_repositories[Create Cloudsmith Opensource Repositories]
+.. Follow these details to xref:pm-overview-prereq-other.adoc#_create_open_source_repositories/[Create Cloudsmith Opensource Repositories]
 
 .. Configuration of uploads to Cloudsmith destinations:
 ... ci\cloudsmith-upload.sh points to  ..cmake\in-files\cloudsmith-upload.sh.in
@@ -42,7 +42,7 @@ See and follow xref:pm-overview-prereq-other.adoc[Setup free opensource Cloudsmi
 
  There are several ways to issue a "push with tag" or "tagged push"
 
-*  See https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:developer_manual:pi_installer_procedure#deploy_to_prod_repository[Deploy to prod repository]
+*  See https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:developer_manual:pi_installer_procedure#deploy_to_prod_repository/[Deploy to prod repository]
   $ git commit -am "my last changes")
   $ git tag v[new version number]
   $ git push <repo-name> <tag-name>  OR

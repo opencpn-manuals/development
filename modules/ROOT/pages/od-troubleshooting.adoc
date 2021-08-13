@@ -42,7 +42,7 @@ charts, can this way be done unattended.
 === -p
 
 The portable option is explained in.
-https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:advanced_features:portable_opencpn_v2[]
+https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:advanced_features:portable_opencpn_v2/
 Basically, it allows OpenCPN to run just using local data directories for
 example on a USB stick.
 
@@ -116,5 +116,5 @@ must be re-compiled against the new version.
 
 
 This PDF
-https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwi864Ce3ZXXAhVMtxQKHbCMCscQFgguMAE&url=https%3A%2F%2Fptgmedia.pearsoncmg.com%2Fimages%2F0131473816%2Fdownloads%2F0131473816_book.pdf&usg=AOvVaw2cPYxEF2DKGrkc5mVx1FMF[wxWidgets
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwi864Ce3ZXXAhVMtxQKHbCMCscQFgguMAE&url=https%3A%2F%2Fptgmedia.pearsoncmg.com%2Fimages%2F0131473816%2Fdownloads%2F0131473816_book.pdf&usg=AOvVaw2cPYxEF2DKGrkc5mVx1FMF/[wxWidgets
 History document] might help with wxWidgets issues.

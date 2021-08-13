@@ -11,7 +11,7 @@ and to create Linux packages to deploy to your Launchpad.
 == How to push a .Travis 'built' file to your Launchpad
 
 For travis refer to
-https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910[Petri's
+https://www.cruisersforum.com/forums/f134/tactics-plugin-166909-2.html#post2913910/[Petri's
 post #637]
 
 === A. Configure the Travis file for security and permissions
@@ -65,7 +65,7 @@ that you have travis CLI up and working, you can start to create the
 encrypted key. Without it, deployment to GitHub does not work.
 . Travis CLI installation instructions for Linux. Windows10 users can
 create a
-https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:supplementary_software:run-ubuntu-in-win10[WSL-Windows
+https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:supplementary_software:run-ubuntu-in-win10/[WSL-Windows
 Subsystem for Linux (Ubuntu 18.04LTS) on Win10 Installation], and then
 from the linux command prompt
 execute:`+sudo apt-get update --fix-missing

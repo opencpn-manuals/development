@@ -54,18 +54,18 @@ copy c:\Users\%username%\Sources\OpenCPN\build\release\opencpn.lib .
 
 One should use the earliest version of *opencpn.Lib* possible that is
 still compatible with the Plugin API, according to the chart for
-https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:developer_manual:plugins:plugin_api:plugin_api_versions#plugin_pi_api_versions_and_opencpn_version_compatibility[Plugin
-API and OpenCPN Version Compatibility].
+https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:developer_manual:plugins:plugin_api:plugin_api_versions#plugin_pi_api_versions_and_opencpn_version_compatibility/[Plugin API and OpenCPN Version Compatibility].
 
 * Build the plugin and create the install package via the following
-commands, waiting for successful completion of each command.`+
+commands, waiting for successful completion of each command.
+
+----
 cd c:\Users\%username%\Sources\watchdog_pi\build
 cmake -T v141_xp ..
 cmake --build .
 cmake --build . --config release
 cmake --build . --config release --target package
-
-+`
+----
 
 If successful, CMake will return this message:
 
@@ -96,12 +96,12 @@ With NSIS 2.4.6 some registry tweaking was required. Go to "NSIS
 (Unicode) used to build the installation packages for OpenCPN and
 Plugins
 
-. Get NSIS fromhttps://code.google.com/p/unsis/downloads/list[Downloads
--unsis -NSIS branch that supports Unicode. -Google Project Hosting]
-. The NSIS Unicode 2.46 setup file is also included in the GIT
-repository → *..\buildwin\NSIS_Unicode\nsis-2.46-Unicode-setup.exe*
-. Direct download link:
-https://code.google.com/p/unsis/downloads/detail?name=nsis-2.46.3-Unicode-setup.exe&can=2&q=
+. Get NSIS from  https://code.google.com/p/unsis/downloads/list/[Downloads -unsis -NSIS branch that supports Unicode. -Google Project Hosting]
+. The NSIS Unicode 2.46 setup file is also included in the GIT repository
+
+   ..\buildwin\NSIS_Unicode\nsis-2.46-Unicode-setup.exe
+   
+. Direct download link: https://code.google.com/p/unsis/downloads/detail?name=nsis-2.46.3-Unicode-setup.exe&can=2&q=
 . Download and install it.
 . Due to a "bug" in CMake, which only looks at
 "*HKEY_LOCAL_MACHINE\SOFTWARE\NSIS*" for the installation location of
