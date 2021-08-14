@@ -98,3 +98,17 @@ Using `./source-state.sh update` is not the only way to update the sources.
 Each directory here is a git repository, and the can be updated as usual
 with for example `git pull`. After such updates, `./source-state.sh save`
 will record all changes into source-state.sh
+
+
+== Using the pre-commit hook
+
+We strongly recommend using the standard pre-commit hook to avoid
+irritating white-space problems. To enable this hook, do (in the project
+root directory):
+
+    $ cd .git/hooks
+    $ cp pre-commit.sample pre-commit
+
+Windows users uses `copy` instead of `cp`, otherwise it is the same. The hook
+will check all data before it's committed. If there is a false positive,
+the commit can be done anyway using the `--no-verify` option
