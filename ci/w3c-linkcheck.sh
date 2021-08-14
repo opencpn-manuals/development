@@ -21,6 +21,7 @@ checklink \
     --suppress-broken '-1:https://cubian.org/downloads/' \
     --suppress-broken '-1:https://cubian.org/2013/08/12/enlarge-cubian-rootfs-partition/' \
     --suppress-redirect 'https://opencpn-manuals.github.io/development->https://opencpn-manuals.github.io/development/' \
+    --exclude cruisersforum.com \
     --exclude bigdumboat.com \
     --exclude 'https://opencpn.org/wiki/dokuwiki/' \
     --exclude opencpn.org \
