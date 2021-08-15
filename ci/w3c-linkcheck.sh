@@ -23,7 +23,7 @@ checklink \
     --suppress-redirect 'https://opencpn-manuals.github.io/development->https://opencpn-manuals.github.io/development/' \
     --exclude apple.com \
     --exclude bigdumboat.com \
-    --eclude  cloudsmith.io/orgs/opencpn \
+    --exclude  cloudsmith.io/orgs/opencpn \
     --exclude cruisersforum.com \
     --exclude github.com/travis-ci \
     --exclude mailto: \
