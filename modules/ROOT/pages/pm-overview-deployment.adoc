@@ -15,7 +15,7 @@ xref:plugin-installer:ROOT:Tarballs.adoc[here]
 Metadata::
 The plugin metadata contains plugin name, version and an url from which
 the tarball can be downloaded. These are a central parts, but there is
-more defined as documented  xref:plugin-installer:ROOT:Catalog.adoc[here]
+more defined as documented xref:plugin-installer::Catalog.adoc[here]
 
 Catalog::
 The catalog is the list of plugins available for an OpenCPN installation.
