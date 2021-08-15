@@ -22,6 +22,7 @@
 ** xref:pm-plugin-api-versions.adoc[Plugin API and ABI]
 ** xref:pm-overview-deployment.adoc[Deployment overview]
 ** xref:pm-overview-workflow.adoc[Workflow overview]
+** xref:plugin-compat.adoc[Compatibility and tweaks]
 ** xref:pm-tp-template.adoc[Testplugin Template]
 *** xref:pm-overview-prereq-workflow.adoc[Workflow Prerequisites]
 *** xref:pm-overview-prereq-services.adoc[Prerequisite Services]

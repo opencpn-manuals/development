@@ -1,0 +1,52 @@
+= Plugin compatibility with core OpenCPN
+
+When OpenCPN tries to load a plugin it must match strict criterias
+to be loaded. If these are not met, the problem is logged but otherwise
+the plugin is silently ignored.
+
+== Specifying the plugin compatibility data
+
+The plugin must have the correct:
+
+  - Operating system
+  - Operating system level
+  - Hardware platform. 
+
+On most platform, these values are automatically deduced by cmake. However,
+in some cases like when cross-compiling this is not possible and the value
+must be given to cmake's OCPN_TARGET_TUPLE option. Here, it's given like
+`target;version;arch` where:
+
+  - _target_ is a operating system-hardware platform tuple like 
+    `ubuntu-x64_64`. For a list of supported values look into
+    https://github.com/OpenCPN/plugins/blob/master/ocpn-plugin.xsd[XSD spec], 
+    look for `element name="target"`
+  - _version_ is the numeric operating system version like 18.04.
+  - The hardware platform field is currently not used. By convention set to
+    the last part of _target_.
+
+
+== Core OpenCPN compatibility tweaks 
+
+An OpenCPN program built for a specific platform has built-in values for
+_target_ and _version_. A plugin is deemed compatible if it has the same
+values. 
+
+For test purposes, the built-in values can be modified so that OpenCPN
+actually loads a plugin which is not compatible according to these rules.
+This is done by modifying the _target_ and _version_ values OpenCPN 
+compares with the plugin. This can be done in three ways:
+
+
+  - env variable OPENCPN_COMPAT_TARGET should be _target:version_, for example
+    `ubuntu-x86_64:20.04` which should make OpenCPN attempt to load plugins
+    compiled for ubuntu version 20.04.
+  - The configuration variables _CompatOS_ and _CompatOsVersion_ in the
+    [Settings] section works likewise if modified manually before starting
+    (CompatOS is the same as target)
+  - The catalog Settings GUI has a dropdown for selecting the compatibility
+    target. As a bonus, it displays the number of available plugins for each platform.
+
+Note that this might not work if the linkage fails, the logs should reveal the truth.
+Of course, loading a plugin for the wrong ABI might also cause crashes or
+undefined behaviour.  The trick is to select the right values
