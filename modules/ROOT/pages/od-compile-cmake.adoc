@@ -86,10 +86,11 @@ docs.
 == Current and Tide Data -- TCDATA
 
 Bundling this data is governed by the OCPN_BUNDLE_TCDATA parameter,
-a boolean.
+a boolean. By bundling it the need to install separate tcdata packages
+can be avoided.
 
 == Shoreline World Wide Background Chart -- GSHHS
 
 If enabled, the boolean option OCPN_BUNDLE_GSHHS bundles the crude GSHHS
-data. To use more detailed higher levels use the system chartdldr
-plugin which always is available.
+data. To use more detailed higher levels the chartdldr plugin is always
+available for user.
