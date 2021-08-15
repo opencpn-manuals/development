@@ -508,9 +508,9 @@ correctly
 * Select 'Tools', 'Options'
 * Check the settings are the same as shown in these two screenshots
 
-image:/opencpn/dev/developer_guide/compiling_windows/vs2015_line_endings.png[vs2015_line_endings.png]
+image:vs2015_line_endings.png[vs2015_line_endings.png]
 
-image:/opencpn/dev/developer_guide/compiling_windows/vs2015_tabs.png[vs2015_tabs.png]
+image:vs2015_tabs.png[vs2015_tabs.png]
 
 '''''
 

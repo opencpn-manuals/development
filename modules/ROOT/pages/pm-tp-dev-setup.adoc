@@ -390,6 +390,7 @@ deploy:
 == Cloudsmith OpenCPN Organization
 
 https://cloudsmith.io/orgs/opencpn/
+(restricted, requires.login.)
 
 There are 3 repositories that can be used.
 

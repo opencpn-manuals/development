@@ -10,7 +10,8 @@ Batch files and scripts are available to help create this file
 ocpn-plugins.xml is created from the individual plugin metadata files
 located in the data directory.
 
-Please review the https://github.com/OpenCPN/plugins[Readme] file.
+Please review the
+https://github.com/OpenCPN/plugins/blob/master/README.md[README] file.
 
 In summary
 

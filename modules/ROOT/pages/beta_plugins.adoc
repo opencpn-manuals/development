@@ -39,7 +39,5 @@ NMEA Beta Plugin Test Files]
 
 === Move to Production Release
 
-xref:plugin_submissions.adoc[] explains
-what happens when plugin authors are ready to move their plugin to a
-production release that can be hosted on the Downloads page of the main
-OpenCPN website.
+The steps necessary to make a plugin available on Downloads page
+on the OpenCPN website is available on request, see email adresses above.

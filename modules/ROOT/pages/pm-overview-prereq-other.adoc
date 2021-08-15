@@ -64,7 +64,9 @@ xref:pm-tp-deploy.adoc[Deploy Details] more detail on use.
 
 **Public Open-Source**
 
-https://cloudsmith.io/orgs/opencpn/[https://cloudsmith.io/orgs/opencpn/]
+
+https://cloudsmith.io/orgs/opencpn/[https://cloudsmith.io/orgs/opencpn/] 
+(Restricted, requires login to be accessed)
 
 === OpenCPN Plugin Developers
 
