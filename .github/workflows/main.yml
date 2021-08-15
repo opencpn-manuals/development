@@ -17,6 +17,8 @@ jobs:
         uses: actions/checkout@v2
       - name: "Build and deploy"
         run: ci/build-and-deploy.sh
+      - name: "Scan for unresolved antora xref links"
+        run: ci/check-bad-xrefs.sh
       - name: "Check links"
         run: ci/linkchecker.sh
       - name: "Full linkcheck (requires [full-linkcheck] in subject)"
