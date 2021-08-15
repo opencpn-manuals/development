@@ -50,16 +50,7 @@
 ** xref:res-online-tools.adoc[Online Nmea Tools]
 * The Attic
 ** Redundant
-** xref:demo_plugin.adoc[Demonstration Plugin]
-** xref:updating_the_user_manual.adoc[Updating the User Manual]
-** xref:bug_and_feature_tracking.adoc[Bugs and feature tracking]
-** xref:troubleshooting_plugins.adoc[Troubleshooting Plugins]
-** xref:plugin_submissions.adoc[Plugin Submissions]
-** xref:standalone_plugin_compilation.adoc[Plugin Compilation Win]
-** xref:compiling_external_plugins_and_building_install_packages.adoc[Compile Plugins and build Install Packages]
-** xref:compiling_plugins_to_debug.adoc[Compile Plugins for Debugging]
-** xref:developer_guide.adoc[Developer Guide]
-** Reference
+* Reference
 *** xref:languages.adoc[Internationalization]
 *** xref:prerequisites.adoc[Prerequisites]
 *** xref:compile_mac_osx.adoc[Compiling on macOS]
@@ -72,7 +63,6 @@
 *** xref:vs2015_workflow.adoc[Compile 2015 VS Community Workflow]
 *** xref:compile_windows_2013_vs_community.adoc[Compile 2013 VS Community Workflow]
 *** xref:compile_windows_2013_vs_community_ov4.2-4.8.8.adoc[Compile 2013 VS Community Workflow ov4.2-4.8.8]
-*** xref:standalone_plugin_compilation.adoc[Plugin Compilation Win]
 *** xref:ci-push-linux-build-to-launchpad.adoc[CI: Push Linux Build to Launchpad]
 *** xref:codacy.adoc[Codacy:Automate code quality]
 *** xref:testquality.adoc[TestQuality -Test Management]
