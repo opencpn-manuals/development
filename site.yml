@@ -7,9 +7,9 @@ content:
   sources:
     - url: ./
       branches: HEAD
-      edit_url: false
+      edit_url: true
     - url: https://github.com/leamas/ocpn-pi-docs.git
-      tags: 0.2.2
+      # tags: 0.2.2
       branches: main
       edit_url: true
     - url: https://github.com/Rasbats/managed_plugins
