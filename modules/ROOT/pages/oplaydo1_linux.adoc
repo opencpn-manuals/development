@@ -4,7 +4,7 @@
 - In 'Fork and Build' we built the 'DR_pi' plugin.
 
 - In Part 1 of this guide the 'DR_pi' plugin is renamed 'oplaydo1_pi'.
-The xref:oplaydo1#using_gimp_to_make_new_icons[icon is changed].
+The xref:oplaydo1#_using_gimp_to_make_new_icons[icon is changed].
 
 - In
 xref:oplaydo1#_part_2edit_the_plugin_for_new_user_actions[Part 2]

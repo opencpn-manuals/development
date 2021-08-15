@@ -23,7 +23,8 @@ checklink \
     --suppress-redirect 'https://opencpn-manuals.github.io/development->https://opencpn-manuals.github.io/development/' \
     --exclude cruisersforum.com \
     --exclude bigdumboat.com \
-    --exclude 'https://opencpn.org/wiki/dokuwiki/' \
+    --exclude https://github.com/travis-ci
+    --exclude https://opencpn.org/wiki/dokuwiki/ \
     --exclude opencpn.org \
     --exclude apple.com \
     --depth 4 -s docs/index.html |& grep -v "Use of uninitialized value"

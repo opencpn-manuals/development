@@ -33,7 +33,7 @@ which includes Dave's Thankyou's too..it's a polite Community.
 == Recipient of the 2018 Ocean Cruising Club Award
 
 On January 22, 2018 the OCC announced that
-http://oceancruisingclub.org/newsitem/211/The-OCC-Award-goes-to-David-Register-for-OpenCPN?utm_source=dlvr.it&utm_medium=twitter[Dave Register is the recipient of the OCC Award].
+https://oceancruisingclub.org/home/News/211[Dave Register is the recipient of the OCC Award].
 "I'm honored and humbled. But I'm only the tip of an iceberg. This award
 and recognition would not be possible without the help and support of
 the worldwide OpenCPN team. Thank you."

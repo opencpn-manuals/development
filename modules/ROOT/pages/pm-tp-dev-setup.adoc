@@ -141,7 +141,7 @@ up opensource repositories.
 metadata catalog to confirm installation and test the plugin.
 . After testing, issue a new version, pushing new binaries to cloudsmith
 repositories, along with a new ocpn-plugin.xml catalog file.
-. See xref:pi_installer_procedure.adoc[PI Installer Procedure Build-Deploy]
+. See xref:pi_installer_dev_procedure.adoc[PI Installer Procedure Build-Deploy]
  below, for more detail.
 
 == Add CMake and Script Files
