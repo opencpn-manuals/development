@@ -28,7 +28,7 @@ installing the various programs.
 
 === Install Visual Studio Community 2013
 
-*https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs*
+* https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes
 
 * Download the installer.
 

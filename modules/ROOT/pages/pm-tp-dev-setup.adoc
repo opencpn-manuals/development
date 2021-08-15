@@ -35,7 +35,7 @@ account.
     - [[https://circleci.com/docs/2.0/managing-api-tokens/#section=projects|Environment Settings and API tokens]]
     - Context- Contexts provide a mechanism for securing and sharing environment variables across projects. The environment variables are defined as name/value pairs and are injected at runtime. [[https://circleci.com/docs/2.0/contexts/|https://circleci.com/docs/2.0/contexts/]]
 - In **//Project > Build Settings > Build Settings > Environmental Variables//**  to set up security.
-- See [[:opencpn:developer_manual:pi_installler_build_deploy#cloudsmith_api_key_generation_and_use|CLOUDSMITH_API_KEY Generation and Use]]
+- See [[:opencpn:developer_manual:pi_installer_build_deploy#cloudsmith_api_key_generation_and_use|CLOUDSMITH_API_KEY Generation and Use]]
 - Add environment variables to the job. You can add sensitive data (e.g. API keys) here, Private environment variables enable you to store secrets safely even when your project is public, see Building Open Source Projects for associated settings information. Use Contexts to further restrict access to environment variables from within the build, refer to the "Restricting a Context" documentation.
 - [[https://circleci.com/docs/2.0/oss/|Building Open Source Projects]]
 - Put your //**Cloudsmith Deployment Key**//  in your //**Circleci account> Settings> [user]> squiddio_pi> Env Variables**//  as "CLOUDSMITH_API_KEY" .

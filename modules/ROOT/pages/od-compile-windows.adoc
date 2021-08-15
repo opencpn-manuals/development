@@ -151,8 +151,7 @@ Copyfiles.bat is a useful single batch file to copy all the needed files
 to the various directories. This batch file does not execute any cmake
 commands.
 
-* Download image:/opencpn/dev/copyfiles.bat.doc[Copyfiles.bat.doc] and
-remove the .doc
+* Download link:{attachmentsdir}/Copyfiles.bat[here]
 * Move the file to <Your OpenCPN source tree> (for example:
 C:\Compile\Github\Opencpn)
 * Execute copyfiles.bat

@@ -148,7 +148,7 @@ Debuggers]
 Online Repositories - Free to Opensource
 
 * https://github.com/open-source[Github Opensource]
-* https://docs.github.com/[Help]
+* https://docs.github.com/en[Help]
 * https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository[Getting
 Started] 
 * https://github.com/OpenCPN/OpenCPN[OpenCPN Github] Plugin

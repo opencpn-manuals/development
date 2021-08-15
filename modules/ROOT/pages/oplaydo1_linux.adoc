@@ -117,8 +117,9 @@ image:oplaydo_b4_changes.png[oplaydo_b4_changes.png]
 
 == Using GIMP to make new icons
 
-- Using https://shutter-project.org/downloads/[Shutter] a screenshot was
-made from the 'DR_pi' icons as a starting point for the new icons.
+- Using  https://shutter-project.org/downloads/third-party-packages/[Shutter]
+  a screenshot was made from the 'DR_pi' icons as a starting point for the
+  new icons.
 
 - The '.png' files were then opened in Gimp. - Size of the images was
 adjusted to 32×32 and the 'Mode' was set as 'indexed' with 16 colours.

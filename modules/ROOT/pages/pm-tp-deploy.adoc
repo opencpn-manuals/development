@@ -1,6 +1,6 @@
 = Deployment
 
-See and follow xref:pm-overview-prereq-other.adoc/[Setup free opensource Cloudsmith Account]
+See and follow xref:pm-overview-prereq-other.adoc[Setup free opensource Cloudsmith Account]
 
 
 

@@ -6,7 +6,7 @@ and metadata.
 
 This documentation is a WIP. Current parts:
 
-* xref:pi_installler_dev_setup.adoc[PI Manager Dev Setup]  FIXME: broken links
+* xref:pi_installer_dev_setup.adoc[PI Manager Dev Setup]  FIXME: broken links
 * xref:testplugin.adoc[Testplugin and Frontend2]
 
 FIXME: This is moved from languages: it's specific for the
