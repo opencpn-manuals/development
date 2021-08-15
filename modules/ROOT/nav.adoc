@@ -8,6 +8,7 @@
 ** Compiling
 *** xref:od-compile-cmake.adoc[CMake]
 *** xref:od-compile-linux.adoc[Linux]
+*** xref:od-compile-linux.adoc#_flatpak[Flatpak]
 *** xref:od-compile-windows.adoc[Windows]
 *** xref:od-compile-mac-osx.adoc[MacOS]
 *** xref:od-compile-cross-compile-for-windows-under-linux.adoc[Mingw windows build on Linux]
