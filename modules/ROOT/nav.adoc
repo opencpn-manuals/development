@@ -48,8 +48,6 @@
 * Resources
 ** xref:res-prebuilt-build-files.adoc[Prebuilt Build Files]
 ** xref:res-online-tools.adoc[Online Nmea Tools]
-* The Attic
-** Redundant
 * Reference
 *** xref:languages.adoc[Internationalization]
 *** xref:prerequisites.adoc[Prerequisites]
