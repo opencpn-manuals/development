@@ -48,9 +48,10 @@ The optional parts are a
   - Translations.
 
 The exact paths for these areas is described in the
-xref:plugin-installer::Tarballs.adoc[Tarball layout page]. Note that
-all areas described here are owned by the installer and must not be modified
-by the plugin.
+xref:plugin-installer::Tarballs.adoc[Tarball layout page].
+
+IMPORTANT: Note that all areas described here are owned by the installer
+and must not be modified by the plugin.
 
 Plugins which need to save configuration and other data uses the configuration
 directory which is described in the
