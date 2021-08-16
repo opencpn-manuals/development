@@ -87,15 +87,15 @@ The basic workflow w r t sources is:
 
       $ ./source-state.sh restore ①
       $ ./source-state.sh update ②
-      $ ./source-state.sh save  ③
+      $ ./source-state.sh save ③
 
 ① : Populate the sources directory with all modules listed in sources.state
 ② : Update all modules to latest version available
-② : Saves the state of the modules in source-state.sh
+③ : Saves the state of the modules in source-state.sh
 
 
 Using `./source-state.sh update` is not the only way to update the sources.
-Each directory here is a git repository, and the can be updated as usual
+Each directory here is a git repository which can be updated as usual
 with for example `git pull`. After such updates, `./source-state.sh save`
 will record all changes into source-state.sh
 
