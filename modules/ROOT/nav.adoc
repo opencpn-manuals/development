@@ -16,9 +16,8 @@
 ** xref:od-user-interface-styling.adoc[User Interface Styling]
 ** xref:od-troubleshooting.adoc[Troubleshooting]
 * Plugin Development
-** xref:pm-plugin-guidelines.adoc[Plugin Guidelines]
-*** xref:pm-plugin-documentation.adoc[Documentation]
-*** xref:pm-plugin-dependencies.adoc[Dependencies]
+** xref:plugin-devel-overview.adoc[Overview]
+** xref:pm-plugin-dependencies.adoc[Dependencies]
 ** xref:pm-plugin-api-versions.adoc[Plugin API and ABI]
 ** xref:pm-overview-deployment.adoc[Deployment overview]
 ** xref:pm-overview-workflow.adoc[Workflow overview]

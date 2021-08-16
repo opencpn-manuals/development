@@ -16,6 +16,13 @@ content:
       # tags: 0.1
       branches: asciidoc
       start_path: manual
+    - url: https://github.com/opencpn-manuals/plugins.git
+      branches: main
+      edit_url: true
+      start_paths:
+        - manual/master-plugins
+        - manual/beta-plugins
+
 
 ui:   
   bundle:

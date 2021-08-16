@@ -1,0 +1,80 @@
+= Plugin Development Overview
+
+== General
+
+The plugin documentation is focused around maintaining existing
+plugins. The recommended way to create a new plugin is to use
+an existing plugin as starting point and modify it in steps
+rather than to start from scratch.
+
+== API
+
+The plugin API describes how a plugin interacts with the OpenCPN
+core. It is described in the xref:pm-plugin-api-versions.adoc[API Page].
+
+== ABI
+
+OpenCPN is a cross-platform project, and basically every plugin is
+compiled for different platforms. The core OpenCPN evaluates a plugin's
+ABI compatibility in a rather strict way as described in the
+xref:plugin-compat.adoc[ABI compatibility page]. There is also some
+notes on the ABI in the xref:pm-plugin-api-versions.adoc[API Page].
+
+== Dependencies
+
+Plugins should take special steps if depending on libraries besides
+those used by the core OpenCPN. More info on this in
+xref:pm-plugin-dependencies.adoc[Dependencies]
+
+== Deployment
+
+Since 5.4.0 the plugin installer is the main deployment method. An
+overview can be found  xref:pm-overview-deployment.adoc[here]. The
+reference documentation is in the xref:plugin-installer:ROOT:Home.adoc[
+Plugin Installer Site]. Plugins deployed this way are available for user to
+install in the OpenCPN GUI.
+
+The Plugin Installer (pi) defines a plugin as four types of files.
+The mandatory parts are
+
+  - A metadata description.
+  - A library.
+
+The optional parts are a
+
+  - Data files.
+  - Additional libraries.
+  - Helper binaries.
+  - Translations.
+
+The exact paths for these areas is described in the
+xref:plugin-installer::Tarballs.adoc[Tarball layout page]. Note that
+all areas described here are owned by the installer and must not be modified
+by the plugin.
+
+Plugins which need to save configuration and other data uses the configuration
+directory which is described in the
+xref:plugin-installer::Terminology.adoc#_user_config_path[Terminology] page.
+
+== Legacy deployment
+
+Historically, plugins have been distributed as operating system packages.
+All plugins today supports this on at least some platform(s). Some notes
+on this packaging can be found in the xref:dm-legacy-plugins.adoc[Legacy Plugins
+Page].
+
+== Templates
+
+The PI deployment scheme utilizes a number of services to build and distribute
+plugins. There are two sets of templates used for this:
+
+  - xref:pm-tp-template.adoc[The testplugin templates]
+  - xref:AlternativeWorkflow::index.adoc[The shipdriver templates]
+
+The deployment for basically all existing plugins is using one of these two
+sets of templates.
+
+== Documentation
+
+Hand-on info on creating plugin documentation can be found in the
+xref:opencpn-plugins:authoring:author.adoc[Plugin Manual]
