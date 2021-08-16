@@ -75,6 +75,13 @@ plugins. There are two sets of templates used for this:
 The deployment for basically all existing plugins is using one of these two
 sets of templates.
 
+== Translations
+
+Core OpenCPN and plugins shares a common translation process based on the
+link:https://en.wikipedia.org/wiki/Gettext[gettext] tools and the
+link:https://crowdin.com/project/opencpn[crowdin] service. The process is
+described in the xref:dm-i18n.adoc[i18n Page]
+
 == Documentation
 
 Hand-on info on creating plugin documentation can be found in the
