@@ -64,10 +64,16 @@ All plugins today supports this on at least some platform(s). Some notes
 on this packaging can be found in the xref:dm-legacy-plugins.adoc[Legacy Plugins
 Page].
 
+== Catalog
+
+For a plugin to be available for end users, it must be included in the catalog.
+The catalog as well as tooling and processes to maintain it is governed by
+the link:https://github.com/opencpn/plugins[catalog project] at github.
+
 == Templates
 
 The PI deployment scheme utilizes a number of services to build and distribute
-plugins. There are two sets of templates used for this:
+plugins. There are two sets of templates available:
 
   - xref:pm-tp-template.adoc[The testplugin templates]
   - xref:AlternativeWorkflow::index.adoc[The shipdriver templates]
