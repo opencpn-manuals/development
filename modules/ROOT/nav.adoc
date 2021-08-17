@@ -53,7 +53,6 @@
 *** xref:languages.adoc[Internationalization]
 *** xref:prerequisites.adoc[Prerequisites]
 *** xref:compile_mac_osx.adoc[Compiling on macOS]
-*** xref:compile_linux_old.adoc[Compiling on Linux]
 *** xref:rpi2.adoc[Compile on Raspberry PI]
 *** xref:building-on-armhf-linux-armbian-orange-pi.adoc[armhf linux - Armbian - Orange Pi]
 *** xref:ci-push-linux-build-to-launchpad.adoc[CI: Push Linux Build to Launchpad]
