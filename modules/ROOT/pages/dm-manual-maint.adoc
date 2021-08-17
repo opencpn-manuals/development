@@ -21,7 +21,7 @@ That's it!
 == Larger changes
 
 For larger changes it's easier to follow the ordinary git/GitHub workflow. This
-starts with forking https://github.com/rgleason/ocpn-dev-manual[].
+starts with forking https://github.com/opencpn-manuals/development[].
 
 After this follow the
 https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request[usual procedure]
