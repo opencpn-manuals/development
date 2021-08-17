@@ -33,6 +33,7 @@
 *** Build Locally
 *** xref:pm-tp-adapt-plugin.adoc[Adapt Plugin]
 *** xref:pm-tp-deploy.adoc[Deploy Details]
+*** xref:pi_installer_dev_procedure.adoc[PI Manager Dev Procedure]
 *** xref:pm-tp-update-library.adoc[Update the Library]
 *** xref:pm-tp-language-nuance.adoc[Language Nuances]
 *** xref:pm-tp-odapi-messaging.adoc[Odapi Messages]
@@ -66,7 +67,7 @@
 *** xref:testquality.adoc[TestQuality -Test Management]
 *** xref:nsis_installation_directory.adoc[NSIS Installation Directory]
 *** xref:nsis_table.adoc[NSIS Table]
-* User Manual (UM)
+* User Manual (UM) KEEP - Will Move later
 ** xref:developer_manual.adoc[Background]
 ** xref:community_old.adoc[Community]
 ** xref:pi_installer-ui.adoc[PI Manager UI Discussion]
@@ -75,12 +76,11 @@
 <p/> <hr/> <p/>
 +++
 * Old Manual
-** xref:beta_plugins.adoc[Beta Plugins]
-** xref:pi_installer_dev_procedure.adoc[PI Manager Dev Procedure]
-** xref:ci-push-build-to-git.adoc[CI: Push build to Git Release]
-** xref:ci_travis_encryption_windows.adoc[CI: Travis Encryption for Windows Dev]
-** xref:advanceddebugtips.adoc[CI Advanced Debug Tips]
-** Learning
+** xref:beta_plugins.adoc[Beta Plugins -Delete?]
+** xref:ci-push-build-to-git.adoc[CI: Push build to Git Release -Delete?]
+** xref:ci_travis_encryption_windows.adoc[CI: Travis Encryption for Windows Dev -Delete?]
+** xref:advanceddebugtips.adoc[CI Advanced Debug Tips -Delete?]
+** Learning -Delete?
 *** xref:coding_solutions.adoc[Coding Solutions]
 *** xref:fork_build_windows.adoc[Fork and Build (Windows)]
 *** xref:oplaydo1.adoc[oplaydo1 (Windows)]
