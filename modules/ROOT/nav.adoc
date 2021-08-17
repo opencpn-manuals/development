@@ -75,23 +75,14 @@
 <p/> <hr/> <p/>
 +++
 * Old Manual
-** Compiling on Windows
-** xref:languages.adoc[Internationalization- Languages]
-** xref:messaging.adoc[Messaging]
-** xref:prerequisites.adoc[Prerequisites -Just found this]
-** Developer Plugins
-** Plugin API
-*** xref:pm-tp-odapi.adoc[OCPN Draw ODAPI]
 ** xref:beta_plugins.adoc[Beta Plugins]
+** xref:pi_installer_dev_procedure.adoc[PI Manager Dev Procedure]
+** xref:ci-push-build-to-git.adoc[CI: Push build to Git Release]
+** xref:ci_travis_encryption_windows.adoc[CI: Travis Encryption for Windows Dev]
+** xref:advanceddebugtips.adoc[CI Advanced Debug Tips]
 ** Learning
 *** xref:coding_solutions.adoc[Coding Solutions]
 *** xref:fork_build_windows.adoc[Fork and Build (Windows)]
 *** xref:oplaydo1.adoc[oplaydo1 (Windows)]
 *** xref:fork_and_build_linux.adoc[Fork and Build (Linux)]
 *** xref:oplaydo1_linux.adoc[oplaydo1 (Linux)]
-** xref:pi_installer_dev_procedure.adoc[PI Manager Dev Procedure]
-** xref:ci-push-build-to-git.adoc[CI: Push build to Git Release]
-** xref:ci_travis_encryption_windows.adoc[CI: Travis Encryption for Windows Dev]
-** xref:advanceddebugtips.adoc[CI Advanced Debug Tips]
-** Plugin Installer Manual
-** xref:plugin-installer:ROOT:Home.adoc[Home-Plugin-Installer]
