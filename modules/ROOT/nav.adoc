@@ -48,6 +48,7 @@
 * Resources
 ** xref:res-prebuilt-build-files.adoc[Prebuilt Build Files]
 ** xref:res-online-tools.adoc[Online Nmea Tools]
+** xref:ECDIS_testdata.adoc[ECDIS testdata]
 * Reference
 *** xref:languages.adoc[Internationalization]
 *** xref:prerequisites.adoc[Prerequisites]
