@@ -60,11 +60,6 @@
 *** xref:testquality.adoc[TestQuality -Test Management]
 *** xref:nsis_installation_directory.adoc[NSIS Installation Directory]
 *** xref:nsis_table.adoc[NSIS Table]
-* User Manual (UM) KEEP - Will Move later
-** xref:developer_manual.adoc[Background]
-** xref:community_old.adoc[Community]
-** xref:pi_installer-ui.adoc[PI Manager UI Discussion]
-** xref:pi_installer_summary.adoc[PI Manager Summary]
 +++
 <p/> <hr/> <p/>
 +++
