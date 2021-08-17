@@ -55,7 +55,6 @@
 *** xref:compile_mac_osx.adoc[Compiling on macOS]
 *** xref:compile_linux_old.adoc[Compiling on Linux]
 *** xref:rpi2.adoc[Compile on Raspberry PI]
-*** xref:building_and_installing_on_cubieboard_2_with_hw_acceleration.adoc[Cubieboard 2 with HW acceleration]
 *** xref:building-on-armhf-linux-armbian-orange-pi.adoc[armhf linux - Armbian - Orange Pi]
 *** xref:building_on_motorola_xoom.adoc[Building on Motorola Xoom]
 *** xref:compiling_on_slackware.adoc[Compile on Slackware]
