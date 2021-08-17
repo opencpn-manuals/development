@@ -72,6 +72,3 @@
 +++
 <p/> <hr/> <p/>
 +++
-* Old Manual
-** Learning -Delete?
-*** xref:oplaydo1_linux.adoc[oplaydo1 (Linux)]
