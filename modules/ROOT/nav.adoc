@@ -56,7 +56,6 @@
 *** xref:rpi2.adoc[Compile on Raspberry PI]
 *** xref:building-on-armhf-linux-armbian-orange-pi.adoc[armhf linux - Armbian - Orange Pi]
 *** xref:ci-push-linux-build-to-launchpad.adoc[CI: Push Linux Build to Launchpad]
-*** xref:testquality.adoc[TestQuality -Test Management]
 *** xref:nsis_installation_directory.adoc[NSIS Installation Directory]
 *** xref:nsis_table.adoc[NSIS Table]
 +++
