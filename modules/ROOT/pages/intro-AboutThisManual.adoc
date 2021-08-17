@@ -23,9 +23,6 @@ on-line NMEA tools.
 The Manual Maintenance section does indeed cover how to contribute
 to this manual
 
-The Attic contains old, basically outdated docs which still could have
-some value in specific situations.
-
 == Context
 This is  one of four manuals available:
 
