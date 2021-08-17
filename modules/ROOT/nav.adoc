@@ -57,7 +57,6 @@
 *** xref:rpi2.adoc[Compile on Raspberry PI]
 *** xref:building-on-armhf-linux-armbian-orange-pi.adoc[armhf linux - Armbian - Orange Pi]
 *** xref:building_on_motorola_xoom.adoc[Building on Motorola Xoom]
-*** xref:compiling_on_slackware.adoc[Compile on Slackware]
 *** xref:vs2015_workflow.adoc[Compile 2015 VS Community Workflow]
 *** xref:compile_windows_2013_vs_community.adoc[Compile 2013 VS Community Workflow]
 *** xref:compile_windows_2013_vs_community_ov4.2-4.8.8.adoc[Compile 2013 VS Community Workflow ov4.2-4.8.8]
