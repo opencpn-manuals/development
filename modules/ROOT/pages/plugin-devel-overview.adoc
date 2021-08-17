@@ -34,24 +34,16 @@ reference documentation is in the xref:plugin-installer:ROOT:Home.adoc[
 Plugin Installer Site]. Plugins deployed this way are available for user to
 install in the OpenCPN GUI.
 
-The Plugin Installer (pi) defines a plugin as four types of files.
-The mandatory parts are
-
-  - A metadata description.
-  - A library.
-
-The optional parts are a
-
-  - Data files.
-  - Additional libraries.
-  - Helper binaries.
-  - Translations.
-
-The exact paths for these areas is described in the
+In this scheme, plugins are distributed as archives basically containing
+a metadata description, a dynamic library, data files and
+translations. The installer defines the layout of the archive and
+how these files are installed on the client's computer. The exact
+paths involved are described in the
 xref:plugin-installer::Tarballs.adoc[Tarball layout page].
 
 IMPORTANT: Note that all areas described here are owned by the installer
-and must not be modified by the plugin.
+and must not be modified by the plugin. This includes data files
+and directories created by the installer.
 
 Plugins which need to save configuration and other data uses the configuration
 directory which is described in the
