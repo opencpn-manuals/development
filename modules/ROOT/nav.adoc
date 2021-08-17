@@ -73,7 +73,6 @@
 <p/> <hr/> <p/>
 +++
 * Old Manual
-** xref:ci-push-build-to-git.adoc[CI: Push build to Git Release -Delete?]
 ** xref:ci_travis_encryption_windows.adoc[CI: Travis Encryption for Windows Dev -Delete?]
 ** xref:advanceddebugtips.adoc[CI Advanced Debug Tips -Delete?]
 ** Learning -Delete?
