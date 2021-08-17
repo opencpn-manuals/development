@@ -368,10 +368,6 @@ Generate a GitHub Personal Token specifically for Travis and your
 plugin. Save the code somewhere. Then encrypt the Github Personal Token
 with Travis CI, and put that encryption into the code as below.
 
-Refer to
-xref:ci_travis_encryption_windows.adoc#_for_windows_developers[Travis
-Encryption of Github Personnal Access Token]
-
 ....
 deploy:
 - provider: releases
