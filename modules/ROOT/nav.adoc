@@ -73,7 +73,6 @@
 <p/> <hr/> <p/>
 +++
 * Old Manual
-** xref:advanceddebugtips.adoc[CI Advanced Debug Tips -Delete?]
 ** Learning -Delete?
 *** xref:coding_solutions.adoc[Coding Solutions]
 *** xref:fork_build_windows.adoc[Fork and Build (Windows)]

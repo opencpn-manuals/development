@@ -178,5 +178,3 @@ download the most recent "build" without having to compile.
 . These tools are used for ad hoc "Alpha Testing".
 . OpenCPN Programmers do not use these tools for Continuous Integration
 (CI) or Continuous Releases (CR) or Test Driven Development (TDD).
-
-See xref:advanceddebugtips.adoc[Advanced Debugging Tips]
