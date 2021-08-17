@@ -74,6 +74,5 @@
 +++
 * Old Manual
 ** Learning -Delete?
-*** xref:oplaydo1.adoc[oplaydo1 (Windows)]
 *** xref:fork_and_build_linux.adoc[Fork and Build (Linux)]
 *** xref:oplaydo1_linux.adoc[oplaydo1 (Linux)]
