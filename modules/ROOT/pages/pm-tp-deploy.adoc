@@ -17,7 +17,7 @@ See and follow xref:pm-overview-prereq-other.adoc[Setup free opensource Cloudsmi
 
 . Once you are accepted as a member
 .. You will be able to create three repositories for your plugin.
-.. Follow these details to xref:pm-overview-prereq-other.adoc#_create_open_source_repositories/[Create Cloudsmith Opensource Repositories]
+.. Follow these details to xref:pm-overview-prereq-other.adoc#_create_open_source_repositories[Create Cloudsmith Opensource Repositories]
 
 .. Configuration of uploads to Cloudsmith destinations:
 ... ci\cloudsmith-upload.sh points to  ..cmake\in-files\cloudsmith-upload.sh.in
@@ -63,7 +63,7 @@ Is not preferred due possibility of pushing all old tags..
 . git push origin refs/tags/v1.9.5.10
   -  Enumerating objects: 5, done.
   -  remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-  -  To https://github.com/xxxx/weatherfax_pi.git
+  -  To \https://github.com/xxxx/weatherfax_pi.git
   -  * [new tag]           v1.9.5.10 -> v1.9.5.10
 
 . git push origin master
