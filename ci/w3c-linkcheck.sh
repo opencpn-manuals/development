@@ -25,6 +25,7 @@ checklink \
     --exclude bigdumboat.com \
     --exclude  cloudsmith.io/orgs/opencpn \
     --exclude cruisersforum.com \
+    --exclude firebasestorage.googleapis.com \
     --exclude github.com/travis-ci \
     --exclude mailto: \
     --exclude opencpn.org \

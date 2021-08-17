@@ -7,7 +7,7 @@ and metadata.
 This documentation is a WIP. Current parts:
 
 * xref:pm-tp-dev-setup.adoc[PI Manager Dev Setup]
-* xref:testplugin.adoc[Testplugin and Frontend2]
+* xref:pm-tp-template.adoc[Testplugin and Frontend2]
 
 FIXME: This is moved from languages: it's specific for the
 testplugin setup, but certainly don't belong here.

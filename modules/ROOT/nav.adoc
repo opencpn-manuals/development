@@ -58,7 +58,6 @@
 *** xref:building-on-armhf-linux-armbian-orange-pi.adoc[armhf linux - Armbian - Orange Pi]
 *** xref:vs2015_workflow.adoc[Compile 2015 VS Community Workflow]
 *** xref:compile_windows_2013_vs_community.adoc[Compile 2013 VS Community Workflow]
-*** xref:compile_windows_2013_vs_community_ov4.2-4.8.8.adoc[Compile 2013 VS Community Workflow ov4.2-4.8.8]
 *** xref:ci-push-linux-build-to-launchpad.adoc[CI: Push Linux Build to Launchpad]
 *** xref:codacy.adoc[Codacy:Automate code quality]
 *** xref:testquality.adoc[TestQuality -Test Management]
