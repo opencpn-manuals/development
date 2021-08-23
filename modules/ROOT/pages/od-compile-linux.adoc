@@ -18,14 +18,8 @@ is the ultimate source for how to build on Linux.
 
 === 1. Install build dependencies
 
-    $ sudo apt install  devscripts equivs
+    $ sudo apt install devscripts equivs
     $ sudo mk-build-deps -i -r ci/control
-    $ sudo apt-get --allow-unauthenticated install -f
-
-For Ubuntu-focal :
-
-    $ sudo apt install  devscripts equivs
-    $ sudo mk-build-deps -i -r ci/control-focal-gtk3
     $ sudo apt-get --allow-unauthenticated install -f
 
 Notes:
