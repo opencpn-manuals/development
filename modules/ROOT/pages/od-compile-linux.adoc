@@ -4,7 +4,7 @@ image::opencpn_dev_linux_0.png[width=50]
 == Documented platforms
 
 The documentation here covers Debian/Ubuntu and Flatpak. Debian .deb
-packages and Flatpaks is the primary deployment platforms for Linux.
+packages and Flatpaks are the primary deployment platforms for Linux.
 It is certainly possible to compile OpenCPN on other Linux distributions
 by adapting these instructions.
 
@@ -88,6 +88,8 @@ _runtime-version:_. Install the proper runtime and Sdk, for example:
     $ cd build
     $ make -f ../flatpak/Makefile build
 
+The makefile will build the flatpak version and also install it.
+
 === 4. Run
 
     $ flatpak run org.opencpn.OpenCPN
@@ -98,12 +100,9 @@ The flatpak'ed OpenCPN runs in a sandbox, so specialized debugging techniques
 must be applied.
 See  https://docs.flatpak.org/en/latest/debugging.html[The flatpak site]
 
+== Compiling for Raspberry Pie (RPi)
 
-The makefile will build the flatpak version and also install it.
-
-== Compiling for Raspberry Pie (rPI)
-
-From rPI 4 the board has resources enough to run a native build, which is
+From RPi 4 the board has resources enough to run a native build, which is
 performed according to the instructions for xref:#build_debian[Debian].
 At the time of writing, it is unclear if this is possible on a rPI 3
 with 1MB of RAM.
@@ -115,22 +114,22 @@ NOTE: Fixme
 == IDEs
 
 It is possible to use various IDEs to edit OpenCPN's code on Linux.
-Choosing one of *http://www.codeblocks.org/[Code::Blocks]*,
-*https://www.kdevelop.org/[KDevelop]* or *http://eclipse.org/cdt/[Eclipse]*
-*http://eclipse.org/cdt/[CDT]* simplifies since cmake supports
+Choosing one of https://www.kdevelop.org/[KDevelop] or
+http://eclipse.org/cdt/[Eclipse] simplifies since cmake supports
 generating their project files. To this end replace the cmake configuration
 step with one of the following, corresponding to the used IDE.
 In all cases it will still be possible to do the commandline build as
 described above.
 
-    $ cmake -G "CodeBlocks - Unix Makefiles" ../
-
     $ cmake -G "KDevelop3 - Unix Makefiles" ../
 
     $ cmake -G "Eclipse CDT4 - Unix Makefiles" ../
 
-To prototype the GUI parts of the application, have a look a
+Initially, many of the dialogs was developed using
 https://sourceforge.net/projects/wxformbuilder/[wxFormBuilder].
+However, the sources has since long been patched "manually" and it is
+not possible to maintain them using this tool which basically has
+been abandoned in the project.
 
 In order to be able to run OpenCPN from inside the IDE without having it
 installed data needs to be copied to the build/ folder according to
@@ -144,3 +143,6 @@ installed data needs to be copied to the build/ folder according to
 opencpn should be run with the -p options which sets it into 'portable'
 mode and therefore looks in the location the 'opencpn' executable is run
 from, i.e. the 'build' directory.
+
+Creating a working IDE setup is somewhat complex, and the details varies
+between different IDEs.
