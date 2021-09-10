@@ -113,17 +113,33 @@ NOTE: Fixme
 
 == IDEs
 
-It is possible to use various IDEs to edit OpenCPN's code on Linux.
-Choosing one of https://www.kdevelop.org/[KDevelop] or
-http://eclipse.org/cdt/[Eclipse] simplifies since cmake supports
-generating their project files. To this end replace the cmake configuration
-step with one of the following, corresponding to the used IDE.
-In all cases it will still be possible to do the commandline build as
-described above.
+=== http://eclipse.org/cdt/[Eclipse]
 
-    $ cmake -G "KDevelop3 - Unix Makefiles" ../
+The current version 2021-06 (4.20.0) has native support for cmake projects.
+It is thus possible to just create a new CMake project based on current
+sources out of the box. There is thus no need to use the
+unmaintained `cmake -G "Eclipse CDT4 - Unix Makefiles" ../` cmake
+project generation.
 
-    $ cmake -G "Eclipse CDT4 - Unix Makefiles" ../
+However, this version suffers from
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=400073[] which makes it
+impossible to index the sources. Without indexing, eclipse does not
+add that much value.
+
+=== https://www.kdevelop.org/[KDevelop]
+
+Current version  5.6.2 has native support for CMake project. There
+is thus no need to use the unmaintained
+`cmake -G "KDevelop3 - Unix Makefiles" ../` cmake project generation
+tools.
+
+=== https://www.jetbrains.com/clion/[CLion]
+
+There are some reports without details from users using CLion for OpenCPN
+development. CLion is commercial software, but are giving out
+free licenses for open source development in certain cases.
+
+=== https://sourceforge.net/projects/wxformbuilder/[wxFormBuilder]
 
 Initially, many of the dialogs was developed using
 https://sourceforge.net/projects/wxformbuilder/[wxFormBuilder].
@@ -131,7 +147,9 @@ However, the sources has since long been patched "manually" and it is
 not possible to maintain them using this tool which basically has
 been abandoned in the project.
 
-In order to be able to run OpenCPN from inside the IDE without having it
+=== Running inside an IDE
+
+In order to be able to run OpenCPN from inside the IDE
 installed data needs to be copied to the build/ folder according to
 
   $ cd build
