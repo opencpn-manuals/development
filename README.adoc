@@ -1,3 +1,4 @@
 = Antora OpenCPN Developer Manual 
 
-This is a WIP, and should not be consulted for info of any kind.
+Sources for the OpenCPN developer manual, published at
+https://opencpn-manuals/main

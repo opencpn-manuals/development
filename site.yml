@@ -24,7 +24,7 @@ content:
         - manual/beta-plugins
 
 
-ui:   
+ui:
   bundle:
     url: ./ui-bundle.zip
     snapshot: true
@@ -44,5 +44,5 @@ asciidoc:
     page-resource_3_url: https://github.com/opencpn/OpenCPN
     page-resource_4_title: Bugtracker
     page-resource_4_url: https://opencpn.org/flyspray/
-    page-resource_5_title: Plugin Manual (WIP)
-    page-resource_5_url: https://opencpn-manuals.github.io/plugins/
+    page-resource_5_title: Plugin Manual
+    page-resource_5_url:  https://opencpn-manuals.github.io/main/opencpn-plugins/0.1/index.html
