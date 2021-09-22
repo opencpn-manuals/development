@@ -33,7 +33,7 @@ xref:plugin-installer::Catalog.adoc[the catalog documenation].
 == Documentation
 
 Plugins should properly documented as described in the
-xref:pm-plugin-documentation.adoc[documentation page].
+xref:opencpn-plugins:authoring:pm-plugin-documentation.adoc[documentation page].
 
 == Internationalization (i18n)
 

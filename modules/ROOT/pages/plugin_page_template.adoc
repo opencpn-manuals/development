@@ -9,7 +9,7 @@
 == Documentation
 
 *Please make a User Guide. More information is given
-xref:pm-plugin-documentation.adoc[here].
+xref:opencpn-plugins:authoring:pm-plugin-documentation.adoc[here].
 
 == User Guide
 
