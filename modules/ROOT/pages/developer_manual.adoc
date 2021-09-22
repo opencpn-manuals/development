@@ -1,17 +1,5 @@
 = Developer Manual 
 
-Developer Guide, Plugins, Compiling, API, Troubleshooting, Bug and
-Feature Tracking, Trouble shooting, etc. This section is the playground
-of the thriving OpenCPN Development Community. Programmers please
-become a Manager "Editor" by contacting one of the
-https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:editors#administrators_of_opencpn_dokuwiki[Admin]
-and https://www.cruisersforum.com/forums/private.php?do=newpm&u=105199[PM Mike]
-to communicate with other programmers and play in this area, join
-https://github.com/OpenCPN/OpenCPN[Opencpn github.com]
-the programming community and its many
-https://github.com/search?utf8=%E2%9C%93&q=opencpn[Plugins on Github]
-
-
 == Thank you Dave!
 
 image:dave02.jpg[Dave and Kathi]
