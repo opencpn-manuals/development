@@ -82,7 +82,7 @@ release and the debug version. Instead of using git clone, you can
 download the wxWidgets sources manually from
 https://github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2[https:__github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2]].
 * Alternatively there is a faster way to get started, by just getting
-wxWidgets prebuilt from [[https:__download.opencpn.org/s/E2p4nLDzeqx4SdX/download|wxWidgets-3.1.2.7z]].
+wxWidgets prebuilt from https:__download.opencpn.org/s/E2p4nLDzeqx4SdX[wxWidgets-3.1.2.7z].
 This however is not suitable for serious development or debugging as
 only release configuration libraries are included.
 
