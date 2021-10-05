@@ -50,7 +50,7 @@ https://nsis.sourceforge.io/Download
 
 * Download the setup package from http://gnuwin32.sourceforge.net/packages/gettext.htm
 * Install
-* Add *C:\Program Files (x86)\GnuWin32\bin*
+* Add *C:\Program Files (x86)\GnuWin32\bin* to your PATH
 
 === 7-Zip
 
