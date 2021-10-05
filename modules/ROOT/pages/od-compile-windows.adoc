@@ -46,6 +46,12 @@ https://poedit.net/[https://poedit.net]
 https://nsis.sourceforge.io/Download
 * Install
 
+=== GNU gettext
+
+* Download the setup package from http://gnuwin32.sourceforge.net/packages/gettext.htm
+* Install
+* Add *C:\Program Files (x86)\GnuWin32\bin*
+
 === 7-Zip
 
 * Download 7-Zip from https://www.7-zip.org/download.html
