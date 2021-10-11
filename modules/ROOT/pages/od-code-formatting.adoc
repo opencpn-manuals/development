@@ -33,9 +33,10 @@ and CMakeLists.txt.
 clang is part of the llvm tools. These are usually installed using package
 managers like choco (Windows), brew (MacOS) or apt (Debian/Ubuntu).
 
-To format a C, C++ or header file with clang-format use
+To format a C, C++ or header file with clang-format with the project's default 
+configuration use:
 
-    clang-format -i --style=file <filename>
+    clang-format -i  <filename>
 
 == Using  cmake-format
 
