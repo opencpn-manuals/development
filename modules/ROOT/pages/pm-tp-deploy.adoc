@@ -9,7 +9,7 @@ See and follow xref:pm-overview-prereq-other.adoc[Setup free opensource Cloudsmi
 
 
 
-===Requires
+=== Requires
 . Cloudsmith Account
 . Make your accunt name visible and public under settings
 . Then join by PM rgleason or resbats on Cruiser's Forum
