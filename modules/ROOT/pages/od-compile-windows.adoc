@@ -79,11 +79,6 @@ nmake /f makefile.vc BUILD=debug SHARED=1 CXXFLAGS=/D_USING_V141_SDK71_ CFLAGS=/
 * Set the environment variable *wxWIDGETS_ROOT_DIR* with a value of the
 top level directory of your wxWidgets source tree.
 
-==== wxWidgets with Visual Studio 2019/2017
-
-Getting Visual Studion setup to use wxWidgets can sometimes be difficult. Here is a video which makes the setup process clearer using Visual Studio Interface.
-  https://www.youtube.com/watch?v=sRhoZcNpMb4[wxWidgets with Visual Studio 2019/2017]
-
 ==== Alternatives:
 
 * The commands on this page refers to C:\users\myname\Sources as the
@@ -96,6 +91,11 @@ https://github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2[https:__github.com/wx
 wxWidgets prebuilt from https://download.opencpn.org/s/E2p4nLDzeqx4SdX[wxWidgets-3.1.2.7z].
 This however is not suitable for serious development or debugging as
 only release configuration libraries are included.
+
+==== Another Alternative: wxWidgets with Visual Studio 2019/2017
+
+Getting Visual Studio setup to use wxWidgets can sometimes be difficult. Here is a video which makes the setup process clearer using Visual Studio Interface.
+  https://www.youtube.com/watch?v=sRhoZcNpMb4[wxWidgets with Visual Studio 2019/2017]
 
 === Getting and building OpenCPN source
 
