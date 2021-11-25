@@ -91,11 +91,7 @@ https://github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2[https:__github.com/wx
 wxWidgets prebuilt from https://download.opencpn.org/s/E2p4nLDzeqx4SdX[wxWidgets-3.1.2.7z].
 This however is not suitable for serious development or debugging as
 only release configuration libraries are included.
-
-==== Another Alternative: wxWidgets with Visual Studio 2019/2017
-
-Getting Visual Studio setup to use wxWidgets can sometimes be difficult. Here is a video which makes the setup process clearer using Visual Studio Interface.
-  https://www.youtube.com/watch?v=sRhoZcNpMb4[wxWidgets with Visual Studio 2019/2017]
+* Video: https://www.youtube.com/watch?v=sRhoZcNpMb4[wxWidgets with Visual Studio 2019/2017]  Getting Visual Studio setup to use wxWidgets can sometimes be difficult, this video uses the Visual Studio Interface.
 
 === Getting and building OpenCPN source
 
