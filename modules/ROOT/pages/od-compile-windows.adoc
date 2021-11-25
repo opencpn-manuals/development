@@ -79,6 +79,11 @@ nmake /f makefile.vc BUILD=debug SHARED=1 CXXFLAGS=/D_USING_V141_SDK71_ CFLAGS=/
 * Set the environment variable *wxWIDGETS_ROOT_DIR* with a value of the
 top level directory of your wxWidgets source tree.
 
+==== wxWidgets with Visual Studio 2019/2017
+
+Getting Visual Studion setup to use wxWidgets can sometimes be difficult. Here is a video which makes the setup process clearer using Visual Studio Interface.
+  https://www.youtube.com/watch?v=sRhoZcNpMb4[wxWidgets with Visual Studio 2019/2017]
+
 ==== Alternatives:
 
 * The commands on this page refers to C:\users\myname\Sources as the
@@ -86,7 +91,7 @@ directory for all sources. Obviously one can use other directories.
 * The commands above download the sources from GitHub and then build the
 release and the debug version. Instead of using git clone, you can
 download the wxWidgets sources manually from
-https://github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2[https:__github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2]].
+https://github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2[https:__github.com/wxWidgets/wxWidgets/releases/tag/v3.1.2].
 * Alternatively there is a faster way to get started, by just getting
 wxWidgets prebuilt from https://download.opencpn.org/s/E2p4nLDzeqx4SdX[wxWidgets-3.1.2.7z].
 This however is not suitable for serious development or debugging as
@@ -141,7 +146,7 @@ cmake --build . --config release --target package
 (x86)\OpenCPN\ as installation directory to avoid unnecessary issues
 when installing plugins.
 
-===== Alternatives:
+==== Alternatives:
 
 * Instead of running the last 3 cmake-commands, one could also start
 Visual Studio, open the generated solutionfile `+OpenCPN.sln+` and build
@@ -169,7 +174,7 @@ as Startup Project"
 
 Now Opencpn should be ready to debug.
 
-===== BatchUTILS
+==== BatchUTILS
 
 https://github.com/transmitterdan/BatchUTILS[BatchUTILS] is another
 alternative that is a more complete set of batch files to assist
