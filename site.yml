@@ -13,8 +13,7 @@ content:
       branches: main
       edit_url: true
     - url: https://github.com/Rasbats/managed_plugins
-      # tags: 0.1
-      branches: main
+      branches: asciidoc
       start_path: manual
     - url: https://github.com/opencpn-manuals/plugins.git
       branches: main
