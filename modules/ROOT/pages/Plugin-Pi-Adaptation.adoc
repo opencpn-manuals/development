@@ -1,0 +1,79 @@
+= Plugin Installer Source Code Adaptation.
+
+A plugin which has not been adapted to the plugin manager needs some
+modifications to work. This page tries to describe these changes in
+short.
+
+* *Use API 16:* Update the source code to use API 16.
+* *Use `GetPluginDataDir()` to locate plugins data directory*
+* *Review data directory usages*
+
+These changes should be enough for most plugins. However, more complicated
+plugins might need to consider the more complete list available in the
+xref:plugin-installer::Plugin-adaptation.adoc[installer documentation].
+
+== Changes associated with API 16
+
+* The plugin api reference is changed from `opencpn_plugin_110` to
+`opencpn_plugin_116`.
+
+== Change needed for the managed process
+
+* `GetPluginDataDir()` is used instead of `*GetpSharedDataLocation()`.
+
+== Review data directory usages
+
+A plugin is related to two different data directories:
+
+  - The installation directory, handled by the installer. This is a read-only
+    directory preloaded with data from the plugin.  It is owned by
+    the installer and plugin must not change this data. The path is
+    retrieved using `GetPluginDataDir()`.
+  - The plugin's private data directory. This is a directory created
+    within the configuration directory, used for persistent plugin
+    data. The base directory is retrieved using
+    `getpPrivateApplicationDataLocation()`
+
+See the xref:plugin-installer::Terminology.adoc[installer docs] to see the
+actual paths for these directories on different platforms.
+
+There has been multiple bugs related to plugins which have been writing data
+into the installation directory. Such usage must be patched to work properly
+with the installer. This is not a new requirement, but the installer is
+overall more picky.
+
+== Addition for MacOSX
+
+* wxInitAllImageHandlers(): Ensures the png image is recognised on the
+Mac
+
+TideFinder_pi::TideFinder_pi(void *ppimgr) :opencpn_plugin_116 (ppimgr)
+\{ // Create the PlugIn icons initialize_images();
+
+....
+  wxFileName fn;
+
+  auto path = GetPluginDataDir("TideFinder_pi");
+  fn.SetPath(path);
+  fn.AppendDir("data");
+  fn.SetFullName("tidefinder_panel_icon.png");
+
+  path = fn.GetFullPath();
+
+  wxInitAllImageHandlers();
+
+  wxLogDebug(wxString("Using icon path: ") + path);
+  if (!wxImage::CanRead(path)) {
+      wxLogDebug("Initiating image handlers.");
+      wxInitAllImageHandlers();
+  }
+  wxImage panelIcon(path);
+  if (panelIcon.IsOk())
+      m_panelBitmap = wxBitmap(panelIcon);
+  else
+      wxLogWarning("TideFinder panel icon has NOT been loaded");
+
+  m_bShowTideFinder = false;
+....
+
+}
