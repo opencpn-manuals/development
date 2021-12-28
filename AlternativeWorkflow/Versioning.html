@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Versioning :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/AlternativeWorkflow/Versioning.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="AlternativeWorkflow" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Overview.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Metadata-Flow.html">Metadata Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="Plugin-Adaptation.html">Adapting the Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="usage.html">Local Builds</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Local-Build.html">Build Dependencies</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="InstallConfigure.html">CI Services Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="InstallConfigure/GithubPreps.html">Github OpenCPN/plugins fork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="InstallConfigure/Cloudsmith.html">Cloudsmith</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="InstallConfigure/Builders/IntroBuilders.html">Builders</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/Appveyor.html">Appveyor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/CircleCI.html">CircleCI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/Drone.html">Drone.io</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/Travis.html">Travis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/BuilderEnv.html">Builder environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="InstallConfigure/GitHub.html">Final checks and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="InstallConfigure/Catalog-Github-Integration.html">Creating a catalog PR</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="Versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Useful-Stuff.html">Useful information</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Local-ci-build.html">Local CI builds (experimental)</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Shipdriver Managed Workflow for the OpenCPN plugins</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../ocpn-dev-manual/5.3.1/index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../ocpn-dev-manual/5.3.1/index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../opencpn-plugins/0.1/index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../opencpn-plugins/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../ocpn-dev-manual/5.3.1/intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></li>
+    <li><a href="Versioning.html">Versioning</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/Rasbats/managed_plugins/edit/main/manual/modules/ROOT/pages/Versioning.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Versioning</h1>
+<div class="sect1">
+<h2 id="_general"><a class="anchor" href="#_general"></a>General</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Shipdriver Templates versioning support consists of some major parts</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The overall syntax is based on semantic versioning 2.0 as defined in
+<a href="https://semver.org/" class="bare">https://semver.org/</a> with some minor differences, notably a fourth digit</p>
+</li>
+<li>
+<p>The base version defined in Plugin.cmake</p>
+</li>
+<li>
+<p>Automatically assigned unique versions for each build.</p>
+</li>
+<li>
+<p>A possible git tag attached to the commit which overrides all other
+versioning</p>
+</li>
+<li>
+<p>The Cloudsmith push logic, which selects the repository to use based
+on the git tag, if any.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These parts could be used in different workflows.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_syntax"><a class="anchor" href="#_the_syntax"></a>The Syntax</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The version syntax is basically</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>major.minor.patch[.tweak][-prerelease]+[buildinfo_]target</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An example:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>3.0.1+456.0a59905_flatpak-aarch64-20.08</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3.0.1 represents major.minor.patch. The 'tweak'  part is not set, it is
+then 0 and not visible.</p>
+</div>
+<div class="paragraph">
+<p>A <em>prerelease</em> part like <em>-beta1</em> is not set.</p>
+</div>
+<div class="paragraph">
+<p><em>buildinfo</em> is '456.0a59905', a build number and the git hash (below)</p>
+</div>
+<div class="paragraph">
+<p><em>target</em> is 'flatpak-aarch64-20.08'. The last part is a version number, the
+rest a valid target. The list of valid targets is available in '&lt;target&gt;'
+in the file
+<a href="https://github.com/OpenCPN/plugins/blob/master/ocpn-plugin.xsd">
+ocpn-plugin.xsd</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_base_version"><a class="anchor" href="#_the_base_version"></a>The Base Version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The base version is setup in Plugin.cmake. It consists of PKG_VERSION and
+PKG_PRERELEASE.</p>
+</div>
+<div class="paragraph">
+<p>PKG_VERSION could be set to a value like '3.0.1' or '3.0.1.4' which will go
+into the base version (above).</p>
+</div>
+<div class="paragraph">
+<p>PKG_PRERELEASE could be set to a value like 'beta1' which then will make up
+for a base version like '3.0.1-beta1'.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_automatic_build_info"><a class="anchor" href="#_automatic_build_info"></a>Automatic Build Info</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Without a tag (below) the templates adds a buildinfo part like
+'456.0a59905_flatpak-20.08-aarch64' which contains a build number, the
+git commit hash and a target platform. This ensures that different builds
+always have unique build info which also is sortable.</p>
+</div>
+<div class="paragraph">
+<p>When a build number is not available, for example in local builds, a
+timestamp is used instead.</p>
+</div>
+<div class="paragraph">
+<p>On a sidenote the templates adds more complete build info, usually a link
+to the ci build, as a comment in the XML metadata.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_tags"><a class="anchor" href="#_git_tags"></a>Git Tags</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If a git tag pointing to the commit being built exists, the tag is used
+as version. This means that the tag completely overrides both the base version
+defined in Plugin.cmake and the automatic build info.</p>
+</div>
+<div class="paragraph">
+<p>That is, if the git tag is <em>1.0.3-alpha1</em> the version in <em>1.0.3-alpha1</em>,
+whatever the contents of Plugin.cmake.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloudsmith_uploads"><a class="anchor" href="#_cloudsmith_uploads"></a>Cloudsmith Uploads</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The templates configures three different Cloudsmith repositories. The naming
+schemes differs somewhat:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Commits without a git tag are pushed to the unstable/Alpha repository.</p>
+</li>
+<li>
+<p>Commits with a git tag matching 'beta' or 'rc' is pushed to the
+Beta repository.</p>
+</li>
+<li>
+<p>Commits with any other tag is pushed to the stable/Prod repository.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>How these are configured to actual repositories is described in the
+<a href="InstallConfigure/BuilderEnv.html#custom-cloudsmith-repositories" class="page">
+Builder Environment Page</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_proposed_workflow"><a class="anchor" href="#_proposed_workflow"></a>Proposed Workflow.</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All sorts of versioning schemes are possible using the tools described above.
+The simplest way (personal view):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Assume we have just released 1.3.2</p>
+</li>
+<li>
+<p>The new cycle aiming for the 1.3.3 release is started by updating PKG_VERSION
+to 1.3.3</p>
+</li>
+<li>
+<p>New commits are added. When there is a need to test, the system generates
+automatic versions which are perfectly usable, there is no need to touch
+PKG_VERSION.</p>
+</li>
+<li>
+<p>The automatic version works both in local and in CI builds. CI builds will
+pushed to the Cloudsmith Alpha/unstable repository.</p>
+</li>
+<li>
+<p>When it&#8217;s time for the first beta, the commit is tagged with a tag
+'1.3.3-beta1'. The version then becomes '1.3.3-beta1'. A CI build will be
+pushed the the cloudsmith beta repository, and the build can be published.</p>
+</li>
+<li>
+<p>The final release is tagged with '1.3.3'. This then becomes the stable
+version. The CI build will be uploaded to the stable/Prod repository.</p>
+</li>
+<li>
+<p>Rinse and repeat.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Other workflows are based on updating PKG_VERSION for each build. The primary
+drawback is that this means that the version needs to be defined <strong>both</strong> in
+Plugin.cmake and the git tag&#8201;&#8212;&#8201;only the git tag creates a "clean" version
+without buildinfo.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

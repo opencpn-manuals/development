@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Shipdriver template for OpenCPN Plugins :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/AlternativeWorkflow/index.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="AlternativeWorkflow" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Overview.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Metadata-Flow.html">Metadata Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="Plugin-Adaptation.html">Adapting the Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="usage.html">Local Builds</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Local-Build.html">Build Dependencies</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="InstallConfigure.html">CI Services Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="InstallConfigure/GithubPreps.html">Github OpenCPN/plugins fork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="InstallConfigure/Cloudsmith.html">Cloudsmith</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="InstallConfigure/Builders/IntroBuilders.html">Builders</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/Appveyor.html">Appveyor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/CircleCI.html">CircleCI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/Drone.html">Drone.io</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/Builders/Travis.html">Travis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="InstallConfigure/BuilderEnv.html">Builder environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="InstallConfigure/GitHub.html">Final checks and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="InstallConfigure/Catalog-Github-Integration.html">Creating a catalog PR</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="Versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Useful-Stuff.html">Useful information</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Local-ci-build.html">Local CI builds (experimental)</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Shipdriver Managed Workflow for the OpenCPN plugins</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../ocpn-dev-manual/5.3.1/index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../ocpn-dev-manual/5.3.1/index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../opencpn-plugins/0.1/index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../opencpn-plugins/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../ocpn-dev-manual/5.3.1/intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></li>
+    <li><a href="index.html">Shipdriver template for OpenCPN Plugins</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/Rasbats/managed_plugins/edit/main/manual/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Shipdriver template for OpenCPN Plugins</h1>
+<div class="sect1">
+<h2 id="_the_template_at_a_glance"><a class="anchor" href="#_the_template_at_a_glance"></a>The template at a glance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The shipdriver template is a buildsystem template which can be
+applied to any OpenCPN plugin. The template provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Generation of tarballs which can be used by the plugin installer</p>
+</li>
+<li>
+<p>Well-defined local builds of tarballs which can be imported</p>
+</li>
+<li>
+<p>Uploading of tarballs to Cloudsmith</p>
+</li>
+<li>
+<p>Generation of XML metadata with correct download urls and tarball checksum</p>
+</li>
+<li>
+<p>Support for making PRs to the plugins project (i.e., the catalog) by
+committing metadata automatically into git.</p>
+</li>
+<li>
+<p>Simple, script-based template updates.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This guide should be read alongside the README files in the
+<a href="https://github.com/Rasbats/ShipDriver_pi">ShipDriver repository</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_overall_managed_plugin_flow"><a class="anchor" href="#_the_overall_managed_plugin_flow"></a>The overall managed plugin flow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A managed plugin becomes available for an OpenCPN user in the Plugins
+options dialog. Here, a number of plugins are available for users so
+they can just click on a plugin to install it. The managed plugins workflow
+is the way a plugin becomes available for users in this UI dialog.</p>
+</div>
+<div class="paragraph">
+<p>In general, plugin code flows like this:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Source code is stored and eventually tagged and released on Github</p>
+</li>
+<li>
+<p>As soon as a change is committed a number of builder services build
+the code for around 10 platforms.</p>
+</li>
+<li>
+<p>The compiled plugins are stored on cloudsmith. Here, they get a url
+which can be used to download them.</p>
+</li>
+<li>
+<p>The builds also produce <a href="Metadata-Flow.html" class="page">metadata files</a> with
+plugin data such as name, platform, various info and the download URL.</p>
+</li>
+<li>
+<p>The metadata files are used to create a catalog. This catalog is the
+underpinning for the list of plugins in the OpenCPN plugin dialog.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_template_installation"><a class="anchor" href="#_template_installation"></a>Template installation.</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The template installation process is described in the
+<a href="Overview.html" class="page">Adaptation Overview Page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_background"><a class="anchor" href="#_background"></a>Background</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alec Leamas is the main architect of the managed plugin system for
+OpenCPN. The reference documentation is available
+<a href="https://github.com/leamas/OpenCPN/wiki">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="../ocpn-dev-manual/5.3.1/pm-overview-deployment.html" class="page">
+OpenCPN Developers Manual</a> has extensive general documentation for
+managed plugins. It also describes the two alternative template systems
+testplugin and shipdriver. This document provides more info on the
+shipdriver setup and workflow.</p>
+</div>
+<div class="paragraph">
+<p>A managed plugin will often start as a `legacy' plugin that
+installs locally on the developers machine. Alec has provided new
+scripts to build a managed version of the plugin for OpenCPN. The
+legacy plugin is the starting point and the purpose of this guide is
+to describe the steps involved. The aim is to simplify the workflow.</p>
+</div>
+<div class="paragraph">
+<p>This workflow is not limited to legacy plugins, it can basically be
+applied to any plugin.</p>
+</div>
+<div class="paragraph">
+<p>Mike Rossiter, who developed the ShipDriver and TideFinder plugins,
+assisted by testing the workflow. He has produced this guide to assist
+developers in making a managed plugin. Please report any errors or
+omissions using the issues tab of this GitHub repository.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

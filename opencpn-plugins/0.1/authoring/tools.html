@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tools :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/opencpn-plugins/0.1/authoring/tools.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="opencpn-plugins" data-version="0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OpenCPN Plugins</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home Page</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">General</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/terminology.html">Terminology</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/plugin-install.html">Plugin Installation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/draw-messaging.html">Draw Messaging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplementary hardware</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/ais-devices.html">AIS Devices</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/rpi-setups.html">RPI Setups</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplementary software</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/nmea-software.html">NMEA Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/celestial-nav.html">Celestial Navigation Tool</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Main Plugins</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Included with OpenCPN</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../dashboard/dashboard.html">Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../wmm/wmm.html">World Magnetic</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../grib_weather/grib_weather.html">Grib Weather</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../chart_downloader_tab/chart_downloader_tab.html">Chart Downloader Tab</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">AIS / Radar</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#aisradar:ROOT:index.adoc">AISradar Display</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#radar:ROOT:index.adoc">Radar Display</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#rtlsdr::index.adoc">AIS RTL-SDR</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#ais-vd::index.adoc">AIS-Voyage Data</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Charts</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#s63_vector_charts:ROOT:index.adoc">S63 Vector Charts</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#oesenc::index.adoc">oeSENC Charts</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#photolayer::index.adoc">PhotoLayer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#vfkaps::index.adoc">VfKaps VentureFarther</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#rotationctrl::index.adoc">RotationCtrl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#chartscale::index.adoc">Chartscale</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#objsearch::index.adoc">ObjSearch</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#projections::index.adoc">Projections</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Logs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dashboard_tactics::index.adoc">Dashboard Tactics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#logbook::index.adoc">Logbook</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#findit::index.adoc">Findit</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#vdr::index.adoc">Voyage Data Recorder VDR</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#nmea_converter:ROOT:index.adoc">NMEA Converter</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Navigation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#squiddio::index.adoc">sQuiddio</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#celestial_navigation::index.adoc">Celestial Navigation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#route_great_circle::index.adoc">Route Great Circle</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dead_reckoning::index.adoc">Dead Reckoning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#otcurrent::index.adoc">oTidalCurrent</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../sat2chart/sat2chart.html">Sat2Chart Software</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../wmm/wmm.html">World Magnetic (Included)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Safety</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#ocpn_draw:ROOT:index.adoc">OcpnDraw</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#watchdog::index.adoc">Watchdog</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#sar::index.adoc">SAR</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Sailing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tactics::index.adoc">Tactics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dashboard_tactics::index.adoc">Dashboard Tactics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#plots::index.adoc">Plots</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#polar::index.adoc">Polar</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#windvane::index.adoc">Windvane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Weather</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#weatherfax::index.adoc">WeatherFax</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../grib_weather/grib_weather.html">Grib Weather (Included)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#climatology::index.adoc">Climatology</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#weather_routing::index.adoc">Weather Routing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Utility</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#statusbar::index.adoc">Statusbar</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#calculator:ROOT:index.adoc">Calculator</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#launcher:ROOT:index.adoc">Launcher</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#debugger:ROOT:index.adoc">Debugger</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#pypilot::index.adoc">Pypilot</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#shipdriver::index.adoc">Shipdriver</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#twocan::index.adoc">TwoCan</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#odometer:ROOT:index.adoc">Odometer</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Beta Plugins</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#engine-dash::index.adoc">Engine Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#race-start:ROOT:index.adoc">Race Start</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tidefinder::index.adoc">TideFinder</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#javascript::index.adoc">JavaScript</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deviation::index.adoc">Deviation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#survey::index.adoc">Survey</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#autopilot-rm::index.adoc">Autopilot Raymarine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#autotrackraymarine::index.adoc">AutoTrackRaymarine Evo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#autopilot_route::index.adoc">Autopilot Route</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#admiralty::index.adoc">Admiralty Tides Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#ncdf::index.adoc">NetCDF Tidal Currents</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#otidalroute::index.adoc">oTidalRoute</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#sailawaynmea::index.adoc">SailawayNMEA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#uktides::index.adoc">UKTides</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#otidalplan::index.adoc">oTidalPlan uses Harmonics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#earthexplorer::index.adoc">Earth Explorer</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">All plugins A-Z</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">A - E</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#admiralty::index.adoc">Admiralty Tides Tables</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#ais-vd::index.adoc">AIS-Voyage Data</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#aisradar:ROOT:index.adoc">AISradar Display</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#autopilot-rm::index.adoc">Autopilot Raymarine</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#autopilot_route::index.adoc">Autopilot Route</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#autotrackraymarine::index.adoc">AutoTrackRaymarine Evo</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#calculator:ROOT:index.adoc">Calculator</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#celestial_navigation::index.adoc">Celestial Navigation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../chart_downloader_tab/chart_downloader_tab.html">Chart Downloader Tab</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#chartscale::index.adoc">Chartscale</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#climatology::index.adoc">Climatology</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../dashboard/dashboard.html">Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dashboard_tactics::index.adoc">Dashboard Tactics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dead_reckoning::index.adoc">Dead Reckoning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#debugger:ROOT:index.adoc">Debugger</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#deviation::index.adoc">Deviation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#earthexplorer::index.adoc">Earth Explorer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#engine-dash::index.adoc">Engine Dashboard</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">F - O</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#findit::index.adoc">Findit</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../grib_weather/grib_weather.html">Grib Weather (Included)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#javascript::index.adoc">JavaScript</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#launcher:ROOT:index.adoc">Launcher</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#logbook::index.adoc">Logbook</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#ncdf::index.adoc">NetCDF Tidal Currents</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#nmea_converter:ROOT:index.adoc">NMEA Converter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#objsearch::index.adoc">ObjSearch</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#ocpn_draw:ROOT:index.adoc">OcpnDraw</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#odometer:ROOT:index.adoc">Odometer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#oesenc::index.adoc">oeSENC Charts</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#otcurrent::index.adoc">oTidalCurrent</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#otidalplan::index.adoc">oTidalPlan uses Harmonics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#otidalroute::index.adoc">oTidalRoute</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">P - R</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#photolayer::index.adoc">PhotoLayer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#plots::index.adoc">Plots</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#polar::index.adoc">Polar</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#projections::index.adoc">Projections</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#pypilot::index.adoc">Pypilot</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#race-start:ROOT:index.adoc">Race Start</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#radar:ROOT:index.adoc">Radar Display</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#rotationctrl::index.adoc">RotationCtrl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#route_great_circle::index.adoc">Route Great Circle</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#rtlsdr::index.adoc">AIS RTL-SDR</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">S - T</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#s63_vector_charts:ROOT:index.adoc">S63 Vector Charts</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#sailawaynmea::index.adoc">SailawayNMEA</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#sar::index.adoc">SAR</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../sat2chart/sat2chart.html">Sat2Chart Software</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#shipdriver::index.adoc">Shipdriver</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#squiddio::index.adoc">sQuiddio</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#statusbar::index.adoc">Statusbar</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#survey::index.adoc">Survey</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tactics::index.adoc">Tactics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tidefinder::index.adoc">TideFinder</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#twocan::index.adoc">TwoCan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">U - Z</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#uktides::index.adoc">UKTides</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#vdr::index.adoc">Voyage Data Recorder VDR</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#vfkaps::index.adoc">VfKaps VentureFarther</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#watchdog::index.adoc">Watchdog</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#weatherfax::index.adoc">WeatherFax</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#weather_routing::index.adoc">Weather Routing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#windvane::index.adoc">Windvane</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../wmm/wmm.html">World Magnetic (Included)</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Authoring the manual</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-plugin-documentation.html">Plugin Documentation Guidelines</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro.html">Manual Maintenance Introduction</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="tools.html">Viewing and Editing Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="localbuild.html">Local Build</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="FAQ.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="useful.html">Useful stuff</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../advanced/advanced.html">Understanding the Github Plugins Manual repository</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenCPN Plugins</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../../ocpn-dev-manual/5.3.1/index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../ocpn-dev-manual/5.3.1/index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../../AlternativeWorkflow/index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../AlternativeWorkflow/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../../ocpn-dev-manual/5.3.1/intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OpenCPN Plugins</a></li>
+    <li>Authoring the manual</li>
+    <li><a href="tools.html">Viewing and Editing Tools</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/opencpn-manuals/plugins/edit/main/manual/plugins/modules/authoring/pages/tools.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Tools</h1>
+<div class="sect1">
+<h2 id="_reading_the_adoc_files"><a class="anchor" href="#_reading_the_adoc_files"></a>Reading the adoc files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Firefox and Chrome have an extension for reading the asciidoc format
+called Asciidoctor.js Live Preview:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/asciidoctor/asciidoctor-browser-extension/" class="bare">https://github.com/asciidoctor/asciidoctor-browser-extension/</a></p>
+</div>
+<div class="paragraph">
+<p>This allows a preview of the page as it would appear in HTML. The
+limitation is that these tools does not understand the Antora markup,
+only Asciidoc. However, in most scenarios this doesn&#8217;t really matter.</p>
+</div>
+<div class="paragraph">
+<p>Also see the <a href="FAQ.html" class="page">FAQ</a> on how to view images in this extension.</p>
+</div>
+<div class="paragraph">
+<p>When editing using <a href="https://code.visualstudio.com">Visual Studio Code</a> the preview option shows how the HTML will appear.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_editing_asciidoc"><a class="anchor" href="#_editing_asciidoc"></a>Editing asciidoc</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Asciidoc files are plain text files which can be edited with any
+text editor. Using a <a href="localbuild.html" class="page">local build</a>, no other
+tools are required.</p>
+</div>
+<div class="paragraph">
+<p>VS Code is a editor which has an asciidoc extension
+(Win, Lin, Mac). <a href="https://code.visualstudio.com" class="bare">https://code.visualstudio.com</a>. For Linux users,
+it is also available as a Flatpak package at
+<a href="https://flathub.org/apps/details/com.visualstudio.code">Flathub</a>
+and and a snap package at <a href="https://snapcraft.io/code">snapcraft</a>
+Using tools like these the need to make a local build and thus
+the need to install Antora can be avoided.</p>
+</div>
+<div class="paragraph">
+<p>VS Code is based on the open-sourced vscode project, but adds some
+features like a C# debugger and anti-features like telemetry. The
+<a href="https://vscodium.com/">vscodium</a> project delivers a clean open-source
+version. Codium is available in major platforms including Windows, MacOS,
+Flatpak and Snap.</p>
+</div>
+<div class="paragraph">
+<p>There are also asciidoc plugins for the ubiquitous IntelliJ and
+Eclipse platforms. Not tested within the project.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

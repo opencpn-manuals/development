@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CI Final checks and testing :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/AlternativeWorkflow/InstallConfigure/GitHub.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="AlternativeWorkflow" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../Overview.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Metadata-Flow.html">Metadata Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../Plugin-Adaptation.html">Adapting the Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../usage.html">Local Builds</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Local-Build.html">Build Dependencies</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../InstallConfigure.html">CI Services Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="GithubPreps.html">Github OpenCPN/plugins fork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Cloudsmith.html">Cloudsmith</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Builders/IntroBuilders.html">Builders</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Appveyor.html">Appveyor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/CircleCI.html">CircleCI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Drone.html">Drone.io</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Travis.html">Travis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="BuilderEnv.html">Builder environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="GitHub.html">Final checks and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="Catalog-Github-Integration.html">Creating a catalog PR</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../Versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../Useful-Stuff.html">Useful information</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Local-ci-build.html">Local CI builds (experimental)</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Shipdriver Managed Workflow for the OpenCPN plugins</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../ocpn-dev-manual/5.3.1/index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ocpn-dev-manual/5.3.1/index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../opencpn-plugins/0.1/index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../opencpn-plugins/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../ocpn-dev-manual/5.3.1/intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></li>
+    <li><a href="../InstallConfigure.html">CI Services Configuration</a></li>
+    <li><a href="GitHub.html">Final checks and testing</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/Rasbats/managed_plugins/edit/main/manual/modules/ROOT/pages/InstallConfigure/GitHub.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CI Final checks and testing</h1>
+<div class="sect1">
+<h2 id="_final_checks"><a class="anchor" href="#_final_checks"></a>Final checks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Have the environment variables been entered for CircleCI, Drone,
+Travis and Appveyor?</p>
+</div>
+<div class="paragraph">
+<p><a href="Builders/CircleCI.html" class="page">CircleCI</a></p>
+</div>
+<div class="paragraph">
+<p><a href="Builders/Drone.html" class="page">Drone</a> or: <a href="Builders/Travis.html" class="page">Travis</a></p>
+</div>
+<div class="paragraph">
+<p><a href="Builders/Appveyor.html" class="page">Appveyor</a></p>
+</div>
+<div class="paragraph">
+<p>Has a deploy key (with write permissions) been added to your
+OpenCPN/plugins fork repo?</p>
+</div>
+<div class="paragraph">
+<p><a href="GithubPreps.html" class="page">Github preparations</a></p>
+</div>
+<div class="paragraph">
+<p>Are the Cloudsmith repos ready to receive your builds?</p>
+</div>
+<div class="paragraph">
+<p><a href="Cloudsmith.html" class="page">Cloudsmith</a></p>
+</div>
+<div class="paragraph">
+<p>Is  the OpenCPN/plugins for ready to accept pushed metadata from
+the builders?</p>
+</div>
+<div class="paragraph">
+<p><a href="Catalog-Github-Integration.html" class="page">Integrating the Catalog with Github</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building_the_plugin"><a class="anchor" href="#_building_the_plugin"></a>Building the plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The builds start with pushing a change to the TideFinder repository.</p>
+</div>
+<div class="paragraph">
+<p>When the changes have been made to the plugin it is a good idea to make
+an untagged build. The builds will arrive in the Cloudsmith
+opencpn/tidefinder-alpha repository. The plugin can be tested for
+functionality by using the <strong>Import plugin…</strong> button in OpenCPN.</p>
+</div>
+<div class="paragraph">
+<p>Now a tagged beta build can be made. The tag name needs to include the
+word `beta'. For example `v1.2.5-beta' This build pushes the plugin
+tarballs and metadata xml files to Cloudsmith opencpn/tidefinder-beta.
+At the same time the metadata files are pushed to the auto branch of
+your GitHub OpenCPN/plugins fork repo.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/cloudsmith/1.tidefinder.beta.repo.jpg" alt="1.tidefinder.beta.repo.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>The beta build can be tested in the same way as the experimental
+untagged version. Use the <strong>Import plugin…</strong> button in OpenCPN.</p>
+</div>
+<div class="paragraph">
+<p>When you want the plugin to be added to the master catalog another
+tagged build is made. The tag name must not contain `beta'. For example
+`v1.2.5'. The source code for tagged builds, either beta or production
+ends up in GitHub TideFinder repo tag pages. The reason for using
+untagged builds initially is to avoid cluttering up this part of your
+GitHub repo. Unwanted tags can be removed
+<a href="../Useful-Stuff.html" class="page">using this technique</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_the_metadata_push"><a class="anchor" href="#_check_the_metadata_push"></a>Check the metadata push</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Check that the builders pushes metadata to the OpenCPN/plugins fork</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ cd plugins
+$ git log --oneline auto~10..auto</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This lists the 10 last commit to the auto branch. You should see something
+like</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>75c771bf 1a21bbc: raspbian-armhf: refactor-2
+b1afafc5 1a21bbc: raspbian-armhf: refactor-2
+d94cbb81 1a21bbc: mingw-x86_64: refactor-2
+8b35bdc6 1a21bbc: ubuntu-x86_64: refactor-2
+77ba0dbf 1a21bbc: debian-x86_64: refactor-2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Don&#8217;t care that much about the commit messages. The important thing is
+that the builders actually have pushed commits to the auto branch.</p>
+</div>
+<div class="paragraph">
+<p><a href="../Overview.html" class="page">&#8592; Shipdriver template overview</a></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

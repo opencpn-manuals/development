@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Compiling on Linux :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/ocpn-dev-manual/5.3.1/od-compile-linux.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ocpn-dev-manual" data-version="5.3.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">OpenCPN Developer Manual</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developer Manual</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Introduction</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-AboutThisManual.html">About this Manual</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-Background.html">Background</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-Community.html">Community</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-Terminology.html">Terminology</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Opencpn development</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Compiling</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-cmake.html">CMake</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="od-compile-linux.html">Linux</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_flatpak">Flatpak</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-windows.html">Windows</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-mac-osx.html">MacOS</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="od-code-formatting.html">Code Formatting</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="od-user-interface-styling.html">User Interface Styling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="od-troubleshooting.html">Troubleshooting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Plugin Development</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugin-devel-overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-plugin-dependencies.html">Dependencies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-plugin-api-versions.html">Plugin API and ABI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-overview-deployment.html">Deployment overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-overview-workflow.html">Workflow overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugin-compat.html">Compatibility and tweaks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dm-i18n.html">Translations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Plugin-Pi-Adaptation.html">Plugin Installer Code Adaptation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pm-tp-template.html">Testplugin Template</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-overview-prereq-workflow.html">Workflow Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-overview-prereq-services.html">Prerequisite Services</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pm-overview-prereq-other.html">Cloudsmith Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="pm-tp-system-structure.html">System Structure</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-dev-setup.html">Developer Setup</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-config-template.html">Configure Template</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Build Locally</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-adapt-plugin.html">Adapt Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-deploy.html">Deploy Details</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pi_installer_dev_procedure.html">PI Manager Dev Procedure</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-update-library.html">Update the Library</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-language-nuance.html">Language Nuances</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-odapi-messaging.html">Odapi Messages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-odapi.html">Odapi for oDraw</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-ocpn_draw_odapi.html">Ocpn_Draw Odapi</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../AlternativeWorkflow/index.html">Shipdriver Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../plugin-installer/0.0.1/Home.html">Plugin Manager Installer Documentation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://opencpn-manuals.github.io/plugins/opencpn-plugins/0.1/index.html">Plugin  Manual</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dm-legacy-plugins.html">Legacy Plugin Packaging</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dm-manual-maint.html">Maintenance of this Manual</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dm-i18n.html">Internationalization</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Resources</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="res-prebuilt-build-files.html">Prebuilt Build Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="res-online-tools.html">Online Nmea Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ECDIS_testdata.html">ECDIS testdata</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="languages.html">Internationalization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compile_mac_osx.html">Compiling on macOS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rpi2.html">Compile on Raspberry PI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="building-on-armhf-linux-armbian-orange-pi.html">armhf linux - Armbian - Orange Pi</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenCPN Developer Manual</span>
+    <span class="version">5.3.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../opencpn-plugins/0.1/index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../opencpn-plugins/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../AlternativeWorkflow/index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../AlternativeWorkflow/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">OpenCPN Developer Manual</a></li>
+    <li>Developer Manual</li>
+    <li>Opencpn development</li>
+    <li>Compiling</li>
+    <li><a href="od-compile-linux.html">Linux</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/opencpn-manuals/development/edit/build/modules/ROOT/pages/od-compile-linux.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Compiling on Linux</h1>
+<div class="sect1">
+<h2 id="_documented_platforms"><a class="anchor" href="#_documented_platforms"></a>Documented platforms</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The documentation here covers Debian/Ubuntu and Flatpak. Debian .deb
+packages and Flatpaks are the primary deployment platforms for Linux.
+It is certainly possible to compile OpenCPN on other Linux distributions
+by adapting these instructions.</p>
+</div>
+<div class="paragraph">
+<p>The instructions are based on the files in the <em>ci/</em> directory, at the
+time of writing <em>ci/generic_build_debian.sh</em> and
+<em>ci/generic_build_flatpak.sh</em>. These files which are continously tested
+is the ultimate source for how to build on Linux.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build_debian"><a class="anchor" href="#build_debian"></a>Debian/Ubuntu</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_download_source_code"><a class="anchor" href="#_1_download_source_code"></a>1. Download source code</h3>
+<div class="literalblock">
+<div class="content">
+<pre>$ git clone git://github.com/OpenCPN/OpenCPN.git
+$ cd OpenCPN</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_install_build_dependencies"><a class="anchor" href="#_2_install_build_dependencies"></a>2. Install build dependencies</h3>
+<div class="literalblock">
+<div class="content">
+<pre>$ sudo apt install devscripts equivs
+$ sudo mk-build-deps -i -r ci/control
+$ sudo apt-get --allow-unauthenticated install -f</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On Debian Buster and Ubuntu Bionic it is possible to build OpenCPN linked
+against gtk2 or gtk3. The default alternative is to use gtk2.</p>
+</li>
+<li>
+<p>The build setup is generally updated for Debian and Ubuntu LTS
+releases.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_optional_remove_old_installation"><a class="anchor" href="#_3_optional_remove_old_installation"></a>3. Optional: Remove old installation</h3>
+<div class="literalblock">
+<div class="content">
+<pre>$ sudo apt-get remove opencpn</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_build_it"><a class="anchor" href="#_4_build_it"></a>4. Build it</h3>
+<div class="paragraph">
+<p>We&#8217;ll build everything in a subdirectory to keep the codebase clean
+(easier to catch changes).</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ mkdir build
+$ cd build
+$ cmake ..
+$ make</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notes:</p>
+</div>
+<div class="paragraph">
+<p>Default install dir is /usr/local, this can be changed by providing
+the appropriate option to cmake:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ cmake -DCMAKE_INSTALL_PREFIX=/usr ..</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>cmake</em> is only required when building source code for the first time,
+then running <em>make</em> is enough even if the source code is updated.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_install_it_or_create_a_package"><a class="anchor" href="#_5_install_it_or_create_a_package"></a>5. Install it or create a package</h3>
+<div class="literalblock">
+<div class="content">
+<pre>$ sudo make install</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, to create a .deb package:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ make package</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flatpak"><a class="anchor" href="#_flatpak"></a>Flatpak</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_install_flatpak"><a class="anchor" href="#_1_install_flatpak"></a>1. Install flatpak</h3>
+<div class="paragraph">
+<p>Install flatpak and flatpak-builder as described in <a href="https://flatpak.org/setup/" class="bare">https://flatpak.org/setup/</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_install_runtime_and_sdk"><a class="anchor" href="#_2_install_runtime_and_sdk"></a>2. Install runtime and SDK</h3>
+<div class="paragraph">
+<p>At the time of writing version 20.08 is used. Check
+<em>flatpak/org.opencpn.OpenCPN.yaml</em> for the version actually used, look for
+<em>runtime-version:</em>. Install the proper runtime and Sdk, for example:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ sudo flatpak install flathub org.freedesktop.Platform//20.08
+$ sudo flatpak install flathub org.freedesktop.Sdk//20.08</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_build_and_install"><a class="anchor" href="#_3_build_and_install"></a>3. Build and install:</h3>
+<div class="literalblock">
+<div class="content">
+<pre>$ cd build
+$ make -f ../flatpak/Makefile build</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The makefile will build the flatpak version and also install it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_run"><a class="anchor" href="#_4_run"></a>4. Run</h3>
+<div class="literalblock">
+<div class="content">
+<pre>$ flatpak run org.opencpn.OpenCPN</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_debugging"><a class="anchor" href="#_5_debugging"></a>5. Debugging</h3>
+<div class="paragraph">
+<p>The flatpak&#8217;ed OpenCPN runs in a sandbox, so specialized debugging techniques
+must be applied.
+See  <a href="https://docs.flatpak.org/en/latest/debugging.html">The flatpak site</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compiling_for_raspberry_pie_rpi"><a class="anchor" href="#_compiling_for_raspberry_pie_rpi"></a>Compiling for Raspberry Pie (RPi)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From RPi 4 the board has resources enough to run a native build, which is
+performed according to the instructions for <a href="#build_debian">Debian</a>.
+At the time of writing, it is unclear if this is possible on a rPI 3
+with 1MB of RAM.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Fixme
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ides"><a class="anchor" href="#_ides"></a>IDEs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_eclipse"><a class="anchor" href="#_eclipse"></a><a href="http://eclipse.org/cdt/">Eclipse</a></h3>
+<div class="paragraph">
+<p>The current version 2021-06 (4.20.0) has native support for cmake projects.
+It is thus possible to just create a new CMake project based on current
+sources out of the box. There is thus no need to use the
+unmaintained <code>cmake -G "Eclipse CDT4 - Unix Makefiles" ../</code> cmake
+project generation.</p>
+</div>
+<div class="paragraph">
+<p>However, this version suffers from
+<a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=400073" class="bare">https://bugs.eclipse.org/bugs/show_bug.cgi?id=400073</a> which makes it
+impossible to index the sources. Without indexing, eclipse does not
+add that much value.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kdevelop"><a class="anchor" href="#_kdevelop"></a><a href="https://www.kdevelop.org/">KDevelop</a></h3>
+<div class="paragraph">
+<p>Current version  5.6.2 has native support for CMake project. There
+is thus no need to use the unmaintained
+<code>cmake -G "KDevelop3 - Unix Makefiles" ../</code> cmake project generation
+tools.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clion"><a class="anchor" href="#_clion"></a><a href="https://www.jetbrains.com/clion/">CLion</a></h3>
+<div class="paragraph">
+<p>There are some reports without details from users using CLion for OpenCPN
+development. CLion is commercial software, but are giving out
+free licenses for open source development in certain cases.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wxformbuilder"><a class="anchor" href="#_wxformbuilder"></a><a href="https://sourceforge.net/projects/wxformbuilder/">wxFormBuilder</a></h3>
+<div class="paragraph">
+<p>Initially, many of the dialogs was developed using
+<a href="https://sourceforge.net/projects/wxformbuilder/">wxFormBuilder</a>.
+However, the sources has since long been patched "manually" and it is
+not possible to maintain them using this tool which basically has
+been abandoned in the project.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_running_inside_an_ide"><a class="anchor" href="#_running_inside_an_ide"></a>Running inside an IDE</h3>
+<div class="paragraph">
+<p>In order to be able to run OpenCPN from inside the IDE
+installed data needs to be copied to the build/ folder according to</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ cd build
+$ for d in gshhs s57data tcdata; do; cp -ar ../data/$d .; done
+$ mkdir uidata
+$ cp ../src/bitmaps/*.xml ../src/bitmaps/*.png ../src/bitmaps/*.svg uidata
+$ cp ../data/authors.html ../data/license.html .</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>opencpn should be run with the -p options which sets it into 'portable'
+mode and therefore looks in the location the 'opencpn' executable is run
+from, i.e. the 'build' directory.</p>
+</div>
+<div class="paragraph">
+<p>Creating a working IDE setup is somewhat complex, and the details varies
+between different IDEs.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

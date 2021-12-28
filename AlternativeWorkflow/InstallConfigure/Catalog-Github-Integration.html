@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Automatic Metadata Git Push :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/AlternativeWorkflow/InstallConfigure/Catalog-Github-Integration.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="AlternativeWorkflow" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../Overview.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Metadata-Flow.html">Metadata Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../Plugin-Adaptation.html">Adapting the Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../usage.html">Local Builds</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Local-Build.html">Build Dependencies</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../InstallConfigure.html">CI Services Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="GithubPreps.html">Github OpenCPN/plugins fork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Cloudsmith.html">Cloudsmith</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Builders/IntroBuilders.html">Builders</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Appveyor.html">Appveyor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/CircleCI.html">CircleCI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Drone.html">Drone.io</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Travis.html">Travis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="BuilderEnv.html">Builder environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="GitHub.html">Final checks and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="Catalog-Github-Integration.html">Creating a catalog PR</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../Versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../Useful-Stuff.html">Useful information</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Local-ci-build.html">Local CI builds (experimental)</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Shipdriver Managed Workflow for the OpenCPN plugins</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../ocpn-dev-manual/5.3.1/index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ocpn-dev-manual/5.3.1/index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../opencpn-plugins/0.1/index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../opencpn-plugins/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../ocpn-dev-manual/5.3.1/intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></li>
+    <li><a href="Catalog-Github-Integration.html">Creating a catalog PR</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/Rasbats/managed_plugins/edit/main/manual/modules/ROOT/pages/InstallConfigure/Catalog-Github-Integration.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Automatic Metadata Git Push</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Shipdriver-based plugins supports pushing metadata
+to a remote git repository. The goal is to simplify the process for
+creating pull requests against
+<a href="https://github.com/opencpn/plugins">OpenCPN/plugins</a>.</p>
+</div>
+<div class="paragraph">
+<p>When enabled, all metadata files created when the plugin is built are
+replicated to a fork of OpenCPN/plugins set up by the user. This fork
+can be used to make a PR against OpenCPN/plugins. In particular, there
+is no need to download metadata files from Cloudsmith in order to make a
+PR.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The configuration is documented in the <a href="GithubPreps.html" class="page">
+plugins fork configuration page</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_during_the_build"><a class="anchor" href="#_during_the_build"></a>During the build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When the builders are run, the git-push part will</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make a clone of the OpenCPN/plugins fork repository</p>
+</li>
+<li>
+<p>Add the new metadata file.</p>
+</li>
+<li>
+<p>Commit and push the change to the auto branch in the OpenCPN/plugins
+fork</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As mentioned, the changes are pushed to the 'auto' branch by default.
+The branch name can be tweaked using the GIT_BRANCH environment variable
+in the builder.</p>
+</div>
+<div class="paragraph">
+<p>If GIT_KEY_PASSWORD or GIT_REPO is missing git-push will not do anything
+besides some logging.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="make-PR"><a class="anchor" href="#make-PR"></a>Making the Pull Request (PR) to OpenCPN/plugins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The builders have made commits in the OpenCPN/plugins fork&#8217;s auto
+branch, one for each build. These commits are the metadata files which
+work with the plugin installer of the main OpenCPN program. In beta and
+production mode they become part of the beta and master catalogs of
+plugins in OpenCPN.</p>
+</div>
+<div class="sect2">
+<h3 id="_syncing_branches"><a class="anchor" href="#_syncing_branches"></a>Syncing branches</h3>
+<div class="paragraph">
+<p>Before making the pull request to OpenCPN/plugins make sure your fork of
+this is up to date.
+<a href="https://rick.cogley.info/post/update-your-forked-repository-directly-on-github/">This guide</a> has been found useful. Or on the CLI:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ git remote update upstream
+$ git checkout master
+$ git rebase upstream/master
+$ git checkout Beta
+$ git rebase upstream/Beta</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the Beta branch isn&#8217;t used, the last two commands can be omitted.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_master_catalog"><a class="anchor" href="#_master_catalog"></a>Master catalog</h3>
+<div class="paragraph">
+<p>Adding metadata files from the OpenCPN/plugins fork auto branch to the
+master branch goes like this:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ git fetch origin auto:auto
+$ git checkout auto
+$ git rebase master
+$ git checkout master
+$ git merge --squash auto
+$ git commit</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The rebase operation should not be strictly necessary, but will pick up
+possible errors if the metadata has been changed by other means. The
+--squash option lumps the too many commits in the auto branch (one for
+each build) to a single one, keeping the master branch tidy.</p>
+</div>
+<div class="paragraph">
+<p>A PR (pull request) can then be made from the master branch for updating
+the master catalog of OpenCPN/plugins.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_beta_catalog"><a class="anchor" href="#_beta_catalog"></a>Beta catalog</h3>
+<div class="paragraph">
+<p>If you configured for Beta metadata files you need:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ git fetch origin auto:auto
+$ git checkout auto
+$ git rebase Beta
+$ git checkout Beta
+$ git merge --squash auto
+$ git commit</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The new TideFinder metadata files have been added to your
+OpenCPN/plugins fork Beta branch. A PR, if accepted, results in updating
+the Beta catalog of OpenCPN/plugins.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cleaning_up_old_metadata"><a class="anchor" href="#_cleaning_up_old_metadata"></a>Cleaning up old metadata</h3>
+<div class="paragraph">
+<p>Normally, only the last version of the plugin should be available in the
+catalog. The command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    $ ls -lt metadata/my-plugin*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>lists all metadata files for given plugin in date order. Use <code>git rm</code> to
+remove all older files. When completed, commit and  push:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    $ git commit -m "Removing obsoleted metadata."
+    $ git push</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <em>ci/git-push</em> script can be run manually for debugging purposes
+as described in the <a href="../Local-ci-build.html" class="page">Local CI build page</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security"><a class="anchor" href="#_security"></a>Security</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The private ssh key created by new-credentials is encrypted using a
+standard DES alghorithm. There is probably some room to crack this given
+the fact that part of ciphertext is known. The encryption would be
+stronger if the header and trailer of the key wasn&#8217;t encrypted.</p>
+</div>
+<div class="paragraph">
+<p>That said, given the context this should be reasonably safe. At least, a
+separate ssh key is used for this purpose, a key which could be easily
+revoked.</p>
+</div>
+<div class="paragraph">
+<p><a href="../Overview.html" class="page">&#8592; Shipdriver template overview</a></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

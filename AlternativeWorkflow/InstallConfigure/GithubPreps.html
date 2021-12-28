@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Github OpenCPN/plugins fork :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/AlternativeWorkflow/InstallConfigure/GithubPreps.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="AlternativeWorkflow" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../Overview.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Metadata-Flow.html">Metadata Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../Plugin-Adaptation.html">Adapting the Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../usage.html">Local Builds</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Local-Build.html">Build Dependencies</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../InstallConfigure.html">CI Services Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="GithubPreps.html">Github OpenCPN/plugins fork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Cloudsmith.html">Cloudsmith</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Builders/IntroBuilders.html">Builders</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Appveyor.html">Appveyor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/CircleCI.html">CircleCI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Drone.html">Drone.io</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Builders/Travis.html">Travis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="BuilderEnv.html">Builder environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="GitHub.html">Final checks and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="Catalog-Github-Integration.html">Creating a catalog PR</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../Versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../Useful-Stuff.html">Useful information</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../Local-ci-build.html">Local CI builds (experimental)</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Shipdriver Managed Workflow for the OpenCPN plugins</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../ocpn-dev-manual/5.3.1/index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ocpn-dev-manual/5.3.1/index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../opencpn-plugins/0.1/index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../opencpn-plugins/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../ocpn-dev-manual/5.3.1/intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a></li>
+    <li><a href="../InstallConfigure.html">CI Services Configuration</a></li>
+    <li><a href="GithubPreps.html">Github OpenCPN/plugins fork</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/Rasbats/managed_plugins/edit/main/manual/modules/ROOT/pages/InstallConfigure/GithubPreps.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Github OpenCPN/plugins fork</h1>
+<div class="paragraph">
+<p>The shipdriver workflow requires that developer has cloned
+<a href="https://github.com/OpenCPN/plugins">OpenCPN/plugins</a>. During
+builds, metadata files are automatically pushed to this clone. This page
+describes how this is configured.</p>
+</div>
+<div class="paragraph">
+<p>The result is the two environment variables GIT_REPO and GIT_KEY_PASSWORD.
+These variables are used when configuring builders.</p>
+</div>
+<div class="paragraph">
+<p>If maintaining several plugins, this is a one time setup. If there already
+is a plugin setup  according to steps below, copy the files
+<em>build-deps/username.enc</em> and <em>build-deps/username.pub</em> to the current
+plugin and use the same values for GIT_REPO and GIT_KEY_PASSWORD.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, proceed as follows, First check the pre-requisites:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A plugin. Here, TideFinder is used as example.</p>
+</li>
+<li>
+<p>A fork of
+<a href="https://github.com/OpenCPN/plugins.git">https://github.com/OpenCPN/plugins.git</a>
+on Github.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>And then:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Preparations: <a id="Preparations"></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Windows users are best off using git-bash. However, invoking the python
+scripts used here does not work out of the box. In git-bash, use the command
+<code>alias python='winpty python.exe'</code> as a temporary work around before taking
+more actions. See the <a href="https://stackoverflow.com/questions/32597209/">Stack overflow
+question</a> for more info including a more permanent fix.</p>
+</li>
+<li>
+<p>In the OpenCPN/plugins fork, make sure there is a remote named <em>upstream</em>.
+A oneliner fixes this:</p>
+<div class="literalblock">
+<div class="content">
+<pre>$ git ls-remote --exit-code upstream &amp;&gt;/dev/null || \
+    git remote add upstream https://github.com/OpenCPN/plugins.git</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Create a branch called <em>auto</em> in the OpenCPN/plugins fork: <a id="create-auto"></a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>For builds targeting the <strong>master catalog</strong>: drop possible existing auto
+branch and create a new on top of master:</p>
+<div class="literalblock">
+<div class="content">
+<pre>$ git branch -D auto ①
+$ git remote update upstream ②
+$ git checkout -b auto upstream/master ③
+$ git push -f origin auto:auto ④</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Builds targeting the <strong>beta catalog</strong> is handled in a similar way:</p>
+<div class="literalblock">
+<div class="content">
+<pre>$ git branch -D auto ①
+$ git remote update upstream ②
+$ git checkout -b auto upstream/Beta ③
+$ git push -f origin auto:auto ④</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>① Remove any existing auto branch, disregard error messages.<br>
+② Make sure our data about the github catalog is updated.<br>
+③ Create a new branch on top of master or Beta<br>
+④ Unconditionally overwrite the github branch</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You will need the ssh url to your OpenCPN/plugins fork, something like
+<code>git@github.com:Rasbats/plugins.git</code>. This can be found in the Github UI:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/github/1.plugins.jpg" alt="1.plugins.jpg">
+</div>
+</div>
+<div class="paragraph">
+<p>Or, in the OpenCPN/plugins fork, on the command line using<br>
+<code>git config --get remote.origin.url</code></p>
+</div>
+</li>
+<li>
+<p>Run <em>python ci/new-credentials</em> in the TideFinder repo. The script
+will ask for the ssh url to your plugins fork repo and a secret
+password.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the script does not complete on Windows, check that the
+<code>alias python= &#8230;&#8203;</code> command mentioned in <a href="#Preparations">Preparations</a>
+has been executed.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Dont forget the password&#8230;&#8203;</p>
+</li>
+<li>
+<p>The script will create an encrypted private + a public key named
+<em>username.enc</em> and <em>username.pub</em> in the TideFinder <em>build-deps</em> directory.
+Commit and push these keys to Github:</p>
+<div class="literalblock">
+<div class="content">
+<pre>   $ git add build-deps/*.enc build-deps/*.pub
+   $ git commit -m "Add git deployment key."
+   $ git push origin master:master</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In your forked "plugins" repository Register the new public key (displayed
+by new-credentials) as a
+deployment key with write permissions (Allow write access) on your github
+OpenCPN/plugins fork repo (in Settings | Deploy keys):</p>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/github/10.deploy.key.jpg" alt="10.deploy.key.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>After adding the key things should look like:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/github/9.deploy.key.jpg" alt="9.deploy.key.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Note that despite images, the public key is indeed public; there is no
+need to keep it secret.</p>
+</div>
+</li>
+<li>
+<p>Take a note about GIT_REPO and GIT_KEY_PASSWORD, they are used in later
+configuration steps.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><a href="../InstallConfigure.html" class="page">&#8592; Installation and configuration</a></p>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Plugin Development Overview :: OpenCPN Developer Manual</title>
+    <link rel="canonical" href="https://opencpn-manuals.github.io/development/ocpn-dev-manual/5.3.1/plugin-devel-overview.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://opencpn-manuals.github.io/development"
+      >
+        OpenCPN Developer Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ocpn-dev-manual" data-version="5.3.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">OpenCPN Developer Manual</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developer Manual</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Introduction</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-AboutThisManual.html">About this Manual</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-Background.html">Background</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-Community.html">Community</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="intro-Terminology.html">Terminology</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Opencpn development</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Compiling</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-cmake.html">CMake</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-linux.html">Linux</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-linux.html#_flatpak">Flatpak</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-windows.html">Windows</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="od-compile-mac-osx.html">MacOS</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="od-code-formatting.html">Code Formatting</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="od-user-interface-styling.html">User Interface Styling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="od-troubleshooting.html">Troubleshooting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Plugin Development</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="plugin-devel-overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-plugin-dependencies.html">Dependencies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-plugin-api-versions.html">Plugin API and ABI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-overview-deployment.html">Deployment overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pm-overview-workflow.html">Workflow overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugin-compat.html">Compatibility and tweaks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dm-i18n.html">Translations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Plugin-Pi-Adaptation.html">Plugin Installer Code Adaptation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pm-tp-template.html">Testplugin Template</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-overview-prereq-workflow.html">Workflow Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-overview-prereq-services.html">Prerequisite Services</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pm-overview-prereq-other.html">Cloudsmith Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="pm-tp-system-structure.html">System Structure</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-dev-setup.html">Developer Setup</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-config-template.html">Configure Template</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Build Locally</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-adapt-plugin.html">Adapt Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-deploy.html">Deploy Details</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pi_installer_dev_procedure.html">PI Manager Dev Procedure</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-update-library.html">Update the Library</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-language-nuance.html">Language Nuances</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-odapi-messaging.html">Odapi Messages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-odapi.html">Odapi for oDraw</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pm-tp-ocpn_draw_odapi.html">Ocpn_Draw Odapi</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../AlternativeWorkflow/index.html">Shipdriver Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../plugin-installer/0.0.1/Home.html">Plugin Manager Installer Documentation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://opencpn-manuals.github.io/plugins/opencpn-plugins/0.1/index.html">Plugin  Manual</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dm-legacy-plugins.html">Legacy Plugin Packaging</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dm-manual-maint.html">Maintenance of this Manual</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dm-i18n.html">Internationalization</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Resources</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="res-prebuilt-build-files.html">Prebuilt Build Files</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="res-online-tools.html">Online Nmea Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ECDIS_testdata.html">ECDIS testdata</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="languages.html">Internationalization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compile_mac_osx.html">Compiling on macOS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rpi2.html">Compile on Raspberry PI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="building-on-armhf-linux-armbian-orange-pi.html">armhf linux - Armbian - Orange Pi</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenCPN Developer Manual</span>
+    <span class="version">5.3.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">OpenCPN Developer Manual</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">5.3.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../opencpn-plugins/0.1/index.html">OpenCPN Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../opencpn-plugins/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../plugin-installer/0.0.1/Home.html">Plugin Installer Documentation</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../plugin-installer/0.0.1/Home.html">0.0.1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../AlternativeWorkflow/index.html">Shipdriver Managed Workflow for the OpenCPN plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../AlternativeWorkflow/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="intro-AboutThisManual.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">OpenCPN Developer Manual</a></li>
+    <li>Developer Manual</li>
+    <li>Plugin Development</li>
+    <li><a href="plugin-devel-overview.html">Overview</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/opencpn-manuals/development/edit/build/modules/ROOT/pages/plugin-devel-overview.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Plugin Development Overview</h1>
+<div class="sect1">
+<h2 id="_general"><a class="anchor" href="#_general"></a>General</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin documentation is focused around maintaining existing
+plugins. The recommended way to create a new plugin is to use
+an existing plugin as starting point and modify it in steps
+rather than to start from scratch.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api"><a class="anchor" href="#_api"></a>API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin API describes how a plugin interacts with the OpenCPN
+core. It is described in the <a href="pm-plugin-api-versions.html" class="page">API Page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abi"><a class="anchor" href="#_abi"></a>ABI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenCPN is a cross-platform project, and basically every plugin is
+compiled for different platforms. The core OpenCPN evaluates a plugin&#8217;s
+ABI compatibility in a rather strict way as described in the
+<a href="plugin-compat.html" class="page">ABI compatibility page</a>. There is also some
+notes on the ABI in the <a href="pm-plugin-api-versions.html" class="page">API Page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Plugins should take special steps if depending on libraries besides
+those used by the core OpenCPN. More info on this in
+<a href="pm-plugin-dependencies.html" class="page">Dependencies</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment"><a class="anchor" href="#_deployment"></a>Deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since 5.4.0 the plugin installer is the main deployment method. An
+overview can be found  <a href="pm-overview-deployment.html" class="page">here</a>. The
+reference documentation is in the <a href="../../plugin-installer/0.0.1/Home.html" class="page">
+Plugin Installer Site</a>. Plugins deployed this way are available for user to
+install in the OpenCPN GUI.</p>
+</div>
+<div class="paragraph">
+<p>In this scheme, plugins are distributed as archives basically containing
+a metadata description, a dynamic library, data files and
+translations. The installer defines the layout of the archive and
+how these files are installed on the client&#8217;s computer. The exact
+paths involved are described in the
+<a href="../../plugin-installer/0.0.1/Tarballs.html" class="page">Tarball layout page</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Note that all areas described here are owned by the installer
+and must not be modified by the plugin. This includes data files
+and directories created by the installer.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Plugins which need to save configuration and other data uses the configuration
+directory which is described in the
+<a href="../../plugin-installer/0.0.1/Terminology.html#_user_config_path" class="page">Terminology</a> page.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_legacy_deployment"><a class="anchor" href="#_legacy_deployment"></a>Legacy deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Historically, plugins have been distributed as operating system packages.
+All plugins today supports this on at least some platform(s). Some notes
+on this packaging can be found in the <a href="dm-legacy-plugins.html" class="page">Legacy Plugins
+Page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_catalog"><a class="anchor" href="#_catalog"></a>Catalog</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For a plugin to be available for end users, it must be included in the catalog.
+The catalog as well as tooling and processes to maintain it is governed by
+the <a href="https://github.com/opencpn/plugins">catalog project</a> at github.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_templates"><a class="anchor" href="#_templates"></a>Templates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The PI deployment scheme utilizes a number of services to build and distribute
+plugins. There are two sets of templates available:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="pm-tp-template.html" class="page">The testplugin templates</a></p>
+</li>
+<li>
+<p><a href="../../AlternativeWorkflow/index.html" class="page">The shipdriver templates</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The deployment for basically all existing plugins is using one of these two
+sets of templates.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_translations"><a class="anchor" href="#_translations"></a>Translations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Core OpenCPN and plugins shares a common translation process based on the
+<a href="https://en.wikipedia.org/wiki/Gettext">gettext</a> tools and the
+<a href="https://crowdin.com/project/opencpn">crowdin</a> service. The process is
+described in the <a href="dm-i18n.html" class="page">i18n Page</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_documentation"><a class="anchor" href="#_documentation"></a>Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hand-on info on creating plugin documentation can be found in the
+<a href="../../opencpn-plugins/0.1/authoring/author.html" class="page">Plugin Manual</a></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
