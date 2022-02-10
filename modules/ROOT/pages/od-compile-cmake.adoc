@@ -31,16 +31,31 @@ code which can be viewed using _ccmake_.
 . wxWidgets-specific options with a wxWidgets_ prefix, documented in
 https://cmake.org/cmake/help/latest/module/FindwxWidgets.html[]
 
+To get an updated list of OpenCPN options and their comments in code use 
+something like
+....
+ cmake -LH  | grep -B1 OCPN_
+....
+
+
 
 == Build Type -- CMAKE_BUILD_TYPE
 
 The default build type is _RelWithDebInfo_. A common alternative is _Debug_.
 
-== Installation path --  CMAKE_INSTALL_PREFIX
+== Installation paths 
 
-Governs the path where files are installed in the installation package.
-Default is platform-dependent. It's not uncommon to change this to some
-other location.
+CMAKE_INSTALL_PREFIX
+Since 5.0.0 OpenCPN supports the GNU install paths, see
+https://cmake.org/cmake/help/v3.0/module/GNUInstallDirs.html
+
+CMAKE_INSTALL_PREFIX governs the path where files are installed in thei
+installation package. Default is platform-dependent. It's not uncommon to
+change this to some other location.
+
+Use CMAKE_INSTALL_LIBDIR to change the base directory for plugins;
+defaults to library location on most platforms, but is 'lib' on Debian.
+
 
 == Include git data in package name -- OCPN_CI_BUILD
 
