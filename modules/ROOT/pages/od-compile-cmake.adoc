@@ -94,3 +94,17 @@ can be avoided.
 If enabled, the boolean option OCPN_BUNDLE_GSHHS bundles the crude GSHHS
 data. To use more detailed higher levels the chartdldr plugin is always
 available for user.
+
+== Sound
+* On Android the native AndroidSound backend is always used.
+* On Windows, the  MswSound backend is the default.
+  OCPN_ENABLE_SYSTEM_CMD_SOUND can be used to use the SystemCmdSound
+  backend, OCPN_ENABLE_PORTAUDIO to enable possible existing portaudio.
+* On Linux, portaudio is used if found, else SystemCmdSound.
+  OCPN_ENABLE_PORTAUDIO can be used to disable portaudio, and
+  OCPN_ENABLE_SYSTEM_CMD_SOUND to disable SystemCmdSound in which case
+  the wxWidgets wxSound backend is used.
+* MacOS works basically as Linux, but portaudio is normally not available
+* On all platforms OCPN_SOUND_CMD can be used to preset the command used
+  in SystemCmdSound. The default is computed by probing the build  host
+  for commands like aplay, afplay or omxplayer.
