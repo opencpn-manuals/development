@@ -40,7 +40,6 @@ The default build type is _RelWithDebInfo_. A common alternative is _Debug_.
 
 == Installation paths 
 
-CMAKE_INSTALL_PREFIX
 Since 5.0.0 OpenCPN supports the GNU install paths, see
 https://cmake.org/cmake/help/v3.0/module/GNUInstallDirs.html
 
