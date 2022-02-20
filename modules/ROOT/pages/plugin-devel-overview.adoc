@@ -52,9 +52,8 @@ xref:plugin-installer::Terminology.adoc#_user_config_path[Terminology] page.
 == Legacy deployment
 
 Historically, plugins have been distributed as operating system packages.
-All plugins today supports this on at least some platform(s). Some notes
-on this packaging can be found in the xref:dm-legacy-plugins.adoc[Legacy Plugins
-Page].
+From version 5.6.0 this is not longer supported, only the built-in plugin
+installer [above] is used.
 
 == Catalog
 
