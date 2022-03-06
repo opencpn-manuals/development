@@ -27,5 +27,5 @@ to this manual
 This is  one of three manuals available:
 
 * https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual/[User's Manual]
-* https://opencpn-manuals.github.io/plugins/opencpn-plugins/0.1/index.html[User Plugin Manual]
-* https://opencpn-manuals.github.io/development/ocpn-dev-manual/5.3.1/intro-AboutThisManual.html[Development manual]
+* https://opencpn-manuals.github.io/main/opencpn-plugins/index.html[Plugins Manual]
+* https://opencpn-manuals.github.io/main/ocpn-dev-manual/index.html[Developer Manual]
