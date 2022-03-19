@@ -23,6 +23,19 @@ on-line NMEA tools.
 The Manual Maintenance section does indeed cover how to contribute
 to this manual
 
+== Sections Index
+
+We need to have links to the following because the index to the right does not expand when first opened (or we need to fix that!)
+Also I think these main heading should have links anyway, and they do not because there is no page or documentation for them.
+
+Indroduction
+OpenCPN Development
+Plugins Development
+Plugin Manager Installer Documentation
+Plugin Manual
+and several other important links
+
+
 == Context
 This is  one of three manuals available:
 
