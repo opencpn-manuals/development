@@ -2,9 +2,124 @@
 
 == OPENCPN - COMPILING FOR MACOS
 
-Revised: 11:00, 3 October 2019
+Revised: 20:00, 9 April 2022
 
-=== XCODE (Version 11)
+=== Setting up a development environment on macOS in 10 steps:
+
+This procedure is about setting up a environment to build OpenCPN on macOS. Its focus is on the latest version (of macOS, XCode, OpenCPN, etc).
+
+1. Update macOS where necessary (always keep your Mac up to date).
+Per 9 April 2022 this is macOS Monterey 12.3
+
+2. Install or update XCode to the latest version.
+Per 9 April 2022 this is 13.3
+
+3. Install brew
+According to these instructions: https://docs.brew.sh/Installation
+
+This script installs Homebrew on Intel Macs in: /usr/local and on Silicon M1 in the folder /opt/homebrew.
+Update the ~/.bash_profile with the following command:
+
+ $ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+
+Then check if your system is ready to brew with the following commands:
+ $ brew upgrade
+ $ brew cleanup
+ $ brew doctor
+
+Just in case you can’t get it to work at all, you might consider removing brew, though please be aware this will remove all installed packages as well. Uninstall brew can be done with /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+
+4. Install command line tools, and check if they are up to date
+
+ $ xcode-select --install
+ $ brew doctor
+
+If a new version of command line tools is available, brew doctor might suggests to run: softwareupdate --all --install --force If that is not doing any updates,  again as suggested by brew doctor, remove the existing command line tools and reinstall with:
+
+ $ sudo rm -rf /Library/Developer/CommandLineTools
+ $ sudo xcode-select --install
+
+To find the version of the installed command line tools use pkgutil --pkg-info=com.apple.pkg.CLTools_Executables
+
+
+5. Install the following packages.
+
+  brew install cmake
+  brew install gcc
+  brew install gettext
+  brew install tinyxml
+  brew install cairo
+  brew install libexif
+  brew install xz
+  brew install libarchive
+
+Just in case you need to remove any package, this can be done via brew uninstall package_name. Though be aware of any dependencies. Check if all is okay via brew doctor.
+
+6. Extend the path
+
+To extend the path, use a text editor. For example the free one atom. With that you’ll  avoid having multiple identical entries or inconsistencies in your path.. In case you haven’t got atom and like to try install it with brew and edit the ~/.bash_profile:
+
+brew install atom
+atom ~/.bash_profile
+
+And add the following to the profile:
+
+  export PATH="/usr/local/opt/gettext/bin:$PATH"
+  export PATH="/opt/homebrew/opt/libarchive/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/libarchive/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/libarchive/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/libarchive/lib/pkgconfig"
+  export MACOSX_DEPLOYMENT_TARGET=10.10
+
+7. Install Packages
+
+Get and install Packages via http://s.sudre.free.fr/Software.html. (Not sure if thisThis might not be necessary anymore, since this is done in the install script.
+
+8. Install wxWidgets
+
+For macOS there is no need to use an old version of wxWidget. Just download the latest release via https://wxwidgets.org/downloads. Unpack it in ~/downloads and do this:
+
+cd ~/downloads/wxwidgets-3.1.5
+mkdir buildOSX
+cd buildOSX
+../configure --enable-debug
+make
+cd samples/minimal
+make
+open minimal.app
+
+(Not sure if this is still necessary, since the required binaries are also downloaded via circleci.build-osx, as shown in the plugin manual. Wxwidgets can also be installed by brew, though the above method is said to be preferred above installing via brew.)
+
+9. Get the OpenCPN sources from GitHub
+
+Several ways to do this, by first making a local fork, or by simply:
+
+$ cd ~/sources
+$ git clone https://github.com/OpenCPN/OpenCPN.git
+$ rm -rf ~/sources/OpenCPN/build
+$ mkdir ~/sources/OpenCPN/build && cd ~/sources/OpenCPN/build
+
+Please note that in this example the  local copy of the sources in the folder ~/sources.
+
+10. And build OpenCPN
+
+Now, on an Intel Mac you’re  good to go and build OpenCPN via:
+
+$ cd ~/sources/OpenCPN/build
+$ cmake …
+$ make
+$ make create-pkg
+
+This should result in ~/sources/OpenCPN/build/OpenCpn.app that can be executed.
+
+
+
+================
+
+
+
+
+EARLIER Instruction (October 2019)
 
 Download Xcode_11.xip from the Apple Developer website
 (https://developer.apple.com/download/more/) - requires registration
@@ -209,216 +324,3 @@ Double-click on the package in
 ~/watchdog_pi/build/Watchdog-Plugin-ov50_2.4.pkg This installs into
 /Applications/OpenCPN.app
 
-== EARLIER INSTRUCTIONS
-
-== Compiling v5.0
-
-These instructions are valid for the current codebase.
-=== Xcode
-
-* Install Xcode from the Mac App Store (free registration at
-developer.apple.com required)
-* Install Command Line Tools for Xcode (available from
-developer.apple.com)
-
-The OpenCPN official build supports OS X 10.9 and newer. Regardless of
-Xcode version, older OS X SDK is not needed to build with support for
-older versions of macOS, but support for older macOS versions has to be
-explicitly turned on during the build of OpenCPN, wxWidgets and other
-libraries as described below.
-
-=== Development Tools
-
-There are required development tools that can be installed via
-https://brew.sh[Homebrew] (or similarly from MacPorts, but it is
-unsupported and untested).
-
-* Install cmake and gettext via Homebrew
-
-----
-$ brew install cmake
-$ brew install gettext
-
-----
-
-Add the gettext tools to your PATH environment variable using
-
-----
-$ echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"'>> ~/.bash_profile
-
-----
-
-and either restart Terminal.app or reload your environment using
-
-----
-. ~/.bash_profile
-
-----
-
-* Install the “Packages” tool for creating .pkg files for plugins from
-http://s.sudre.free.fr/Software/Packages/about.html.
-
-== Required external libraries
-
-If you are building OpenCPN with SVG support (default), Cairo library is
-needed, install it using
-
-----
-$ brew install cairo
-
-----
-
-additionally, to support all the features of the wxSVG component,
-libexif should be installed using
-
-----
-$ brew install libexif
-
-----
-
-If you are building OpenCPN with extended archive support (default,
-required to download and unpack up to date GSHHG basemaps and pilot
-charts using the chart downloader plugin), libarchive library is needed,
-install it using
-
-----
-$ brew install xz libarchive
-
-----
-
-To produce binaries fully compatible with older macOS versions on newer
-macOS, libarchive must instead of from Homebrew built as follows
-
-----
-export MACOSX_DEPLOYMENT_TARGET=10.9
-wget https://libarchive.org/downloads/libarchive-3.3.3.tar.gz
-tar zxf libarchive-3.3.3.tar.gz
-cd libarchive-3.3.3
-./configure --without-lzo2 --without-nettle --without-xml2 --without-openssl --with-expat
-make
-make install
-cd ..
-----
-
-
-=== wxWidgets
-
-OpenCPN is built upon wxWidgets, a package providing a cross-platform UI
-SDK.
-
-_But to get results fully compatible with the official OpenCPN builds_,
-which retain compatibility with macOS Maverics (10.9) and newer,
-_wxWidgets must be version 3.1.2 built manually_ as follows:
-
-----
-$ mkdir build-release
-$ cd build-release
-$ ../configure --with-cxx=11 --with-macosx-version-min=10.9 --enable-unicode --with-osx-cocoa --enable-aui --disable-debug --with-opengl --without-subdirs
-$ make -j2
-$ sudo make install
-
-----
-
-=== Building OpenCPN
-
-Officially OpenCPN is built from the command line but it's also possible
-to use Apple's Xcode IDE for development. Regardless of which method we
-choose, the first steps are the same:
-
-* Get the OpenCPN source:
-
-----
-$ git clone https://github.com/OpenCPN/OpenCPN.git
-
-----
-
-Create the build directory, where our local builds will take place, so
-that we don't work directly in the source tree:
-
-----
-$ mkdir OpenCPN/build && cd OpenCPN/build
-
-----
-
-=== Build Method 1 - From the command line
-
-Prepare our build environment:
-
-----
-$ export MACOSX_DEPLOYMENT_TARGET=10.9
-$ cmake ..
-
-----
-
-Build OpenCPN:
-
-----
-$ make
-
-----
-
-To build a debug version use:
-
-----
-$ export MACOSX_DEPLOYMENT_TARGET=10.9
-$ cmake -DCMAKE_BUILD_TYPE=Debug ..
-$ make
-
-----
-
-==== Build Method 2 - Using Xcode
-
-Create the Xcode project:
-
-----
-$ export MACOSX_DEPLOYMENT_TARGET=10.9
-$ cmake -G Xcode ..
-
-----
-
-Open the `OpenCPN.xcodeproj` file in Xcode, and use the “Build”, “Run”,
-“Debug”, etc features as normal. To use the “Run” action you need to
-build the “OpenCPN” target rather than the default “ALL_BUILD” target.
-
-=== Installing OpenCPN and Creating an Installable Package
-
-* Build and install OpenCPN: ​
-
-----
-$ make install
-
-----
-
-The default install location (/usr/local/bin) can be changed with cmake
-(*And should be* in case you want to create the DMG image, if you don't
-change it, everything from /usr/local/bin get's packaged into your DMG.
-You have been warned.):
-
-----
-$ cmake -DCMAKE_INSTALL_PREFIX=/Users/dsr/tmp ..
-
-----
-
-Some developers have reported that the install step copies a redundant
-set of the wxWidgets dynamic library into the install directory, causing
-OpenCPN to fail. This is of course intended, but gets annoying for local
-bundles not intended to be distributed. A kludgey fix:
-
-----
-$ sudo rm /usr/local/bin/OpenCPN.app/Contents/MacOS/libwx*dylib
-
-----
-
-* Build the installable DMG:
-
-----
-$ make create-dmg
-
-----
-
-Depending on your local system, during both steps above you may observe
-insufficient permissions on some files. Either fix the permissions or
-use `+sudo+` to run `+make install/create-dmg+`
-
-To install the application, double-click on the DMG in Finder and drag
-OpenCPN.app to the Applications directory.
