@@ -11,6 +11,7 @@
 *** xref:od-compile-linux.adoc#_flatpak[Flatpak]
 *** xref:od-compile-windows.adoc[Windows]
 *** xref:od-compile-mac-osx.adoc[MacOS]
+** xref:od-messaging.adoc[Opencpn Messaging]
 ** xref:od-code-formatting.adoc[Code Formatting]
 ** xref:od-user-interface-styling.adoc[User Interface Styling]
 ** xref:od-troubleshooting.adoc[Troubleshooting]

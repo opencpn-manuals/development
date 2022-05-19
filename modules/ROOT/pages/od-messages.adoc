@@ -1,0 +1,43 @@
+= Messaging
+
+== OpenCPN (v5.6.2) Messaging
+
+=== Receivable by OCPN
+
+    WMM_VARIATION_BOAT
+    WMM_VARIATION
+    GRIB_TIMELINE
+    OCPN_TRACK_REQUEST
+    OCPN_ROUTE_REQUEST
+    OCPN_ROUTELIST_REQUEST
+    OCPN_ACTIVE_ROUTELEG_REQUEST
+
+
+=== JSON messages sent by OCPN
+
+    AIS
+    OCPN_MAN_OVERBOARD
+    WMM_VARIATION_REQUEST
+    OCPN_ROUTE_RESPONSE
+    OCPN_ROUTELIST_RESPONSE
+    OCPN_ACTIVE_ROUTELEG_RESPONSE
+    OCPN_OPENGL_CONFIG
+    OCPN_CORE_SIGNALK
+    OCPN_WPT_ARRIVED
+    OCPN_RTE_ACTIVATED
+    OCPN_RTE_DEACTIVATED
+    OCPN_RTE_ENDED
+    OCPN_TRK_ACTIVATED
+    OCPN_TRK_DEACTIVATED
+    OCPN_TRK_POINT_ADDED
+    OCPN_TRACKPOINTS_COORDS
+
+
+=== Non-JSON messages sent by OCPN
+
+    OpenCPN Config
+    OCPN_CORE_SIGNALK
+
+== Plugin Messaging (ODAPI)
+
+This list does not cover messaging between plugins, such as supported by OcpnDraw, Watchdog, WeatherRouting and Squiddio, which are documented in the xref:pm-tp-ocpn_draw_odapi.html[Ocpn_Draw ODAPI updated], xref:pm-tp-odapi-messaging.html[Odapi Messaging] xref:pm-tp-odapi.html[Odapi for oDraw] and xref:pm-tp-odapi-messaging.adoc[Odapi Messaging].
