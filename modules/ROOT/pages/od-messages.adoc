@@ -40,4 +40,7 @@
 
 == Plugin Messaging (ODAPI)
 
-This list does not cover messaging between plugins, such as supported by OcpnDraw, Watchdog, WeatherRouting and Squiddio, which are documented in the xref:pm-tp-ocpn_draw_odapi.html[Ocpn_Draw ODAPI updated], xref:pm-tp-odapi-messaging.html[Odapi Messaging] xref:pm-tp-odapi.html[Odapi for oDraw] and xref:pm-tp-odapi-messaging.adoc[Odapi Messaging].
+This list does not cover messaging between plugins, such as supported by OcpnDraw, Watchdog, WeatherRouting and Squiddio, which are documented in the 
+https://opencpn-manuals.github.io/main/ocpn-dev-manual/pm-tp-ocpn_draw_odapi.html[Ocpn_Draw ODAPI updated], 
+https://opencpn-manuals.github.io/main/ocpn-dev-manual/pm-tp-odapi-messaging.html[Odapi Messaging]
+https://opencpn-manuals.github.io/main/ocpn-dev-manual/pm-tp-odapi.html[Odapi for oDraw] 
