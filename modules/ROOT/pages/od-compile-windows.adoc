@@ -108,9 +108,11 @@ git clone https://github.com/OpenCPN/OpenCPN
 
 ==== Get prebuilt Windows dependencies
 
-* Download the dependencies bundle from
-https://download.opencpn.org/s/oibxM3kzfzKcSc3/download[OpenCPN_buildwin-4.99a.7z]
-* Extract into *c:\Users\myname\Sources\OpenCPN\buildwin* using 7-Zip
+* Download the dependencies bundle from github repo
+(https://github.com/OpenCPN/OCPNWindowsCoreBuildSupport/archive/refs/tags/v0.1.zip)
+
+* Extract the embedded "buildwin" directory as
+c:\Users\myname\Sources\OpenCPN\buildwin using 7-Zip
 
 ==== Building OpenCPN
 
