@@ -1,5 +1,5 @@
 name: ocpn-dev-manual
 title: OpenCPN Developer Manual
-version: ~
+version: 0.1
 nav: 
 - modules/ROOT/nav.adoc
