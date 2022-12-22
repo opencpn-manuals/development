@@ -2,8 +2,11 @@
 
 == 5.8.0 Fast Track
 
-From version 5.8.0 the windows build system has been revised. Steps to
-to make a build:
+From version 5.8.0 the windows build system has been revised.
+The fast track described here is simplified and without all the options
+provided by the procedure described from next section.
+
+Steps to to make a build:
 
 . Get Visual Studio Community 2022,  either the command line tools or the
   complete environment, from https://visualstudio.microsoft.com/vs/community/
@@ -14,8 +17,9 @@ to make a build:
        > cd OpenCPN
 
 . Run the script _buildwin\win_deps.bat_. First time script installs programs
-  and should be invoked with administrative privileges. Following runs can
-  (i. e., should) be run as a regular user.
+  and should be invoked with administrative privileges using the Visual Studio
+  Command Line Interface. Following runs can (i. e., should) be run as a
+  regular user.
 . Run the script _ci\appveyor.bat_. This will configure the project using
   cmake and make an initial build.
 
@@ -34,10 +38,10 @@ using:
 ** `--target tests` -- Command line unit tests
 ** `--target package` -- NSIS installer
 
-* It is perfectly possible to use `--config Debug` to create a executable with
-  debugging symbols etc. However, doing so makes the plugins in the catalog
-  incompatible, it is not possible to load optimized libraries into a
-  opencpn debug build.
+* It is perfectly possible to use `--config Debug` to create an executable with
+  debugging symbols etc. However, doing so might make the plugins in the
+  catalog incompatible if it is not possible to load optimized libraries into
+  a opencpn debug build. FIXME(leamas): what is the situation?
 * _win_deps.bat_ stores files in the _cache_ directory. This can be removed
   safely,  it is re-created from scratch by _win_deps.bat_
 * The correct options to invoke cmake manually can be found  in
@@ -47,6 +51,9 @@ using:
   can make them fail.
 
 == Prerequisities
+
+NOTE: These instructions has yet not been updated for using VS 2022  and
+wxWidgets 3.2, tools used to  build from 5.8.0.
 
 * for OpenCPN v5.0.0
 * with wxWidgets v3.1.2
@@ -103,7 +110,7 @@ https://nsis.sourceforge.io/Download
 * Download 7-Zip from https://www.7-zip.org/download.html
 * Install
 
-=== Get the wxWidgets 3.1.2 sources and built them
+== Get the wxWidgets 3.1.2 sources and built them
 
 * Open a **x86 Native Tools Command Prompt for VS 2017 ** (In Windows 10
 by typing in the search box next to the Windows start button **x86
@@ -237,56 +244,3 @@ will customize Osetup.bat. The latest of Transmitter Dan's batchutils is
 in git. If you want to use some other environment variable other than
 WXDIR that is ok. The Cmake tool will accept a number of possible
 environment names as the root of the wxWidgets toolkit.
-
-NOTE:
-
-FIXME: These are the steps in appveyor, and they are not the same
-
-
-----
-install:
-  # VS2015 and earlier version - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x86'
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
-
-  # set environment variables for wxWidgets
-  - set WXWIN=C:\wxWidgets-3.1.2
-  - set wxWidgets_ROOT_DIR=%WXWIN%
-  - set wxWidgets_LIB_DIR=%WXWIN%\lib\vc_dll
-  - cmd: SET PATH=%PATH%;%WXWIN%;%wxWidgets_LIB_DIR%;C:\Program Files (x86)\Poedit\Gettexttools\bin;C:\Program Files\Git\bin;c:\cygwin\bin
-  - cmd: python3.6m --version
-
-  # install dependencies:
-  - choco install poedit
-  - choco install git
-
-  # - choco install nsis-3.04 -x86
-  - ps: Start-FileDownload https://download.opencpn.org/s/54HsBDLNzRZLL6i/download -FileName nsis-3.04-setup.exe
-  - cmd: nsis-3.04-setup.exe /S
-
-  # Download and unzip wxwidgets, version 3.1.2
-  - ps: Start-FileDownload https://download.opencpn.org/s/E2p4nLDzeqx4SdX/download -FileName wxWidgets-3.1.2.7z
-  - cmd: 7z x wxWidgets-3.1.2.7z -o%WXWIN% > null
-
-  # some debugging information
-  # - set   Displays sensitive password!
-  # - cmake --help
-
-  # build wxWidgets - Disabled as we provide prebuilt WX to save time
-  #- cmd: cd %WXWIN%\build\msw\
-  #- cmd: nmake -f makefile.vc BUILD=release SHARED=1 CFLAGS=/D_USING_V120_SDK71_ CXXFLAGS=/D_USING_V120_SDK71_
-  #- cmd: nmake -f makefile.vc BUILD=debug SHARED=1 CFLAGS=/D_USING_V120_SDK71_ CXXFLAGS=/D_USING_V120_SDK71_
-
-before_build:
-  - cd c:\project\opencpn
-  - mkdir build
-  - cd build
-  - ps: Start-FileDownload https://download.opencpn.org/s/oibxM3kzfzKcSc3/download -FileName OpenCPN_buildwin-4.99a.7z
-  - cmd: 7z x -y OpenCPN_buildwin-4.99a.7z -oc:\project\opencpn\buildwin
-  - cmake -T v141_xp -DOCPN_CI_BUILD=ON ..
-
-build_script:
-  # - cmake --build . --config debug
-  - cmake --build . --target opencpn --config RelWithDebInfo
-  - cmake --build . --target package --config RelWithDebInfo
-
-----
