@@ -27,7 +27,7 @@
 *** xref:pi_installer_dev_procedure.adoc[PI Manager Dev Procedure]
 *** xref:pm-tp-update-library.adoc[Update the Library]
 *** xref:pm-tp-language-nuance.adoc[Language Nuances]
-*** xref:pm-tp-odapi-messaging.adoc[Odapi Messages]
+*** xref:opencpn-dev::odraw-messaging.adoc[Odapi Messages]
 *** xref:pm-tp-odapi.adoc[Odapi for oDraw]
 *** xref:pm-tp-ocpn_draw_odapi.adoc[Ocpn_Draw Odapi]
 ** xref:AlternativeWorkflow:ROOT:index.adoc[Shipdriver Template]

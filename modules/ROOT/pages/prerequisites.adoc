@@ -2,10 +2,8 @@
 
 The following assumes you are able to build OpenCPN from source and have
 the needed tools. You can find the detailed instructions at
-xref:od-compile-linux.adoc[Compiling
-Linux] and
-xref:od-compile-windows.adoc[Compiling
-Windows]
+xref:opencpn-dev::linux.adoc[Compiling Linux] and
+xref:opencpn-dev::windows.adoc[Compiling Windows]
 
 == Git magic
 
@@ -86,8 +84,8 @@ on the net.
 == Code formatting
 
 Please read the page on
-xref:od-code-formatting.adoc[Code
-Formatting] before writing new code for OpenCPN.
+xref:opencpn-dev::code-formatting.adoc[Code Formatting] before writing
+new code for OpenCPN.
 
 == Publishing your code
 

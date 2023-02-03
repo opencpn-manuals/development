@@ -47,7 +47,7 @@ message bus and invokes various parts when messages arrives.
 multiple sources, selecting the data source to use.
 
 For plugins, a simplified API is available, see the
-xref::plugin-messaging.adoc[Plugins Communications API].
+xref:opencpn-dev::plugin-messaging.adoc[Plugins Communications API].
 
 When sending messages, upper layers needs to know which driver to use.
 To that end, drivers registers themselves in the *drv_registry* which
