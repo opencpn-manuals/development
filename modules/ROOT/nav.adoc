@@ -4,19 +4,7 @@
 ** xref:intro-Background.adoc[Background]
 ** xref:intro-Community.adoc[Community]
 ** xref:intro-Terminology.adoc[Terminology]
-* Opencpn development
-** Compiling
-*** xref:od-compile-cmake.adoc[CMake]
-*** xref:od-compile-linux.adoc[Linux]
-*** xref:od-compile-linux.adoc#_flatpak[Flatpak]
-*** xref:od-compile-windows.adoc[Windows]
-*** xref:od-compile-mac-osx.adoc[MacOS]
-** xref:od-messaging.adoc[Opencpn Messaging]
-** xref:plugin-messaging.adoc[New Message Plugin API]
-** xref:comm-overview.adoc[Communication Overview]
-** xref:od-code-formatting.adoc[Code Formatting]
-** xref:od-user-interface-styling.adoc[User Interface Styling]
-** xref:od-troubleshooting.adoc[Troubleshooting]
+* xref:opencpn-dev::index.adoc[Opencpn development]
 * Plugin Development
 ** xref:plugin-devel-overview.adoc[Overview]
 ** xref:pm-plugin-dependencies.adoc[Dependencies]

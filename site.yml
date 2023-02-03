@@ -8,13 +8,19 @@ content:
     - url: ./
       branches: HEAD
       edit_url: true
+
+    - url: https://github.com/leamas/opencpn
+      branches: manual
+      start_path: manual
+
     - url: https://github.com/leamas/ocpn-pi-docs.git
-      # tags: 0.2.2
       branches: main
       edit_url: true
+
     - url: https://github.com/Rasbats/managed_plugins
       branches: main
       start_path: manual
+
     - url: https://github.com/opencpn-manuals/plugins.git
       branches: main
       edit_url: true
