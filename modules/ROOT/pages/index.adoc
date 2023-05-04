@@ -41,4 +41,4 @@ This is  one of three manuals available:
 
 * https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual/[User's Manual]
 * https://opencpn-manuals.github.io/main/opencpn-plugins/index.html[Plugins Manual]
-* https://opencpn-manuals.github.io/main/ocpn-dev-manual/index.html[Developer Manual]
+* https://opencpn-manuals.github.io/main/ocpn-dev-manual/0.1/intro-AboutThisManual.html[Developer Manual]
