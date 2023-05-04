@@ -32,7 +32,7 @@
 *** xref:pm-tp-ocpn_draw_odapi.adoc[Ocpn_Draw Odapi]
 ** xref:AlternativeWorkflow:ROOT:index.adoc[Shipdriver Template]
 * xref:plugin-installer:ROOT:index.adoc[Plugin Manager Installer Documentation]
-* https://opencpn-manuals.github.io/plugins/opencpn-plugins/0.1/index.html[Plugin  Manual] 
+* https://opencpn-manuals.github.io/main/opencpn-plugins/index.html[Plugins  Manual] 
 // FIXME: Include top-level plugins manual source? or?
 * xref:dm-legacy-plugins.adoc[Legacy Plugin Packaging]
 * xref:dm-manual-maint.adoc[Maintenance of this Manual]
