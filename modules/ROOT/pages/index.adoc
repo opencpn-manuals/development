@@ -37,8 +37,11 @@ and several other important links
 
 
 == Context
-This is  one of three manuals available:
+This is  one of five manuals available:
 
-* https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual/[User's Manual]
+* https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:manual_basic[User Manual Basic]
+* https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:manual_advanced[User Manual Advanced]
 * https://opencpn-manuals.github.io/main/opencpn-plugins/index.html[Plugins Manual]
 * https://opencpn-manuals.github.io/main/ocpn-dev-manual/0.1/intro-AboutThisManual.html[Developer Manual]
+* https://opencpn-manuals.github.io/main/opencpn-dev/index.html[Opencpn Programming Manual]
+
