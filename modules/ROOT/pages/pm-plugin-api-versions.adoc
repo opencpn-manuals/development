@@ -23,9 +23,8 @@ at least 10 years.
 
 Unfortunately, the API is more or less undocumented.
 
-There is no formal distribution of the API files. An attempt to
-distribute the latest versions is available at
-https://github.com/leamas/opencpn-api[]
+Since 5.10 the API files are distributed as part of the opencpn-libs project 
+at https://github.com/opencpn/opencpn-libs.
 
 == ABI
 
