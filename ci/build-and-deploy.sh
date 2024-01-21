@@ -3,10 +3,10 @@
 set -xe
 
 # Install npm and antora
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 npm -v
-npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+npm i -g @antora/cli@3.1 @antora/site-generator-default@3.1
 antora -v
 
 # Update dependencies and build site
