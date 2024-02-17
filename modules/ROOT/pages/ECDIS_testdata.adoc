@@ -16,7 +16,3 @@ https://web.archive.org/web/20150604180744if_/http://www.iho.int/iho_pubs/ECDIS/
 IHO Presentation Library Edition 4.0::
 ECDIS_Chart_1 (15° 04' N / 5° 04' W)
 https://support.navtor.com/support/solutions/articles/48000957435-chart1-iho-test-cells
-
-IENC Presentation Library 2.3::
-ENC_ROOT (51° N / 19° 45' E)
-https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpJCsGXU3njb9uabz2e%2F-LzCHWR6MCz39Kp6G9ie%2F-LzCJOHFgLmGiBvsAeg3%2FENC_ROOT.zip?alt=media&token=3d10b069-1f98-401c-9db6-0eb09ba0208e
