@@ -6,7 +6,7 @@ image:community.png[]
 
 So, you are thinking about joining the OpenCPN project? You are most
 welcome! There are many ways to participate, most of which not requiring
-programming skills -- see TBD.
+programming skills.
 
 This manual is about contributing to the code.
 
@@ -28,13 +28,17 @@ are filed for more specific problems or RFEs. Pull requests (PR) is
 the way used to include patches and new functionality into the
 program.
 
-The project has no common communication channel lika a mailing list or
-a developer forum; the core synchronization tool is Github issues.
+The core developers sometimes hangs around in the OpenCPN Zulip instance.
+Zulip is an open-source groupware resembling of Slack.
+The instance is available at https://opencpn.zulipchat.org and is at the
+time of writing open to all Github users.
 
-xref:developer_manual.adoc#_thank_you_dave[Dave] (@bdbcat) is the lead developer
-and makes decisions on if/when/how to merge a PR. Also
-https://github.com/nohal[Pavel] (@nohal) has commit rights in the
-project. There are no formal roles besides these.
+xref:developer_manual.adoc#_thank_you_dave[Dave] (@bdbcat) is the lead
+developer and makes decisions on if/when/how to merge a PR.
+Also https://github.com/nohal[Pavel] (@nohal) and
+https://github.com/leamas[Alec Leamas] (@leamas) has commit rights in
+the project.
+There are no formal roles besides these.
 
 To contact the project as a developer, filing issues and/or making
 comments on existing ones is the easiest way to join the community.
