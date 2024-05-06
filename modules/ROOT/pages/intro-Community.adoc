@@ -30,7 +30,7 @@ program.
 
 The core developers sometimes hangs around in the OpenCPN Zulip instance.
 Zulip is an open-source groupware resembling of Slack.
-The instance is available at https://opencpn.zulipchat.org and is at the
+The instance is available at https://opencpn.zulipchat.com is at the
 time of writing open to all Github users.
 
 xref:developer_manual.adoc#_thank_you_dave[Dave] (@bdbcat) is the lead
