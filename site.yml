@@ -9,7 +9,7 @@ content:
       branches: HEAD
       edit_url: true
 
-    - url: https://github.com/leamas/opencpn
+    - url: https://github.com/opencpn/opencpn
       branches: manual
       start_path: manual
 
