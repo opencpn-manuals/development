@@ -43,14 +43,16 @@ http://www.kagstrom.no/nmea_simulator.htm[Max Kagstrom Nmea Simulator
 https://www.labsat.co.uk/index.php/en/free-gps-nmea-simulator-software[Labset
 Reed GPS Nmea Simulator]
 
-http://catb.org/gpsd/AIVDM.html[AIVDM/AIVDO protocol decoding] Eric
+https://gpsd.gitlab.io/gpsd/AIVDM.html[AIVDM/AIVDO protocol decoding] Eric
 Raymond
 
 https://www.aggsoft.com/ais-decoder.htm[AIS Online Decoder. AIVDM & AIVDO
 NMEA Messages]
 
-https://www.maritec.co.za/?page_id=1051[AIS VDM & VDO Message Decoder]
+signalk.stupan.se. Håkan's data feeds, commonly used in testing.
 
-http://ais.tbsalling.dk/[Online AIS Message Decoder]
+* Port 10114: NMEA0183 over TCP.
+* Port 3000: signalK
+* Port 1455: NMEA2000 PGNs over TCP
 
-https://www.wireshark.org/download.html[Wireshark Decoding]
+Provided on a best effort basis, please don't report errors.
