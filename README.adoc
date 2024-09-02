@@ -1,4 +1,4 @@
 = Antora OpenCPN Developer Manual 
 
 Sources for the OpenCPN developer manual, published at
-https://opencpn-manuals/main
+https://opencpn-manuals.github.io/main/manuals/index.html
