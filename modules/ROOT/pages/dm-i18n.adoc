@@ -45,8 +45,8 @@ The workflow: image:i18n.png[]
 
 * The source files' translatable strings are marked using the
   `_()`macro.
-* Using the xgettext tool, the translatable strings are extracted
-  to a pot file.
+* When a new release is imminent the translatable strings are extracted
+  to a pot file using the gettext tool.
 * The pot file is sent to the i18n maintainers who submits it to
   the crowdin web translation service. Here, each plugin is a sub-project
   under the opencpn project.
