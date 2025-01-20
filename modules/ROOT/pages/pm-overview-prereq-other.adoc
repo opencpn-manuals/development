@@ -88,6 +88,8 @@ To Join the OpenCPN Plugin Team to create and deploy to repositories in the Open
 
 == Cloudsmith Retention Policy Settings
 
+https://opencpn-manuals.github.io/main/AlternativeWorkflow/InstallConfigure/Cloudsmith.html#_create_the_repositories[Retention Settings for -alph, -beta, -prod]
+
 Example:
 
 . A repository with 4gb and about 5000 packages used for
