@@ -1,0 +1,655 @@
+= Chart Display and Rendering
+
+This chapter explains how plugins can render custom graphics on OpenCPN's chart display. Plugins can draw overlays, add visual indicators, highlight features, and create custom visualizations that integrate with the chart view.
+
+== Rendering Overview
+
+OpenCPN provides several methods for plugins to render content on the chart display:
+
+* **Standard Rendering**: Using `RenderOverlay()` for traditional drawing
+* **OpenGL Rendering**: Using `RenderGLOverlay()` for hardware-accelerated drawing
+* **Multi-Canvas Rendering**: Using canvas-specific rendering methods for split-screen displays
+* **Viewport Painting**: Using `OnPaintViewport()` for more direct chart integration
+
+Each approach has different capabilities and performance characteristics.
+
+== Viewport Structure
+
+Before diving into rendering, it's important to understand the `PlugIn_ViewPort` structure. This structure contains all the information about the current chart view, including center position, scale, rotation, and dimensions.
+
+[source,cpp]
+----
+class PlugIn_ViewPort {
+public:
+    double clat;           // Center latitude in decimal degrees
+    double clon;           // Center longitude in decimal degrees
+    double view_scale_ppm; // Display scale in pixels per meter
+    double skew;           // Display skew angle in radians
+    double rotation;       // Display rotation angle in radians
+    
+    float chart_scale;     // Conventional chart scale (e.g., 1:50000)
+    
+    int pix_width;         // Viewport width in pixels
+    int pix_height;        // Viewport height in pixels
+    wxRect rv_rect;        // Rectangle defining the rendered view area
+    bool b_quilt;          // True if viewport is in quilt mode
+    int m_projection_type; // Chart projection type
+    
+    double lat_min;        // Minimum latitude of viewport
+    double lat_max;        // Maximum latitude of viewport
+    double lon_min;        // Minimum longitude of viewport
+    double lon_max;        // Maximum longitude of viewport
+    
+    bool bValid;           // True if viewport is valid
+};
+----
+
+This structure is passed to all rendering methods and provides the context needed to correctly position and scale your graphics.
+
+== Standard Canvas Rendering
+
+=== Declaring Standard Rendering Capability
+
+To render overlays in standard (non-OpenGL) mode, declare the `WANTS_OVERLAY_CALLBACK` capability:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_OVERLAY_CALLBACK;
+}
+----
+
+=== Implementing RenderOverlay
+
+Implement one of the `RenderOverlay()` methods depending on your plugin API version:
+
+[source,cpp]
+----
+// For API 1.6 to 1.15
+bool MyPlugin::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
+    // Check if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Perform drawing
+    dc.SetPen(wxPen(*wxRED, 2));
+    dc.DrawLine(0, 0, vp->pix_width, vp->pix_height);
+    
+    // Draw something at a specific geographic position
+    wxPoint point;
+    GetCanvasPixLL(vp, &point, 45.0, -120.0);  // Convert lat/lon to screen coords
+    dc.DrawCircle(point.x, point.y, 10);
+    
+    return true;
+}
+
+// For API 1.16+
+bool MyPlugin::RenderOverlayMultiCanvas(wxDC &dc, PlugIn_ViewPort *vp, int canvasIndex) {
+    // Check if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Check if this is the canvas we want to draw on
+    if (canvasIndex != m_target_canvas) return false;
+    
+    // Same drawing code as above
+    dc.SetPen(wxPen(*wxRED, 2));
+    dc.DrawLine(0, 0, vp->pix_width, vp->pix_height);
+    
+    wxPoint point;
+    GetCanvasPixLL(vp, &point, 45.0, -120.0);
+    dc.DrawCircle(point.x, point.y, 10);
+    
+    return true;
+}
+----
+
+[NOTE]
+====
+The return value indicates whether anything was actually drawn. Return `true` if you drew something, `false` if not.
+====
+
+=== Common Drawing Operations
+
+Here are some common drawing operations you might perform:
+
+[source,cpp]
+----
+// Draw a line
+dc.SetPen(wxPen(*wxRED, 2));
+dc.DrawLine(x1, y1, x2, y2);
+
+// Draw a circle
+dc.SetPen(wxPen(*wxBLUE, 1));
+dc.SetBrush(wxBrush(*wxTRANSPARENT_BRUSH));
+dc.DrawCircle(x, y, radius);
+
+// Draw a filled polygon
+wxPoint points[] = {
+    wxPoint(x1, y1),
+    wxPoint(x2, y2),
+    wxPoint(x3, y3)
+};
+dc.SetPen(wxPen(*wxBLACK, 1));
+dc.SetBrush(wxBrush(*wxGREEN));
+dc.DrawPolygon(3, points);
+
+// Draw text
+dc.SetFont(wxFont(10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+dc.SetTextForeground(*wxBLACK);
+dc.DrawText(_("My Label"), x, y);
+----
+
+=== Drawing with Geographic Coordinates
+
+To draw at specific geographic positions, use the coordinate conversion functions:
+
+[source,cpp]
+----
+// Convert lat/lon to screen coordinates
+wxPoint point;
+GetCanvasPixLL(vp, &point, latitude, longitude);
+
+// Draw at the converted position
+dc.DrawCircle(point.x, point.y, 10);
+
+// Draw a line between two geographic positions
+wxPoint point1, point2;
+GetCanvasPixLL(vp, &point1, lat1, lon1);
+GetCanvasPixLL(vp, &point2, lat2, lon2);
+dc.DrawLine(point1.x, point1.y, point2.x, point2.y);
+----
+
+=== Drawing Based on Zoom Level
+
+Adjust your drawing based on the viewport scale:
+
+[source,cpp]
+----
+// Get the current view scale
+double scale = vp->chart_scale;
+
+// Adjust drawing based on scale
+if (scale < 50000) {
+    // Detailed rendering for close zoom
+    // Draw detailed graphics
+} else if (scale < 500000) {
+    // Medium detail for medium zoom
+    // Draw simplified graphics
+} else {
+    // Low detail for far zoom
+    // Draw minimal graphics or nothing
+}
+----
+
+== OpenGL Rendering
+
+For better performance, especially with complex graphics or animations, use OpenGL rendering.
+
+=== Declaring OpenGL Rendering Capability
+
+To render overlays in OpenGL mode, declare the `WANTS_OPENGL_OVERLAY_CALLBACK` capability:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_OPENGL_OVERLAY_CALLBACK;
+}
+----
+
+=== Implementing RenderGLOverlay
+
+Implement one of the `RenderGLOverlay()` methods depending on your plugin API version:
+
+[source,cpp]
+----
+// For API 1.7 to 1.15
+bool MyPlugin::RenderGLOverlay(wxGLContext *pcontext, PlugIn_ViewPort *vp) {
+    // Check if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Use the same drawing code as in RenderOverlay()
+    wxDC *pdc = NULL;  // Will use default OpenGL DC
+    piDC dc(pdc);      // Create piDC wrapper for drawing
+    
+    dc.SetPen(wxPen(*wxRED, 2));
+    dc.DrawLine(0, 0, vp->pix_width, vp->pix_height);
+    
+    return true;
+}
+
+// For API 1.16+
+bool MyPlugin::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, 
+                                         int canvasIndex, int priority) {
+    // Check if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Check if this is the canvas we want to draw on
+    if (canvasIndex != m_target_canvas) return false;
+    
+    // For API 1.18+: Check if this is the priority we want to draw at
+    if (priority != OVERLAY_LEGACY && priority != m_drawing_priority) return false;
+    
+    // Same drawing code using piDC
+    wxDC *pdc = NULL;  // Will use default OpenGL DC
+    piDC dc(pdc);      // Create piDC wrapper for drawing
+    
+    dc.SetPen(wxPen(*wxRED, 2));
+    dc.DrawLine(0, 0, vp->pix_width, vp->pix_height);
+    
+    return true;
+}
+----
+
+=== Advanced OpenGL Drawing
+
+For more advanced OpenGL drawing, you can use direct OpenGL commands:
+
+[source,cpp]
+----
+bool MyPlugin::RenderGLOverlay(wxGLContext *pcontext, PlugIn_ViewPort *vp) {
+    // Check if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Direct OpenGL drawing
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glColor4f(1.0f, 0.0f, 0.0f, 0.5f);  // Red with 50% opacity
+    
+    glBegin(GL_TRIANGLES);
+    glVertex2f(100.0f, 100.0f);
+    glVertex2f(200.0f, 100.0f);
+    glVertex2f(150.0f, 200.0f);
+    glEnd();
+    
+    return true;
+}
+----
+
+[WARNING]
+====
+When using direct OpenGL commands, be careful to restore the OpenGL state when you're done to avoid affecting OpenCPN's rendering.
+====
+
+== Multi-Canvas Support
+
+For plugins that support split-screen or multiple chart displays, use the multi-canvas rendering methods.
+
+=== Declaring Multi-Canvas Rendering Capability
+
+The capabilities are the same as for single-canvas rendering:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_OVERLAY_CALLBACK | WANTS_OPENGL_OVERLAY_CALLBACK;
+}
+----
+
+=== Implementing Multi-Canvas Rendering
+
+For API 1.16+, implement the multi-canvas rendering methods:
+
+[source,cpp]
+----
+bool MyPlugin::RenderOverlayMultiCanvas(wxDC &dc, PlugIn_ViewPort *vp, int canvasIndex) {
+    // Check if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Perform canvas-specific drawing
+    // Different canvases might need different content
+    if (canvasIndex == 0) {
+        // Draw on first canvas
+        dc.SetPen(wxPen(*wxRED, 2));
+        dc.DrawLine(0, 0, vp->pix_width, vp->pix_height);
+    } else if (canvasIndex == 1) {
+        // Draw on second canvas
+        dc.SetPen(wxPen(*wxBLUE, 2));
+        dc.DrawCircle(vp->pix_width/2, vp->pix_height/2, 50);
+    }
+    
+    return true;
+}
+
+bool MyPlugin::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, 
+                                         int canvasIndex) {
+    // Similar implementation for OpenGL rendering
+    // ...
+}
+----
+
+For API 1.18+, implement multi-canvas rendering with priority support:
+
+[source,cpp]
+----
+bool MyPlugin::RenderOverlayMultiCanvas(wxDC &dc, PlugIn_ViewPort *vp, 
+                                       int canvasIndex, int priority) {
+    // Check if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Different drawing for different priorities
+    if (priority == OVERLAY_LEGACY) {
+        // Legacy drawing (for backward compatibility)
+        // ...
+    } else if (priority == OVERLAY_OVER_SHIPS) {
+        // Draw content that should appear over ship icons
+        // ...
+    } else if (priority == OVERLAY_OVER_UI) {
+        // Draw content that should appear over UI elements
+        // ...
+    }
+    
+    return true;
+}
+----
+
+=== Overlay Priorities
+
+For API 1.18+, you can specify the drawing priority of your overlays:
+
+[cols="1,3"]
+|===
+|Priority |Description
+
+|`OVERLAY_LEGACY`
+|Default priority (0) for backward compatibility
+
+|`OVERLAY_OVER_SHIPS`
+|Draw over ship icons but under UI elements (64)
+
+|`OVERLAY_OVER_EMBOSS`
+|Draw over embossed text (96)
+
+|`OVERLAY_OVER_UI`
+|Draw over UI elements (128)
+|===
+
+Using priorities allows you to control whether your overlay appears above or below other elements on the chart.
+
+== Coordinate Transformations
+
+When drawing on the chart, you'll frequently need to convert between different coordinate systems:
+
+=== Geographic to Screen Coordinates
+
+To convert from latitude/longitude to screen pixels:
+
+[source,cpp]
+----
+wxPoint point;
+GetCanvasPixLL(vp, &point, latitude, longitude);
+----
+
+=== Screen to Geographic Coordinates
+
+To convert from screen pixels to latitude/longitude:
+
+[source,cpp]
+----
+double lat, lon;
+GetCanvasLLPix(vp, wxPoint(x, y), &lat, &lon);
+----
+
+=== Mercator Projection Helpers
+
+OpenCPN provides helper functions for Mercator projection calculations:
+
+[source,cpp]
+----
+// Calculate destination point given distance and bearing
+double dest_lat, dest_lon;
+PositionBearingDistanceMercator_Plugin(
+    start_lat, start_lon,    // Starting position
+    bearing_degrees,         // Bearing in degrees true
+    distance_nautical_miles, // Distance in nautical miles
+    &dest_lat, &dest_lon     // Destination position (output)
+);
+
+// Calculate bearing and distance between two points
+double bearing, distance;
+DistanceBearingMercator_Plugin(
+    from_lat, from_lon, // Starting position
+    to_lat, to_lon,     // Destination position
+    &bearing,           // Bearing in degrees true (output)
+    &distance           // Distance in nautical miles (output)
+);
+----
+
+=== Great Circle Functions
+
+For more accurate long-distance calculations, use great circle functions:
+
+[source,cpp]
+----
+// Calculate great circle distance between two points
+double distance_nm = DistGreatCircle_Plugin(
+    start_lat, start_lon, // Starting position
+    end_lat, end_lon      // Ending position
+);
+----
+
+=== Projection Conversions
+
+For more specialized needs, OpenCPN provides conversion functions for various projections:
+
+[source,cpp]
+----
+// Convert lat/lon to Transverse Mercator coordinates
+double x, y;
+toTM_Plugin(lat, lon, ref_lat, ref_lon, &x, &y);
+
+// Convert Transverse Mercator coordinates to lat/lon
+double lat, lon;
+fromTM_Plugin(x, y, ref_lat, ref_lon, &lat, &lon);
+
+// Convert lat/lon to Simple Mercator coordinates
+double x, y;
+toSM_Plugin(lat, lon, ref_lat, ref_lon, &x, &y);
+
+// Convert Simple Mercator coordinates to lat/lon
+double lat, lon;
+fromSM_Plugin(x, y, ref_lat, ref_lon, &lat, &lon);
+
+// Convert lat/lon to Elliptical Simple Mercator coordinates
+double x, y;
+toSM_ECC_Plugin(lat, lon, ref_lat, ref_lon, &x, &y);
+
+// Convert Elliptical Simple Mercator coordinates to lat/lon
+double lat, lon;
+fromSM_ECC_Plugin(x, y, ref_lat, ref_lon, &lat, &lon);
+----
+
+== Special Rendering Requirements
+
+=== Color Schemes
+
+Make sure your rendering respects the current color scheme:
+
+[source,cpp]
+----
+void MyPlugin::SetColorScheme(PI_ColorScheme cs) {
+    // Store current color scheme
+    m_color_scheme = cs;
+    
+    // Adjust rendering colors based on scheme
+    switch (cs) {
+        case PI_GLOBAL_COLOR_SCHEME_DAY:
+            m_line_color = wxColour(255, 0, 0);  // Bright red for day
+            m_fill_color = wxColour(0, 255, 0);  // Bright green for day
+            break;
+            
+        case PI_GLOBAL_COLOR_SCHEME_DUSK:
+            m_line_color = wxColour(192, 0, 0);  // Darker red for dusk
+            m_fill_color = wxColour(0, 192, 0);  // Darker green for dusk
+            break;
+            
+        case PI_GLOBAL_COLOR_SCHEME_NIGHT:
+            m_line_color = wxColour(128, 0, 0);  // Darkest red for night
+            m_fill_color = wxColour(0, 128, 0);  // Darkest green for night
+            break;
+            
+        default:
+            // Use day colors as default
+            m_line_color = wxColour(255, 0, 0);
+            m_fill_color = wxColour(0, 255, 0);
+            break;
+    }
+}
+----
+
+=== Viewport Updates
+
+Implement `SetCurrentViewPort()` to stay informed about viewport changes:
+
+[source,cpp]
+----
+void MyPlugin::SetCurrentViewPort(PlugIn_ViewPort &vp) {
+    // Store a copy of the viewport
+    m_last_vp = vp;
+    
+    // Adjust drawing parameters based on new viewport
+    // For example, simplify graphics for zoomed-out views
+    if (vp.chart_scale > 500000) {
+        m_simplified_drawing = true;
+    } else {
+        m_simplified_drawing = false;
+    }
+}
+----
+
+=== Performance Considerations
+
+Rendering can impact performance significantly. Follow these guidelines:
+
+* **Limit redrawing**: Only draw what's necessary
+* **Scale detail with zoom**: Show less detail at zoomed-out scales
+* **Cache calculations**: Don't recalculate values on every render
+* **Use clipping**: Only draw what's in the visible area
+* **Optimize loops**: Avoid expensive operations in tight loops
+* **Use OpenGL for complex drawing**: It's generally faster
+* **Reduce transparency**: Alpha blending can be expensive
+
+Example of optimizing drawing based on viewport:
+
+[source,cpp]
+----
+bool MyPlugin::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
+    // Only render if viewport is valid
+    if (!vp || !vp->bValid) return false;
+    
+    // Check if any of our data is visible in this viewport
+    if (m_max_lat < vp->lat_min || m_min_lat > vp->lat_max ||
+        m_max_lon < vp->lon_min || m_min_lon > vp->lon_max) {
+        return false;  // Nothing visible, don't waste time drawing
+    }
+    
+    // Adjust detail level based on scale
+    int detail_level;
+    if (vp->chart_scale < 50000) {
+        detail_level = 3;  // High detail
+    } else if (vp->chart_scale < 200000) {
+        detail_level = 2;  // Medium detail
+    } else if (vp->chart_scale < 1000000) {
+        detail_level = 1;  // Low detail
+    } else {
+        detail_level = 0;  // Minimal detail
+    }
+    
+    // Draw with appropriate detail level
+    RenderWithDetailLevel(dc, vp, detail_level);
+    
+    return true;
+}
+----
+
+== Mouse and Keyboard Interaction
+
+For interactive overlays, implement mouse and keyboard event handlers.
+
+=== Mouse Events
+
+Declare the `WANTS_MOUSE_EVENTS` capability and implement `MouseEventHook()`:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_OVERLAY_CALLBACK | WANTS_MOUSE_EVENTS;
+}
+
+bool MyPlugin::MouseEventHook(wxMouseEvent &event) {
+    // Handle mouse events
+    if (event.LeftDown()) {
+        // Convert screen coordinates to geographic
+        double lat, lon;
+        GetCanvasLLPix(&m_last_vp, event.GetPosition(), &lat, &lon);
+        
+        // Check if click is on one of our elements
+        for (size_t i = 0; i < m_elements.size(); i++) {
+            if (IsPointInElement(lat, lon, m_elements[i])) {
+                // Handle click on element
+                SelectElement(i);
+                RequestRefresh(GetOCPNCanvasWindow());  // Request redraw
+                return true;  // We handled this event
+            }
+        }
+    }
+    
+    // We didn't handle this event, let OpenCPN process it
+    return false;
+}
+----
+
+=== Keyboard Events
+
+Declare the `WANTS_KEYBOARD_EVENTS` capability and implement `KeyboardEventHook()`:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_OVERLAY_CALLBACK | WANTS_KEYBOARD_EVENTS;
+}
+
+bool MyPlugin::KeyboardEventHook(wxKeyEvent &event) {
+    // Handle keyboard events
+    if (event.GetKeyCode() == WXK_ESCAPE) {
+        // Clear selection
+        ClearSelection();
+        RequestRefresh(GetOCPNCanvasWindow());  // Request redraw
+        return true;  // We handled this event
+    }
+    
+    // We didn't handle this event, let OpenCPN process it
+    return false;
+}
+----
+
+== Best Practices
+
+* **Balance performance and quality**: Adjust detail level based on scale
+* **Respect color schemes**: Make sure your overlays are visible in all schemes
+* **Clear visual design**: Make your overlays intuitive and uncluttered
+* **Maintain consistency**: Follow OpenCPN's visual style
+* **Consider all projections**: Test with different projection types
+* **Clean up resources**: Properly manage any OpenGL resources
+* **Handle multiple canvases**: Support split-screen displays
+* **Test on all platforms**: Ensure rendering works on Windows, macOS, and Linux
+* **Respect user preferences**: Don't override user settings

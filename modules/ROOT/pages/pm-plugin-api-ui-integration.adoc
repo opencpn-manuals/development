@@ -1,0 +1,547 @@
+= UI Integration
+
+This chapter covers how plugins can integrate with OpenCPN's user interface. Plugins can add toolbar buttons, context menu items, preferences panels, and dockable windows. This allows your plugin to provide a seamless user experience that integrates well with OpenCPN's existing interface.
+
+== Toolbar Integration
+
+Plugins can add buttons to OpenCPN's main toolbar. These buttons can be used to toggle features, open dialogs, or perform actions.
+
+=== Declaring Toolbar Capabilities
+
+To add toolbar buttons, your plugin must declare the appropriate capabilities in the `Init()` method:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return INSTALLS_TOOLBAR_TOOL |
+           WANTS_TOOLBAR_CALLBACK;
+}
+----
+
+=== Implementing Toolbar Methods
+
+You need to implement several methods to support toolbar integration:
+
+[source,cpp]
+----
+int MyPlugin::GetToolbarToolCount(void) {
+    return 1; // Number of toolbar buttons to add
+}
+
+void MyPlugin::OnToolbarToolCallback(int id) {
+    if (id == m_toolbar_item_id) {
+        // Handle toolbar button click
+        // Toggle feature, open dialog, etc.
+    }
+}
+----
+
+For API version 1.13 and later, you can also implement these methods for more advanced toolbar interactions:
+
+[source,cpp]
+----
+void MyPlugin::OnToolbarToolDownCallback(int id) {
+    // Called when toolbar button is pressed down
+}
+
+void MyPlugin::OnToolbarToolUpCallback(int id) {
+    // Called when toolbar button is released
+}
+----
+
+=== Adding Toolbar Buttons
+
+To actually add a button to the toolbar, use the `InsertPlugInTool()` function. This is typically done in your `Init()` method:
+
+[source,cpp]
+----
+m_toolbar_item_id = InsertPlugInTool(
+    _T("MyPlugin"),                    // Label
+    _img_plugin_normal,                // Normal bitmap
+    _img_plugin_rollover,              // Rollover bitmap
+    wxITEM_CHECK,                      // Kind (normal, check, radio)
+    _("My Plugin"),                    // Short help text
+    _("Long help text for my plugin"), // Long help text
+    NULL,                              // User data
+    TOOL_POSITION_ANY,                 // Position
+    0,                                 // Tool selection
+    this                               // Plugin pointer
+);
+----
+
+[NOTE]
+====
+OpenCPN assigns a unique ID to each toolbar button. Store this ID to identify which button was clicked in the callback methods.
+====
+
+=== Using SVG Icons
+
+For better scaling across different display densities, you can use SVG icons for toolbar buttons:
+
+[source,cpp]
+----
+m_toolbar_item_id = InsertPlugInToolSVG(
+    _T("MyPlugin"),                    // Label
+    _T("icons/my_plugin_normal.svg"),  // Normal SVG
+    _T("icons/my_plugin_rollover.svg"),// Rollover SVG
+    _T("icons/my_plugin_toggled.svg"), // Toggled SVG
+    wxITEM_CHECK,                      // Kind (normal, check, radio)
+    _("My Plugin"),                    // Short help text
+    _("Long help text for my plugin"), // Long help text
+    NULL,                              // User data
+    TOOL_POSITION_ANY,                 // Position
+    0,                                 // Tool selection
+    this                               // Plugin pointer
+);
+----
+
+=== Managing Toolbar Buttons
+
+You can control toolbar button state and visibility:
+
+[source,cpp]
+----
+// Toggle button state (pressed/unpressed)
+SetToolbarItemState(m_toolbar_item_id, true);  // Set to pressed
+SetToolbarItemState(m_toolbar_item_id, false); // Set to unpressed
+
+// Hide/show button
+SetToolbarToolViz(m_toolbar_item_id, false);  // Hide
+SetToolbarToolViz(m_toolbar_item_id, true);   // Show
+
+// Update button icons
+SetToolbarToolBitmaps(m_toolbar_item_id, new_bitmap, new_rollover);
+SetToolbarToolBitmapsSVG(m_toolbar_item_id, 
+                        _T("icons/new_normal.svg"),
+                        _T("icons/new_rollover.svg"),
+                        _T("icons/new_toggled.svg"));
+----
+
+=== Removing Toolbar Buttons
+
+When your plugin is disabled or unloaded, remove any toolbar buttons it added:
+
+[source,cpp]
+----
+bool MyPlugin::DeInit(void) {
+    RemovePlugInTool(m_toolbar_item_id);
+    return true;
+}
+----
+
+== Context Menu Integration
+
+Plugins can add items to the chart context menu (right-click menu). This allows users to access plugin functionality directly from the chart display.
+
+=== Declaring Context Menu Capabilities
+
+To add context menu items, your plugin must declare the appropriate capabilities:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return INSTALLS_CONTEXTMENU_ITEMS;
+}
+----
+
+=== Adding Context Menu Items
+
+Add menu items using the `AddCanvasContextMenuItem()` function:
+
+[source,cpp]
+----
+wxMenuItem *pmi = new wxMenuItem(NULL, -1, _("My Plugin Action"));
+m_menu_item_id = AddCanvasContextMenuItem(pmi, this);
+----
+
+For a submenu with multiple items:
+
+[source,cpp]
+----
+wxMenu *submenu = new wxMenu();
+submenu->Append(-1, _("Submenu Item 1"));
+submenu->Append(-1, _("Submenu Item 2"));
+
+wxMenuItem *pmi = new wxMenuItem(NULL, -1, _("My Plugin"), wxEmptyString, wxITEM_NORMAL, submenu);
+m_menu_item_id = AddCanvasContextMenuItem(pmi, this);
+----
+
+=== Handling Menu Item Selection
+
+Implement the `OnContextMenuItemCallback()` method to handle menu item clicks:
+
+[source,cpp]
+----
+void MyPlugin::OnContextMenuItemCallback(int id) {
+    if (id == m_menu_item_id) {
+        // Handle context menu item click
+        // Perform action, open dialog, etc.
+    }
+}
+----
+
+=== Managing Context Menu Items
+
+Control context menu item state and visibility:
+
+[source,cpp]
+----
+// Hide/show menu item
+SetCanvasContextMenuItemViz(m_menu_item_id, false);  // Hide
+SetCanvasContextMenuItemViz(m_menu_item_id, true);   // Show
+
+// Enable/disable (grey out) menu item
+SetCanvasContextMenuItemGrey(m_menu_item_id, true);  // Disable (grey out)
+SetCanvasContextMenuItemGrey(m_menu_item_id, false); // Enable
+----
+
+=== Multi-Canvas Support
+
+For API version 1.16 and later, implement the `PrepareContextMenu()` method to update menu items based on the current canvas:
+
+[source,cpp]
+----
+void MyPlugin::PrepareContextMenu(int canvasIndex) {
+    // Update context menu items based on canvas index
+    // For example, show/hide or enable/disable based on canvas features
+    bool relevant_for_this_canvas = IsFeatureRelevantForCanvas(canvasIndex);
+    SetCanvasContextMenuItemViz(m_menu_item_id, relevant_for_this_canvas);
+}
+----
+
+=== Removing Context Menu Items
+
+Remove context menu items when your plugin is disabled or unloaded:
+
+[source,cpp]
+----
+bool MyPlugin::DeInit(void) {
+    RemoveCanvasContextMenuItem(m_menu_item_id);
+    return true;
+}
+----
+
+== Preferences Panels
+
+Plugins can add configuration panels to OpenCPN's settings dialog. This allows users to configure your plugin through OpenCPN's standard interface.
+
+=== Toolbox Pages
+
+The traditional approach is to add pages to the "toolbox" (settings dialog):
+
+==== Declaring Toolbox Capabilities
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return INSTALLS_TOOLBOX_PAGE;
+}
+----
+
+==== Implementing Toolbox Methods
+
+[source,cpp]
+----
+int MyPlugin::GetToolboxPanelCount(void) {
+    return 1; // Number of pages to add
+}
+
+void MyPlugin::SetupToolboxPanel(int page_sel, wxNotebook *notebook) {
+    if (page_sel == 0) {
+        // Create first page
+        wxPanel *panel = new wxPanel(notebook);
+        
+        // Add controls to panel
+        wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+        sizer->Add(new wxStaticText(panel, wxID_ANY, _("My Plugin Settings")),
+                   0, wxALL, 5);
+        sizer->Add(new wxCheckBox(panel, wxID_ANY, _("Enable feature")),
+                   0, wxALL, 5);
+        // Add more controls as needed
+        
+        panel->SetSizer(sizer);
+        notebook->AddPage(panel, _("My Plugin"));
+    }
+}
+
+void MyPlugin::OnCloseToolboxPanel(int page_sel, int ok_apply_cancel) {
+    if (page_sel == 0) {
+        // Save settings based on ok_apply_cancel
+        if (ok_apply_cancel == 0 || ok_apply_cancel == 1) { // OK or Apply
+            // Save settings
+        }
+    }
+}
+----
+
+=== Preferences Dialog
+
+For API version 1.9 and later, plugins can also use the newer preferences approach:
+
+==== Declaring Preferences Capabilities
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_PREFERENCES;
+}
+----
+
+==== Implementing Preferences Methods
+
+[source,cpp]
+----
+void MyPlugin::ShowPreferencesDialog(wxWindow *parent) {
+    // Create and show a dialog
+    wxDialog *dialog = new wxDialog(parent, wxID_ANY, _("My Plugin Preferences"),
+                                   wxDefaultPosition, wxDefaultSize,
+                                   wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+    
+    // Add controls to dialog
+    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    sizer->Add(new wxStaticText(dialog, wxID_ANY, _("My Plugin Settings")),
+               0, wxALL, 5);
+    sizer->Add(new wxCheckBox(dialog, wxID_ANY, _("Enable feature")),
+               0, wxALL, 5);
+    // Add more controls as needed
+    
+    // Add standard buttons
+    sizer->Add(dialog->CreateButtonSizer(wxOK | wxCANCEL), 
+              0, wxEXPAND | wxALL, 5);
+    
+    dialog->SetSizer(sizer);
+    sizer->Fit(dialog);
+    
+    // Show dialog modally and process result
+    if (dialog->ShowModal() == wxID_OK) {
+        // Save settings
+    }
+    
+    dialog->Destroy();
+}
+----
+
+=== Options Pages (API 1.13+)
+
+For API version 1.13 and later, plugins can add pages to specific sections of the main options dialog:
+
+[source,cpp]
+----
+void MyPlugin::OnSetupOptions(void) {
+    // Add a page to the "Charts" section
+    AddOptionsPage(PI_OPTIONS_PARENT_CHARTS, _("My Plugin Charts"));
+    
+    // Add a page to the "Connections" section
+    AddOptionsPage(PI_OPTIONS_PARENT_CONNECTIONS, _("My Plugin Connections"));
+    
+    // Add widget to page
+    wxCheckBox *check = AddOptionsPageCheckbox(_("Enable feature"), _("tooltip"), false);
+    
+    // Add text control with label
+    AddOptionsPageText(_("Label:"), _("tooltip"), _("default value"));
+    
+    // Add control groups
+    wxFlexGridSizer *group = AddOptionsPageSizer(2, 2, 2);  // rows, cols, vgap
+    // Add controls to group
+}
+----
+
+== Dockable Windows and Panels
+
+Plugins can create dockable windows and panels that integrate with OpenCPN's window management system.
+
+=== Declaring AUI Manager Capability
+
+To use the AUI manager, declare the appropriate capability:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return USES_AUI_MANAGER;
+}
+----
+
+=== Creating Dockable Windows
+
+[source,cpp]
+----
+void MyPlugin::CreateDockableWindow() {
+    // Get AUI manager
+    wxAuiManager *aui_mgr = GetFrameAuiManager();
+    
+    // Create panel
+    wxPanel *panel = new wxPanel(GetOCPNCanvasWindow(), wxID_ANY);
+    
+    // Add content to panel
+    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+    sizer->Add(new wxStaticText(panel, wxID_ANY, _("My Plugin Panel")),
+               0, wxALL, 5);
+    // Add more controls as needed
+    panel->SetSizer(sizer);
+    
+    // Add panel to AUI manager
+    wxAuiPaneInfo pane;
+    pane.Name(_T("MyPluginPane"));
+    pane.Caption(_("My Plugin"));
+    pane.Float();
+    pane.FloatingPosition(100, 100);
+    pane.FloatingSize(300, 200);
+    pane.Dockable(true);
+    
+    aui_mgr->AddPane(panel, pane);
+    aui_mgr->Update();
+    
+    // Store panel reference
+    m_panel = panel;
+}
+----
+
+=== Handling AUI Updates
+
+Implement the `UpdateAuiStatus()` method to handle AUI manager updates:
+
+[source,cpp]
+----
+void MyPlugin::UpdateAuiStatus(void) {
+    // Update panel content or layout if needed
+    // This is called when the AUI manager updates
+}
+----
+
+=== Removing Dockable Windows
+
+Clean up dockable windows when your plugin is disabled or unloaded:
+
+[source,cpp]
+----
+bool MyPlugin::DeInit(void) {
+    // Get AUI manager
+    wxAuiManager *aui_mgr = GetFrameAuiManager();
+    
+    // Remove panel
+    if (m_panel) {
+        aui_mgr->DetachPane(m_panel);
+        m_panel->Destroy();
+        m_panel = NULL;
+        aui_mgr->Update();
+    }
+    
+    return true;
+}
+----
+
+== Color Schemes and Styling
+
+Plugins should respect OpenCPN's color schemes to provide a consistent user experience.
+
+=== Implementing Color Scheme Support
+
+Implement the `SetColorScheme()` method to update your plugin's UI colors:
+
+[source,cpp]
+----
+void MyPlugin::SetColorScheme(PI_ColorScheme cs) {
+    // Store current color scheme
+    m_color_scheme = cs;
+    
+    // Update colors of UI elements
+    switch (cs) {
+        case PI_GLOBAL_COLOR_SCHEME_DAY:
+            // Set day colors
+            m_bg_color = wxColour(255, 255, 255);
+            m_text_color = wxColour(0, 0, 0);
+            break;
+            
+        case PI_GLOBAL_COLOR_SCHEME_DUSK:
+            // Set dusk colors
+            m_bg_color = wxColour(80, 80, 80);
+            m_text_color = wxColour(200, 200, 200);
+            break;
+            
+        case PI_GLOBAL_COLOR_SCHEME_NIGHT:
+            // Set night colors
+            m_bg_color = wxColour(30, 30, 30);
+            m_text_color = wxColour(150, 150, 150);
+            break;
+            
+        default:
+            // Use day colors as default
+            m_bg_color = wxColour(255, 255, 255);
+            m_text_color = wxColour(0, 0, 0);
+            break;
+    }
+    
+    // Apply colors to UI elements
+    if (m_panel) {
+        m_panel->SetBackgroundColour(m_bg_color);
+        // Update other controls
+        m_panel->Refresh();
+    }
+}
+----
+
+=== Getting System Colors
+
+Use the `GetGlobalColor()` function to get colors from OpenCPN's color scheme:
+
+[source,cpp]
+----
+wxColour color;
+if (GetGlobalColor(_T("DILG0"), &color)) {
+    // Use color for dialog background
+    dialog->SetBackgroundColour(color);
+}
+----
+
+=== Using System Fonts
+
+Use the `OCPNGetFont()` function to get fonts from OpenCPN's font system:
+
+[source,cpp]
+----
+wxFont *font = OCPNGetFont(_T("Dialog"), 0);
+if (font) {
+    // Use font for dialog text
+    text_ctrl->SetFont(*font);
+}
+----
+
+=== Applying System Styling
+
+Use the `DimeWindow()` function to apply the system color scheme to a window:
+
+[source,cpp]
+----
+DimeWindow(m_dialog);
+----
+
+== Best Practices for UI Integration
+
+* **Respect OpenCPN's UI guidelines**: Follow existing patterns for consistency
+* **Support all color schemes**: Test your UI in day, dusk, and night modes
+* **Handle window resizes**: Make your UI elements responsive
+* **Clean up UI elements**: Remove all UI elements in `DeInit()`
+* **Use translations**: Wrap user-visible strings in `_()` for translation
+* **Provide clear feedback**: Use tooltips, status messages, and visual cues
+* **Consider performance**: Don't create excessive UI updates
+* **Test on different platforms**: Ensure your UI works on Windows, macOS, and Linux

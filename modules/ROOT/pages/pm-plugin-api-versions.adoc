@@ -15,13 +15,16 @@ On mingw Windows builds::
 
 The  API Designation is found in the ocpn_plugin.h file:
 
-    #define     MY_API_VERSION_MAJOR    1
-    #define     MY_API_VERSION_MINOR    16
+[source,cpp]
+----
+#define API_VERSION_MAJOR 1
+#define API_VERSION_MINOR 19
+----
 
 The API is intended to be backwards compatible, and has stayed so since
 at least 10 years.
-
-Unfortunately, the API is more or less undocumented.
+Plugins developed for earlier API versions should continue to work with
+newer versions of OpenCPN, although they may not have access to newer API features.
 
 Since 5.10 the API files are distributed as part of the opencpn-libs project 
 at https://github.com/opencpn/opencpn-libs.

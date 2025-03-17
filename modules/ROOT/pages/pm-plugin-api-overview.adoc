@@ -1,0 +1,32 @@
+= OpenCPN Plugin API Reference
+
+== Introduction
+
+This documentation provides a comprehensive reference for the OpenCPN Plugin API. It is intended for developers who want to create or maintain plugins for OpenCPN.
+
+The Plugin API enables third-party developers to extend OpenCPN's functionality through plugins. Plugins can add new features, integrate with external systems, implement custom chart formats, or modify OpenCPN's behavior.
+
+=== How to Use This Documentation
+
+This reference is organized into logical sections that cover different aspects of the Plugin API:
+
+* *Core Plugin Classes and Lifecycle* - Fundamental classes and methods required for all plugins
+* *Plugin Capabilities System* - How to declare and implement plugin capabilities
+* *UI Integration* - Adding toolbar buttons, menu items, and preferences panels
+* *Chart Display and Rendering* - Rendering content on the chart
+* *Custom Chart Types* - Implementing support for custom chart formats
+* *Navigation Data Access* - Working with position, AIS, routes, and other navigation data
+* *Plugin Communication* - Messaging between plugins and the core application
+* *Utility Functions* - Helper functions for common tasks
+
+Developers new to OpenCPN plugin development should start with the <<Core Plugin Classes and Lifecycle>> section to understand the basic structure of a plugin.
+
+== Getting Started
+
+To create a new plugin, it's recommended to:
+
+1. Start with an existing plugin template or example
+2. Modify it step-by-step to implement your desired functionality
+3. Review this documentation for API details relevant to your plugin
+
+The following sections provide detailed information about all aspects of the Plugin API.

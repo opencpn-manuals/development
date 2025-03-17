@@ -1,0 +1,191 @@
+= Core Plugin Classes and Lifecycle
+
+This chapter covers the fundamental classes and methods that form the foundation of every OpenCPN plugin.
+
+== The Plugin Base Class
+
+All OpenCPN plugins must derive from the `opencpn_plugin` base class. This class defines the interface between your plugin and the OpenCPN application.
+
+[source,cpp]
+----
+class DECL_EXP opencpn_plugin {
+public:
+    opencpn_plugin(void *pmgr) {}
+    virtual ~opencpn_plugin();
+    
+    // Required methods (must implement)
+    virtual int Init(void);
+    virtual bool DeInit(void);
+    
+    virtual int GetAPIVersionMajor();
+    virtual int GetAPIVersionMinor();
+    virtual int GetPlugInVersionMajor();
+    virtual int GetPlugInVersionMinor();
+    virtual wxBitmap *GetPlugInBitmap();
+    
+    virtual wxString GetCommonName();
+    virtual wxString GetShortDescription();
+    virtual wxString GetLongDescription();
+    
+    // Optional methods (implement as needed)
+    // ...
+};
+----
+
+There are several newer versions of this base class that add additional methods.
+
+== Plugin Lifecycle
+
+=== Initialization
+
+The plugin lifecycle begins when OpenCPN loads your plugin and instantiates your plugin class. The sequence is:
+
+1. Plugin DLL/shared library is loaded
+2. OpenCPN calls your plugin's factory function
+3. Plugin constructor runs
+4. OpenCPN calls your `GetAPIVersionMajor()` and `GetAPIVersionMinor()` methods to check compatibility
+5. OpenCPN calls your `Init()` method
+
+The `Init()` method is where you should:
+
+* Initialize your plugin's resources
+* Register any capabilities your plugin implements
+* Set up initial state
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_OVERLAY_CALLBACK | 
+           WANTS_TOOLBAR_CALLBACK |
+           INSTALLS_TOOLBAR_TOOL;
+}
+----
+
+The return value from `Init()` is crucial as it declares your plugin's capabilities to OpenCPN.
+
+=== Operation
+
+During normal operation, OpenCPN will call various methods on your plugin based on the capabilities you declared. For example, if you declared `WANTS_OVERLAY_CALLBACK`, OpenCPN will call your `RenderOverlay()` method whenever the chart display needs to be redrawn.
+
+=== Cleanup
+
+When the plugin is being unloaded (when OpenCPN shuts down or when the user disables the plugin), OpenCPN calls your `DeInit()` method. This is where you should:
+
+* Release any resources your plugin has allocated
+* Save any persistent state
+* Clean up any UI elements created by your plugin
+
+[source,cpp]
+----
+bool MyPlugin::DeInit(void) {
+    // Save settings
+    // Release resources
+    // Clean up UI elements
+    
+    return true;
+}
+----
+
+[IMPORTANT]
+====
+Proper cleanup in `DeInit()` is essential to prevent memory leaks and ensure a smooth OpenCPN shutdown.
+====
+
+== Required Methods
+
+All plugins must implement these methods, even if some just return default values.
+
+=== Version Information Methods
+
+These methods allow OpenCPN to check API compatibility and display version information:
+
+[source,cpp]
+----
+int MyPlugin::GetAPIVersionMajor() { return API_VERSION_MAJOR; }
+int MyPlugin::GetAPIVersionMinor() { return API_VERSION_MINOR; }
+int MyPlugin::GetPlugInVersionMajor() { return 1; }  // Your plugin's major version
+int MyPlugin::GetPlugInVersionMinor() { return 0; }  // Your plugin's minor version
+----
+
+For plugins using API version 1.17 or later, you can also implement:
+- `GetPlugInVersionPatch()`
+- `GetPlugInVersionPost()`
+- `GetPlugInVersionPre()`
+- `GetPlugInVersionBuild()`
+
+These methods provide a more detailed semantic versioning scheme for your plugin.
+
+=== Identification Methods
+
+These methods provide information about your plugin for display in the plugin manager:
+
+[source,cpp]
+----
+wxString MyPlugin::GetCommonName() { return _("My Plugin"); }
+
+wxString MyPlugin::GetShortDescription() { 
+    return _("A brief description of what my plugin does");
+}
+
+wxString MyPlugin::GetLongDescription() {
+    return _("A detailed description of my plugin.\n\n"
+             "* Feature 1\n"
+             "* Feature 2\n"
+             "* Feature 3\n\n"
+             "Version: 1.0\n"
+             "Author: Your Name\n"
+             "Copyright (c) 2023");
+}
+----
+
+[NOTE]
+====
+The `_()` macro is used for string translation. It allows your plugin strings to be translated into different languages.
+====
+
+=== Plugin Icon
+
+The `GetPlugInBitmap()` method returns an icon for your plugin:
+
+[source,cpp]
+----
+wxBitmap *MyPlugin::GetPlugInBitmap() {
+    return new wxBitmap(my_plugin_icon_xpm);
+}
+----
+
+The bitmap is typically a 32x32 pixel XPM image defined in your plugin's resources.
+
+== API Version Compatibility
+
+OpenCPN maintains backward compatibility with older API versions. Plugins written for older API versions should continue to work with newer versions of OpenCPN.
+
+To access newer API features, your plugin should:
+
+1. Derive from the appropriate `opencpn_plugin_XXX` class (where XXX is the API minor version)
+2. Correctly report API version numbers in `GetAPIVersionMajor()` and `GetAPIVersionMinor()`
+
+For example, to use features from API 1.16:
+
+[source,cpp]
+----
+class MyPlugin : public opencpn_plugin_116 {
+public:
+    MyPlugin(void *pmgr) : opencpn_plugin_116(pmgr) {}
+    // ...
+    
+    int GetAPIVersionMajor() override { return 1; }
+    int GetAPIVersionMinor() override { return 16; }
+    // ...
+};
+----
+
+== Plugin Class Extensions
+
+As the OpenCPN API has evolved, additional base classes have been added to support new features. These classes extend the original `opencpn_plugin` class.
+When creating a new plugin, it's generally best to use the latest API version to access all available features.
+

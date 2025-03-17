@@ -1,0 +1,246 @@
+= Plugin Capabilities System
+
+The capabilities system is a key part of the OpenCPN plugin architecture. It allows plugins to declare what features they implement and what information they need from OpenCPN. This chapter explains how capabilities work and how to use them effectively in your plugins.
+
+== Understanding Capabilities
+
+Capabilities are declared as a set of flags returned from your plugin's `Init()` method. Each flag is a bit in a bitfield that tells OpenCPN:
+
+* What callbacks your plugin wants to receive
+* What UI elements your plugin will add
+* What special features your plugin implements
+
+OpenCPN uses this information to:
+
+* Determine which plugin methods to call
+* Allocate resources for plugin features
+* Enable or disable certain integration points
+
+== Declaring Capabilities
+
+Your plugin declares its capabilities by returning a bitwise OR of capability flags from the `Init()` method:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_OVERLAY_CALLBACK | 
+           WANTS_TOOLBAR_CALLBACK |
+           INSTALLS_TOOLBAR_TOOL;
+}
+----
+
+[IMPORTANT]
+====
+Only declare capabilities that your plugin actually implements. Declaring a capability means you must implement the corresponding methods in your plugin class.
+====
+
+== Categories of Capabilities
+
+Plugin capabilities can be broadly categorized into two types:
+
+=== WANTS_* Capabilities
+
+These capabilities indicate that your plugin wants to receive certain types of information or callbacks from OpenCPN. Examples include:
+
+* `WANTS_OVERLAY_CALLBACK` - Receive calls to render custom graphics on the chart
+* `WANTS_CURSOR_LATLON` - Receive updates about cursor position
+* `WANTS_NMEA_SENTENCES` - Receive all NMEA sentences
+* `WANTS_AIS_SENTENCES` - Receive AIS information
+
+When you declare a WANTS_* capability, you must implement the corresponding method in your plugin class.
+
+=== INSTALLS_* Capabilities
+
+These capabilities indicate that your plugin will add or modify UI elements or provide new functionality to OpenCPN. Examples include:
+
+* `INSTALLS_TOOLBAR_TOOL` - Add buttons to the toolbar
+* `INSTALLS_CONTEXTMENU_ITEMS` - Add items to the right-click context menu
+* `INSTALLS_PLUGIN_CHART` - Provide a new chart type
+* `INSTALLS_TOOLBOX_PAGE` - Add pages to the settings dialog
+
+When you declare an INSTALLS_* capability, you must implement the corresponding methods to create and manage these elements.
+
+== Complete List of Capability Flags
+
+[cols="1,3"]
+|===
+|Flag |Description
+
+|`WANTS_OVERLAY_CALLBACK`
+|Plugin wants to draw custom overlay graphics on the chart. Implement `RenderOverlay()`.
+
+|`WANTS_CURSOR_LATLON`
+|Plugin wants to receive cursor position updates. Implement `SetCursorLatLon()`.
+
+|`WANTS_TOOLBAR_CALLBACK`
+|Plugin wants to be notified when its toolbar buttons are clicked. Implement `OnToolbarToolCallback()`.
+
+|`INSTALLS_TOOLBAR_TOOL`
+|Plugin will add one or more toolbar buttons. Implement `GetToolbarToolCount()` and related methods.
+
+|`WANTS_CONFIG`
+|Plugin needs access to configuration storage. Use `GetOCPNConfigObject()` to access settings.
+
+|`INSTALLS_TOOLBOX_PAGE`
+|Plugin will add pages to the settings dialog. Implement `GetToolboxPanelCount()` and related methods.
+
+|`INSTALLS_CONTEXTMENU_ITEMS`
+|Plugin will add items to the right-click menu. Use `AddCanvasContextMenuItem()` and implement `OnContextMenuItemCallback()`.
+
+|`WANTS_NMEA_SENTENCES`
+|Plugin wants to receive raw NMEA sentences. Implement `SetNMEASentence()`.
+
+|`WANTS_NMEA_EVENTS`
+|Plugin wants to receive decoded NMEA events. Implement `SetPositionFix()` or `SetPositionFixEx()`.
+
+|`WANTS_AIS_SENTENCES`
+|Plugin wants to receive AIS target information. Implement handling for AIS data.
+
+|`USES_AUI_MANAGER`
+|Plugin uses the wxAuiManager for window management. Implement `UpdateAuiStatus()`.
+
+|`WANTS_PREFERENCES`
+|Plugin will add page(s) to preferences dialog. Implement `ShowPreferencesDialog()`.
+
+|`INSTALLS_PLUGIN_CHART`
+|Plugin provides new chart type. Implement chart-related classes and methods.
+
+|`WANTS_ONPAINT_VIEWPORT`
+|Plugin wants callbacks during chart viewport painting. Implement viewport painting methods.
+
+|`WANTS_PLUGIN_MESSAGING`
+|Plugin wants to participate in plugin-to-plugin messaging. Implement `SetPluginMessage()`.
+
+|`WANTS_OPENGL_OVERLAY_CALLBACK`
+|Plugin wants to render overlay graphics in OpenGL mode. Implement `RenderGLOverlay()`.
+
+|`WANTS_DYNAMIC_OPENGL_OVERLAY_CALLBACK`
+|Plugin provides dynamic OpenGL overlays that may change frequently.
+
+|`WANTS_LATE_INIT`
+|Plugin wants to delay full initialization. Implement `LateInit()`.
+
+|`INSTALLS_PLUGIN_CHART_GL`
+|Plugin provides new chart type with OpenGL support.
+
+|`WANTS_MOUSE_EVENTS`
+|Plugin wants to receive mouse events. Implement `MouseEventHook()`.
+
+|`WANTS_VECTOR_CHART_OBJECT_INFO`
+|Plugin wants information about vector chart objects. Implement `SendVectorChartObjectInfo()`.
+
+|`WANTS_KEYBOARD_EVENTS`
+|Plugin wants to receive keyboard events. Implement `KeyboardEventHook()`.
+
+|`WANTS_PRESHUTDOWN_HOOK`
+|Plugin wants notification before OpenCPN shuts down. Implement `PreShutdownHook()`.
+|===
+
+== Capability Combinations
+
+Different types of plugins typically use different combinations of capabilities:
+
+=== Navigation Tool Plugin Example
+
+A plugin that shows navigation data might use:
+
+[source,cpp]
+----
+return WANTS_OVERLAY_CALLBACK |
+       WANTS_CURSOR_LATLON |
+       WANTS_NMEA_EVENTS |
+       WANTS_CONFIG;
+----
+
+=== Chart Enhancement Plugin Example
+
+A plugin that adds features to the chart display might use:
+
+[source,cpp]
+----
+return WANTS_OVERLAY_CALLBACK |
+       WANTS_OPENGL_OVERLAY_CALLBACK |
+       WANTS_CURSOR_LATLON |
+       WANTS_VECTOR_CHART_OBJECT_INFO |
+       WANTS_MOUSE_EVENTS;
+----
+
+=== Instrument Plugin Example
+
+A plugin that shows instrument data in a separate window might use:
+
+[source,cpp]
+----
+return WANTS_NMEA_SENTENCES |
+       WANTS_CONFIG |
+       USES_AUI_MANAGER |
+       INSTALLS_TOOLBAR_TOOL |
+       WANTS_TOOLBAR_CALLBACK;
+----
+
+=== Custom Chart Plugin Example
+
+A plugin that adds support for a new chart format might use:
+
+[source,cpp]
+----
+return INSTALLS_PLUGIN_CHART |
+       WANTS_CONFIG |
+       WANTS_PREFERENCES;
+----
+
+== Implementation Requirements
+
+When you declare a capability, you must implement the corresponding methods in your plugin class. Here are some examples:
+
+=== For WANTS_OVERLAY_CALLBACK
+
+[source,cpp]
+----
+bool MyPlugin::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
+    // Draw on the chart
+    dc.SetPen(wxPen(*wxRED, 2));
+    dc.DrawLine(0, 0, vp->pix_width, vp->pix_height);
+    return true;
+}
+----
+
+=== For WANTS_TOOLBAR_CALLBACK + INSTALLS_TOOLBAR_TOOL
+
+[source,cpp]
+----
+int MyPlugin::GetToolbarToolCount(void) {
+    return 1; // Number of tools to add
+}
+
+void MyPlugin::OnToolbarToolCallback(int id) {
+    // Handle tool click
+    if (id == m_toolbar_item_id) {
+        // Do something when the tool is clicked
+    }
+}
+----
+
+=== For WANTS_NMEA_EVENTS
+
+[source,cpp]
+----
+void MyPlugin::SetPositionFix(PlugIn_Position_Fix &pfix) {
+    // Process position update
+    m_current_lat = pfix.Lat;
+    m_current_lon = pfix.Lon;
+    m_current_sog = pfix.Sog;
+    m_current_cog = pfix.Cog;
+}
+----
+
+== Best Practices
+
+* **Declare only what you need**: Only enable capabilities your plugin actually implements
+* **Implement required methods**: Make sure to implement all method overrides required by your declared capabilities
+* **Consider performance**: Be careful with high-frequency callbacks like `WANTS_CURSOR_LATLON` or `WANTS_NMEA_SENTENCES`
+* **Handle capabilities gracefully**: Your plugin should work even if some capabilities are unavailable in certain OpenCPN versions
