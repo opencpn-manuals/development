@@ -25,19 +25,19 @@ void MyPlugin::LoadConfig() {
     wxFileConfig *pConf = GetOCPNConfigObject();
     
     if (pConf) {
-        pConf->SetPath(_T("/PlugIns/MyPlugin"));
+        pConf->SetPath("/PlugIns/MyPlugin");
         
         // Read settings with defaults
-        m_option1 = pConf->Read(_T("Option1"), 42);
-        m_option2 = pConf->Read(_T("Option2"), _T("default"));
-        m_enabled = pConf->Read(_T("Enabled"), true);
+        m_option1 = pConf->Read("Option1", 42);
+        m_option2 = pConf->Read("Option2"), _T("default");
+        m_enabled = pConf->Read("Enabled", true);
         
         // Read array of values
-        int count = pConf->Read(_T("WaypointCount"), 0);
+        int count = pConf->Read("WaypointCount", 0);
         m_waypoints.clear();
         
         for (int i = 0; i < count; i++) {
-            wxString key = wxString::Format(_T("Waypoint%d"), i);
+            wxString key = wxString::Format("Waypoint%d", i);
             wxString value = pConf->Read(key, wxEmptyString);
             
             if (!value.IsEmpty()) {
@@ -52,18 +52,18 @@ void MyPlugin::SaveConfig() {
     wxFileConfig *pConf = GetOCPNConfigObject();
     
     if (pConf) {
-        pConf->SetPath(_T("/PlugIns/MyPlugin"));
+        pConf->SetPath("/PlugIns/MyPlugin");
         
         // Write settings
-        pConf->Write(_T("Option1"), m_option1);
-        pConf->Write(_T("Option2"), m_option2);
-        pConf->Write(_T("Enabled"), m_enabled);
+        pConf->Write("Option1", m_option1);
+        pConf->Write("Option2", m_option2);
+        pConf->Write("Enabled", m_enabled);
         
         // Write array of values
-        pConf->Write(_T("WaypointCount"), (int)m_waypoints.size());
+        pConf->Write("WaypointCount", (int)m_waypoints.size());
         
         for (size_t i = 0; i < m_waypoints.size(); i++) {
-            wxString key = wxString::Format(_T("Waypoint%d"), (int)i);
+            wxString key = wxString::Format("Waypoint%d", (int)i);
             wxString value = SerializeWaypoint(m_waypoints[i]);
             
             pConf->Write(key, value);
@@ -109,7 +109,7 @@ Get a color from OpenCPN's color scheme:
 [source,cpp]
 ----
 wxColour color;
-if (GetGlobalColor(_T("BLUE1"), &color)) {
+if (GetGlobalColor("BLUE1", &color)) {
     // Use the color
     m_textCtrl->SetForegroundColour(color);
 }
@@ -128,7 +128,7 @@ Get a font from OpenCPN's font system:
 
 [source,cpp]
 ----
-wxFont *font = OCPNGetFont(_T("Dialog"), 0);
+wxFont *font = OCPNGetFont("Dialog", 0);
 if (font) {
     // Use the font
     m_textCtrl->SetFont(*font);
@@ -142,7 +142,7 @@ Get the path to OpenCPN's shared data directory:
 [source,cpp]
 ----
 wxString *dataLocation = GetpSharedDataLocation();
-wxString myDataPath = *dataLocation + _T("plugins/myPlugin/");
+wxString myDataPath = *dataLocation + "plugins/myPlugin/";
 ----
 
 == Chart Display Functions
@@ -269,7 +269,7 @@ Send an NMEA sentence to OpenCPN:
 
 [source,cpp]
 ----
-PushNMEABuffer(_T("$GPGLL,4915.21,N,12314.32,W,225444,A"));
+PushNMEABuffer("$GPGLL,4915.21,N,12314.32,W,225444,A");
 ----
 
 == Localization Functions
@@ -278,7 +278,7 @@ Add a locale catalog for translations:
 
 [source,cpp]
 ----
-AddLocaleCatalog(_T("opencpn-myPlugin"));
+AddLocaleCatalog("opencpn-myPlugin");
 ----
 
 == Chart Database Functions
@@ -295,8 +295,8 @@ Update the chart database:
 [source,cpp]
 ----
 wxArrayString directories;
-directories.Add(_T("/path/to/charts"));
-directories.Add(_T("/path/to/more/charts"));
+directories.Add("/path/to/charts");
+directories.Add("/path/to/more/charts");
 
 bool success = UpdateChartDBInplace(directories, true, true);
 ----
@@ -317,9 +317,9 @@ Create and manage hyperlinks for waypoints or routes:
 [source,cpp]
 ----
 Plugin_Hyperlink *link = new Plugin_Hyperlink();
-link->DescrText = _T("OpenCPN Website");
-link->Link = _T("https://opencpn.org");
-link->Type = _T("Website");
+link->DescrText = "OpenCPN Website";
+link->Link = "https://opencpn.org";
+link->Type = "Website";
 
 // Add to waypoint
 waypoint->m_HyperlinkList->Append(link);
@@ -333,13 +333,13 @@ Create waypoints:
 ----
 PlugIn_Waypoint *waypoint = new PlugIn_Waypoint(
     lat, lon,                  // Position
-    _T("triangle"),            // Icon name
-    _T("My Waypoint"),         // Waypoint name
+    "triangle",            // Icon name
+    "My Waypoint",         // Waypoint name
     wxEmptyString              // GUID (empty for auto-generated)
 );
 
 // Set additional properties
-waypoint->m_MarkDescription = _T("An important waypoint");
+waypoint->m_MarkDescription = "An important waypoint";
 waypoint->m_IsVisible = true;
 ----
 
@@ -350,9 +350,9 @@ Create routes with waypoints:
 [source,cpp]
 ----
 PlugIn_Route *route = new PlugIn_Route();
-route->m_NameString = _T("My Route");
-route->m_StartString = _T("Start Point");
-route->m_EndString = _T("End Point");
+route->m_NameString = "My Route";
+route->m_StartString = "Start Point";
+route->m_EndString = "End Point";
 
 // Add waypoints to route
 route->pWaypointList->Append(start_waypoint);
@@ -367,9 +367,9 @@ Create tracks with points:
 [source,cpp]
 ----
 PlugIn_Track *track = new PlugIn_Track();
-track->m_NameString = _T("My Track");
-track->m_StartString = _T("Track Start");
-track->m_EndString = _T("Track End");
+track->m_NameString = "My Track";
+track->m_StartString = "Track Start";
+track->m_EndString = "Track End";
 
 // Add track points
 track->pWaypointList->Append(point1);
@@ -395,7 +395,7 @@ bool ParseLatLon(const wxString& str, double *lat, double *lon) {
     work.Trim(true).Trim(false);  // Remove leading/trailing whitespace
     
     // Try decimal format first
-    wxRegEx reDec(_T("(-?[0-9]+\\.[0-9]+)\\s+(-?[0-9]+\\.[0-9]+)"));
+    wxRegEx reDec("(-?[0-9]+\\.[0-9]+)\\s+(-?[0-9]+\\.[0-9]+)");
     if (reDec.Matches(work)) {
         wxString sLat = reDec.GetMatch(work, 1);
         wxString sLon = reDec.GetMatch(work, 2);
@@ -406,7 +406,7 @@ bool ParseLatLon(const wxString& str, double *lat, double *lon) {
     }
     
     // Try degrees-decimal minutes format
-    wxRegEx reDDM(_T("([0-9]+)\\s*[°\\s]\\s*([0-9]+\\.[0-9]+)[′'\\s]\\s*([NS])\\s+([0-9]+)\\s*[°\\s]\\s*([0-9]+\\.[0-9]+)[′'\\s]\\s*([EW])"));
+    wxRegEx reDDM("([0-9]+)\\s*[°\\s]\\s*([0-9]+\\.[0-9]+)[′'\\s]\\s*([NS])\\s+([0-9]+)\\s*[°\\s]\\s*([0-9]+\\.[0-9]+)[′'\\s]\\s*([EW])");
     if (reDDM.Matches(work)) {
         wxString sLatDeg = reDDM.GetMatch(work, 1);
         wxString sLatMin = reDDM.GetMatch(work, 2);
@@ -424,9 +424,9 @@ bool ParseLatLon(const wxString& str, double *lat, double *lon) {
         *lat = latDeg + (latMin / 60.0);
         *lon = lonDeg + (lonMin / 60.0);
         
-        if (sLatDir.Upper() == _T("S"))
+        if (sLatDir.Upper() == "S")
             *lat = -(*lat);
-        if (sLonDir.Upper() == _T("W"))
+        if (sLonDir.Upper() == "W")
             *lon = -(*lon);
             
         return true;
@@ -453,7 +453,7 @@ wxString FormatLatLon(double lat, double lon, int format = 0) {
     switch (format) {
         case 0: {
             // Decimal degrees
-            result = wxString::Format(_T("%.6f %.6f"), lat, lon);
+            result = wxString::Format("%.6f %.6f", lat, lon);
             break;
         }
         case 1: {
@@ -463,7 +463,7 @@ wxString FormatLatLon(double lat, double lon, int format = 0) {
             int lonDeg = (int)fabs(lon);
             double lonMin = (fabs(lon) - lonDeg) * 60.0;
             
-            result = wxString::Format(_T("%d° %.5f' %c %d° %.5f' %c"),
+            result = wxString::Format("%d° %.5f' %c %d° %.5f' %c",
                 latDeg, latMin, (lat >= 0) ? 'N' : 'S',
                 lonDeg, lonMin, (lon >= 0) ? 'E' : 'W');
             break;
@@ -480,7 +480,7 @@ wxString FormatLatLon(double lat, double lon, int format = 0) {
             int lonMin = (int)lonMinFull;
             double lonSec = (lonMinFull - lonMin) * 60.0;
             
-            result = wxString::Format(_T("%d° %d' %.2f\" %c %d° %d' %.2f\" %c"),
+            result = wxString::Format("%d° %d' %.2f\" %c %d° %d' %.2f\" %c",
                 latDeg, latMin, latSec, (lat >= 0) ? 'N' : 'S',
                 lonDeg, lonMin, lonSec, (lon >= 0) ? 'E' : 'W');
             break;
@@ -544,8 +544,8 @@ PlugIn_Route *CreateRhumbLineRoute(double startLat, double startLon,
     // Create route
     PlugIn_Route *route = new PlugIn_Route();
     route->m_NameString = routeName;
-    route->m_StartString = _T("Start");
-    route->m_EndString = _T("End");
+    route->m_StartString = "Start";
+    route->m_EndString = "End";
     
     // Calculate route length
     double distance, bearing;
@@ -590,13 +590,13 @@ PlugIn_Route *CreateRhumbLineRoute(double startLat, double startLon,
         }
         
         // Create waypoint
-        wxString name = (i == 0) ? _T("Start") : 
-                       (i == numPoints) ? _T("End") :
-                       wxString::Format(_T("Point %d"), i);
+        wxString name = (i == 0) ? "Start" : 
+                       (i == numPoints) ? "End" :
+                       wxString::Format("Point %d", i);
         
         PlugIn_Waypoint *wp = new PlugIn_Waypoint(
             lat, lon,
-            (i == 0 || i == numPoints) ? _T("triangle") : _T("circle"),
+            (i == 0 || i == numPoints) ? "triangle") : _T("circle",
             name
         );
         

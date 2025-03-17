@@ -34,17 +34,17 @@ To receive messages, your plugin must implement the `SetPluginMessage()` method:
 ----
 void MyPlugin::SetPluginMessage(wxString &message_id, wxString &message_body) {
     // Process the message based on its ID
-    if (message_id == _T("OCPN_WPT_ARRIVING")) {
+    if (message_id == "OCPN_WPT_ARRIVING") {
         // Handle waypoint arrival message
         // message_body contains waypoint information
         ProcessWaypointArrival(message_body);
     }
-    else if (message_id == _T("OCPN_ROUTE_ACTIVATED")) {
+    else if (message_id == "OCPN_ROUTE_ACTIVATED") {
         // Handle route activation message
         // message_body contains route information
         ProcessRouteActivation(message_body);
     }
-    else if (message_id == _T("MY_CUSTOM_MESSAGE")) {
+    else if (message_id == "MY_CUSTOM_MESSAGE") {
         // Handle custom message from another plugin
         ProcessCustomMessage(message_body);
     }
@@ -59,8 +59,8 @@ To send a message to other plugins, use the `SendPluginMessage()` function:
 ----
 void MyPlugin::SendMyMessage() {
     // Create message ID and body
-    wxString message_id = _T("MY_PLUGIN_UPDATE");
-    wxString message_body = _T("{\"status\":\"active\",\"data\":\"42\"}");
+    wxString message_id = "MY_PLUGIN_UPDATE";
+    wxString message_body = "{\"status\":\"active\",\"data\":\"42\"}";
     
     // Send the message
     SendPluginMessage(message_id, message_body);
@@ -79,7 +79,7 @@ JSON is a popular format for structured messages:
 
 [source,cpp]
 ----
-wxString message_body = _T("{\"command\":\"update\",\"params\":{\"lat\":47.6,\"lon\":-122.3}}");
+wxString message_body = "{\"command\":\"update\",\"params\":{\"lat\":47.6,\"lon\":-122.3}}";
 ----
 
 Parsing JSON messages:
@@ -101,16 +101,16 @@ void MyPlugin::ProcessJsonMessage(const wxString &message_body) {
     }
     
     // Extract data from JSON
-    if (root.HasMember(_T("command"))) {
-        wxString command = root[_T("command")].AsString();
+    if (root.HasMember("command")) {
+        wxString command = root["command"].AsString();
         
-        if (command == _T("update")) {
+        if (command == "update") {
             // Process update command
-            if (root[_T("params")].HasMember(_T("lat")) && 
-                root[_T("params")].HasMember(_T("lon"))) {
+            if (root["params")].HasMember(_T("lat") && 
+                root["params")].HasMember(_T("lon")) {
                 
-                double lat = root[_T("params")][_T("lat")].AsDouble();
-                double lon = root[_T("params")][_T("lon")].AsDouble();
+                double lat = root["params")][_T("lat"].AsDouble();
+                double lon = root["params")][_T("lon"].AsDouble();
                 
                 // Process lat/lon
                 // ...
@@ -126,7 +126,7 @@ For simpler messages, a key-value format can be used:
 
 [source,cpp]
 ----
-wxString message_body = _T("lat=47.6;lon=-122.3;spd=5.2;cog=120");
+wxString message_body = "lat=47.6;lon=-122.3;spd=5.2;cog=120";
 ----
 
 Parsing key-value messages:
@@ -135,23 +135,23 @@ Parsing key-value messages:
 ----
 void MyPlugin::ProcessKeyValueMessage(const wxString &message_body) {
     // Split by semicolons
-    wxArrayString pairs = wxStringTokenize(message_body, _T(";"));
+    wxArrayString pairs = wxStringTokenize(message_body, ";");
     
     // Initialize variables
     double lat = 0.0, lon = 0.0, spd = 0.0, cog = 0.0;
     
     // Process each key-value pair
     for (size_t i = 0; i < pairs.GetCount(); i++) {
-        wxArrayString pair = wxStringTokenize(pairs[i], _T("="));
+        wxArrayString pair = wxStringTokenize(pairs[i], "=");
         
         if (pair.GetCount() == 2) {
             wxString key = pair[0];
             wxString value = pair[1];
             
-            if (key == _T("lat")) value.ToDouble(&lat);
-            else if (key == _T("lon")) value.ToDouble(&lon);
-            else if (key == _T("spd")) value.ToDouble(&spd);
-            else if (key == _T("cog")) value.ToDouble(&cog);
+            if (key == "lat") value.ToDouble(&lat);
+            else if (key == "lon") value.ToDouble(&lon);
+            else if (key == "spd") value.ToDouble(&spd);
+            else if (key == "cog") value.ToDouble(&cog);
         }
     }
     
@@ -166,7 +166,7 @@ For more complex structured data, XML can be used:
 
 [source,cpp]
 ----
-wxString message_body = _T("<data><position lat=\"47.6\" lon=\"-122.3\"/><speed value=\"5.2\"/></data>");
+wxString message_body = "<data><position lat=\"47.6\" lon=\"-122.3\"/><speed value=\"5.2\"/></data>";
 ----
 
 Parsing XML messages:
@@ -185,15 +185,15 @@ void MyPlugin::ProcessXmlMessage(const wxString &message_body) {
     }
     
     wxXmlNode *root = doc.GetRoot();
-    if (root && root->GetName() == _T("data")) {
+    if (root && root->GetName() == "data") {
         // Process data node
         wxXmlNode *child = root->GetChildren();
         while (child) {
-            if (child->GetName() == _T("position")) {
+            if (child->GetName() == "position") {
                 // Get position attributes
                 double lat = 0.0, lon = 0.0;
-                wxString lat_str = child->GetAttribute(_T("lat"), _T("0"));
-                wxString lon_str = child->GetAttribute(_T("lon"), _T("0"));
+                wxString lat_str = child->GetAttribute("lat"), _T("0");
+                wxString lon_str = child->GetAttribute("lon"), _T("0");
                 
                 lat_str.ToDouble(&lat);
                 lon_str.ToDouble(&lon);
@@ -201,10 +201,10 @@ void MyPlugin::ProcessXmlMessage(const wxString &message_body) {
                 // Process position
                 // ...
             }
-            else if (child->GetName() == _T("speed")) {
+            else if (child->GetName() == "speed") {
                 // Get speed attribute
                 double spd = 0.0;
-                wxString spd_str = child->GetAttribute(_T("value"), _T("0"));
+                wxString spd_str = child->GetAttribute("value"), _T("0");
                 
                 spd_str.ToDouble(&spd);
                 
@@ -251,12 +251,12 @@ Example naming scheme:
 [source,cpp]
 ----
 // Weather plugin messages
-wxString MSG_WEATHER_UPDATE = _T("WEATHER_PLUGIN_UPDATE_V1");
-wxString MSG_WEATHER_FORECAST = _T("WEATHER_PLUGIN_FORECAST_V1");
+wxString MSG_WEATHER_UPDATE = "WEATHER_PLUGIN_UPDATE_V1";
+wxString MSG_WEATHER_FORECAST = "WEATHER_PLUGIN_FORECAST_V1";
 
 // Navigation plugin messages
-wxString MSG_NAV_POSITION = _T("NAV_PLUGIN_POSITION_V1");
-wxString MSG_NAV_DESTINATION = _T("NAV_PLUGIN_DESTINATION_V1");
+wxString MSG_NAV_POSITION = "NAV_PLUGIN_POSITION_V1";
+wxString MSG_NAV_DESTINATION = "NAV_PLUGIN_DESTINATION_V1";
 ----
 
 == Plugin Communication Patterns
@@ -275,7 +275,7 @@ void WeatherPlugin::PublishForecast() {
     wxString forecast_data = CreateForecastJson();
     
     // Publish to subscribers
-    SendPluginMessage(_T("WEATHER_FORECAST_V1"), forecast_data);
+    SendPluginMessage("WEATHER_FORECAST_V1", forecast_data);
 }
 ----
 
@@ -285,7 +285,7 @@ void WeatherPlugin::PublishForecast() {
 ----
 // Navigation plugin subscribing to weather forecasts
 void NavigationPlugin::SetPluginMessage(wxString &message_id, wxString &message_body) {
-    if (message_id == _T("WEATHER_FORECAST_V1")) {
+    if (message_id == "WEATHER_FORECAST_V1") {
         // Process weather forecast data
         ProcessWeatherForecast(message_body);
     }
@@ -307,16 +307,16 @@ void NavigationPlugin::RequestWeatherData() {
     
     // Build request message
     wxString request = wxString::Format(
-        _T("{\"request_id\":%ld,\"type\":\"current_weather\",\"lat\":%.6f,\"lon\":%.6f}"),
+        "{\"request_id\":%ld,\"type\":\"current_weather\",\"lat\":%.6f,\"lon\":%.6f}",
         m_request_id, m_current_lat, m_current_lon);
     
     // Send request
-    SendPluginMessage(_T("WEATHER_DATA_REQUEST"), request);
+    SendPluginMessage("WEATHER_DATA_REQUEST", request);
 }
 
 // Handle response
 void NavigationPlugin::SetPluginMessage(wxString &message_id, wxString &message_body) {
-    if (message_id == _T("WEATHER_DATA_RESPONSE")) {
+    if (message_id == "WEATHER_DATA_RESPONSE") {
         // Parse response to get request_id
         wxJSONValue root;
         wxJSONReader reader;
@@ -325,8 +325,8 @@ void NavigationPlugin::SetPluginMessage(wxString &message_id, wxString &message_
         if (errors > 0) return;
         
         // Check if this is our response
-        if (root.HasMember(_T("request_id")) && 
-            root[_T("request_id")].AsLong() == m_request_id) {
+        if (root.HasMember("request_id") && 
+            root["request_id"].AsLong() == m_request_id) {
             
             // Process weather data
             ProcessWeatherResponse(root);
@@ -341,7 +341,7 @@ void NavigationPlugin::SetPluginMessage(wxString &message_id, wxString &message_
 ----
 // Handle request and send response
 void WeatherPlugin::SetPluginMessage(wxString &message_id, wxString &message_body) {
-    if (message_id == _T("WEATHER_DATA_REQUEST")) {
+    if (message_id == "WEATHER_DATA_REQUEST") {
         // Parse request
         wxJSONValue request_root;
         wxJSONReader reader;
@@ -350,24 +350,24 @@ void WeatherPlugin::SetPluginMessage(wxString &message_id, wxString &message_bod
         if (errors > 0) return;
         
         // Extract request parameters
-        if (request_root.HasMember(_T("request_id")) &&
-            request_root.HasMember(_T("type")) &&
-            request_root.HasMember(_T("lat")) &&
-            request_root.HasMember(_T("lon"))) {
+        if (request_root.HasMember("request_id") &&
+            request_root.HasMember("type") &&
+            request_root.HasMember("lat") &&
+            request_root.HasMember("lon")) {
             
-            long request_id = request_root[_T("request_id")].AsLong();
-            wxString type = request_root[_T("type")].AsString();
-            double lat = request_root[_T("lat")].AsDouble();
-            double lon = request_root[_T("lon")].AsDouble();
+            long request_id = request_root["request_id"].AsLong();
+            wxString type = request_root["type"].AsString();
+            double lat = request_root["lat"].AsDouble();
+            double lon = request_root["lon"].AsDouble();
             
             // Generate weather data for the requested location
             wxString weather_data = GenerateWeatherData(type, lat, lon);
             
             // Create response
             wxJSONValue response_root;
-            response_root[_T("request_id")] = request_id;
-            response_root[_T("type")] = type;
-            response_root[_T("data")] = weather_data;
+            response_root["request_id"] = request_id;
+            response_root["type"] = type;
+            response_root["data"] = weather_data;
             
             // Serialize to string
             wxJSONWriter writer;
@@ -375,7 +375,7 @@ void WeatherPlugin::SetPluginMessage(wxString &message_id, wxString &message_bod
             writer.Write(response_root, response);
             
             // Send response
-            SendPluginMessage(_T("WEATHER_DATA_RESPONSE"), response);
+            SendPluginMessage("WEATHER_DATA_RESPONSE", response);
         }
     }
 }
@@ -391,12 +391,12 @@ In this pattern, a plugin broadcasts information to all interested plugins witho
 void PositionPlugin::BroadcastPosition() {
     // Create position message
     wxString position = wxString::Format(
-        _T("lat=%.6f;lon=%.6f;cog=%.1f;sog=%.1f;timestamp=%ld"),
+        "lat=%.6f;lon=%.6f;cog=%.1f;sog=%.1f;timestamp=%ld",
         m_current_lat, m_current_lon, m_current_cog, m_current_sog,
         wxDateTime::Now().GetTicks());
     
     // Broadcast to all plugins
-    SendPluginMessage(_T("VESSEL_POSITION_BROADCAST"), position);
+    SendPluginMessage("VESSEL_POSITION_BROADCAST", position);
 }
 ----
 
@@ -408,7 +408,7 @@ In this pattern, a plugin exposes a rich API through the messaging system, allow
 ----
 // Plugin exposing API functions
 void RoutingPlugin::SetPluginMessage(wxString &message_id, wxString &message_body) {
-    if (message_id == _T("ROUTING_API")) {
+    if (message_id == "ROUTING_API") {
         // Parse API request
         wxJSONValue request;
         wxJSONReader reader;
@@ -417,36 +417,36 @@ void RoutingPlugin::SetPluginMessage(wxString &message_id, wxString &message_bod
         if (errors > 0) return;
         
         // Process API command
-        if (request.HasMember(_T("command"))) {
-            wxString command = request[_T("command")].AsString();
+        if (request.HasMember("command")) {
+            wxString command = request["command"].AsString();
             
-            if (command == _T("calculate_route")) {
+            if (command == "calculate_route") {
                 // Extract parameters
-                double start_lat = request[_T("start_lat")].AsDouble();
-                double start_lon = request[_T("start_lon")].AsDouble();
-                double end_lat = request[_T("end_lat")].AsDouble();
-                double end_lon = request[_T("end_lon")].AsDouble();
+                double start_lat = request["start_lat"].AsDouble();
+                double start_lon = request["start_lon"].AsDouble();
+                double end_lat = request["end_lat"].AsDouble();
+                double end_lon = request["end_lon"].AsDouble();
                 
                 // Calculate route
                 RouteResult result = CalculateRoute(start_lat, start_lon, end_lat, end_lon);
                 
                 // Build response
                 wxJSONValue response;
-                response[_T("success")] = result.success;
-                response[_T("message")] = result.message;
+                response["success"] = result.success;
+                response["message"] = result.message;
                 
                 if (result.success) {
                     // Add route points
                     wxJSONValue points;
                     for (size_t i = 0; i < result.points.size(); i++) {
                         wxJSONValue point;
-                        point[_T("lat")] = result.points[i].lat;
-                        point[_T("lon")] = result.points[i].lon;
+                        point["lat"] = result.points[i].lat;
+                        point["lon"] = result.points[i].lon;
                         points.Append(point);
                     }
-                    response[_T("points")] = points;
-                    response[_T("distance")] = result.total_distance;
-                    response[_T("time")] = result.estimated_time;
+                    response["points"] = points;
+                    response["distance"] = result.total_distance;
+                    response["time"] = result.estimated_time;
                 }
                 
                 // Serialize and send response
@@ -454,7 +454,7 @@ void RoutingPlugin::SetPluginMessage(wxString &message_id, wxString &message_bod
                 wxString response_str;
                 writer.Write(response, response_str);
                 
-                SendPluginMessage(_T("ROUTING_API_RESPONSE"), response_str);
+                SendPluginMessage("ROUTING_API_RESPONSE", response_str);
             }
             // Other API commands...
         }
@@ -477,21 +477,21 @@ void MyPlugin::Init() {
     
     // Advertise plugin presence and capabilities
     wxJSONValue capabilities;
-    capabilities[_T("name")] = _T("MyPlugin");
-    capabilities[_T("version")] = _T("1.2.3");
-    capabilities[_T("api_version")] = _T("1.0");
+    capabilities["name")] = _T("MyPlugin";
+    capabilities["version")] = _T("1.2.3";
+    capabilities["api_version")] = _T("1.0";
     
     // List supported features
     wxJSONValue features;
-    features.Append(_T("weather_data"));
-    features.Append(_T("routing"));
-    capabilities[_T("features")] = features;
+    features.Append("weather_data");
+    features.Append("routing");
+    capabilities["features"] = features;
     
     // List supported message types
     wxJSONValue messages;
-    messages.Append(_T("WEATHER_DATA_REQUEST"));
-    messages.Append(_T("WEATHER_FORECAST_V1"));
-    capabilities[_T("messages")] = messages;
+    messages.Append("WEATHER_DATA_REQUEST");
+    messages.Append("WEATHER_FORECAST_V1");
+    capabilities["messages"] = messages;
     
     // Serialize to string
     wxJSONWriter writer;
@@ -499,7 +499,7 @@ void MyPlugin::Init() {
     writer.Write(capabilities, advert);
     
     // Broadcast capabilities
-    SendPluginMessage(_T("PLUGIN_ADVERTISE"), advert);
+    SendPluginMessage("PLUGIN_ADVERTISE", advert);
 }
 ----
 
@@ -510,7 +510,7 @@ Other plugins can listen for these advertisements:
 [source,cpp]
 ----
 void MyOtherPlugin::SetPluginMessage(wxString &message_id, wxString &message_body) {
-    if (message_id == _T("PLUGIN_ADVERTISE")) {
+    if (message_id == "PLUGIN_ADVERTISE") {
         // Parse advertisement
         wxJSONValue capabilities;
         wxJSONReader reader;
@@ -519,12 +519,12 @@ void MyOtherPlugin::SetPluginMessage(wxString &message_id, wxString &message_bod
         if (errors > 0) return;
         
         // Check if this plugin has features we need
-        if (capabilities.HasMember(_T("features"))) {
+        if (capabilities.HasMember("features")) {
             bool has_weather = false;
-            wxJSONValue features = capabilities[_T("features")];
+            wxJSONValue features = capabilities["features"];
             
             for (int i = 0; i < features.Size(); i++) {
-                if (features[i].AsString() == _T("weather_data")) {
+                if (features[i].AsString() == "weather_data") {
                     has_weather = true;
                     break;
                 }
@@ -532,7 +532,7 @@ void MyOtherPlugin::SetPluginMessage(wxString &message_id, wxString &message_bod
             
             if (has_weather) {
                 // Found a plugin that provides weather data
-                m_weather_plugin_name = capabilities[_T("name")].AsString();
+                m_weather_plugin_name = capabilities["name"].AsString();
                 m_weather_plugin_found = true;
                 
                 // Now we know we can use WEATHER_DATA_REQUEST messages
@@ -559,16 +559,16 @@ REST messages appear as normal plugin messages with special message IDs:
 ----
 void MyPlugin::SetPluginMessage(wxString &message_id, wxString &message_body) {
     // Check if this is a REST message
-    if (message_id.StartsWith(_T("REST."))) {
+    if (message_id.StartsWith("REST.")) {
         // Extract the REST endpoint from the message ID
         wxString endpoint = message_id.Mid(5);  // Skip "REST."
         
         // Process REST request
-        if (endpoint == _T("myplugin/data")) {
+        if (endpoint == "myplugin/data") {
             // Handle data request
             ProcessRestDataRequest(message_body);
         }
-        else if (endpoint == _T("myplugin/command")) {
+        else if (endpoint == "myplugin/command") {
             // Handle command
             ProcessRestCommand(message_body);
         }
@@ -585,8 +585,8 @@ To send a response back to a REST client, use a corresponding response message I
 void MyPlugin::ProcessRestDataRequest(const wxString &request_body) {
     // Create response data
     wxJSONValue response;
-    response[_T("status")] = _T("ok");
-    response[_T("data")] = CreateDataResponse();
+    response["status")] = _T("ok";
+    response["data"] = CreateDataResponse();
     
     // Serialize to string
     wxJSONWriter writer;
@@ -594,7 +594,7 @@ void MyPlugin::ProcessRestDataRequest(const wxString &request_body) {
     writer.Write(response, response_str);
     
     // Send response back to REST client
-    SendPluginMessage(_T("REST.myplugin/data"), response_str);
+    SendPluginMessage("REST.myplugin/data", response_str);
 }
 ----
 

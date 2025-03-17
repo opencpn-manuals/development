@@ -172,7 +172,7 @@ void MyPlugin::ParseNMEASentence(wxString &sentence) {
     
     token = tokenizer.GetNextToken();
     
-    if (token.StartsWith(_T("$GPRMC")) || token.StartsWith(_T("$GNRMC"))) {
+    if (token.StartsWith("$GPRMC")) || token.StartsWith(_T("$GNRMC")) {
         // RMC sentence (Recommended Minimum Navigation Information)
         
         // Skip time field
@@ -180,20 +180,20 @@ void MyPlugin::ParseNMEASentence(wxString &sentence) {
         
         // Status (A = valid, V = invalid)
         wxString status = tokenizer.GetNextToken();
-        if (status == _T("A")) {
+        if (status == "A") {
             // Valid fix - parse position
             
             // Latitude
             wxString lat = tokenizer.GetNextToken();
             wxString ns = tokenizer.GetNextToken();
             double latitude = ParseNMEALatLon(lat);
-            if (ns == _T("S")) latitude = -latitude;
+            if (ns == "S") latitude = -latitude;
             
             // Longitude
             wxString lon = tokenizer.GetNextToken();
             wxString ew = tokenizer.GetNextToken();
             double longitude = ParseNMEALatLon(lon);
-            if (ew == _T("W")) longitude = -longitude;
+            if (ew == "W") longitude = -longitude;
             
             // Speed over ground in knots
             wxString sog_str = tokenizer.GetNextToken();
@@ -209,7 +209,7 @@ void MyPlugin::ParseNMEASentence(wxString &sentence) {
             // ...
         }
     }
-    else if (token.StartsWith(_T("$GPGGA")) || token.StartsWith(_T("$GNGGA"))) {
+    else if (token.StartsWith("$GPGGA")) || token.StartsWith(_T("$GNGGA")) {
         // GGA sentence (Global Positioning System Fix Data)
         // ...
     }
@@ -371,7 +371,7 @@ class PlugIn_Waypoint {
 public:
     PlugIn_Waypoint();
     PlugIn_Waypoint(double lat, double lon, const wxString &icon_ident,
-                  const wxString &wp_name, const wxString &GUID = _T(""));
+                  const wxString &wp_name, const wxString &GUID = "");
     ~PlugIn_Waypoint();
 
     double m_lat;                // Latitude in decimal degrees
@@ -446,12 +446,12 @@ void MyPlugin::GetCurrentDestination() {
         // The GPX data contains lat/lon, name, and other waypoint attributes
         
         // Example of simple string extraction (not robust)
-        int lat_start = gpx_str.Find(_T("lat=\"")) + 5;
-        int lat_end = gpx_str.Find(_T("\""), lat_start);
+        int lat_start = gpx_str.Find("lat=\"") + 5;
+        int lat_end = gpx_str.Find("\"", lat_start);
         wxString lat_str = gpx_str.Mid(lat_start, lat_end - lat_start);
         
-        int lon_start = gpx_str.Find(_T("lon=\"")) + 5;
-        int lon_end = gpx_str.Find(_T("\""), lon_start);
+        int lon_start = gpx_str.Find("lon=\"") + 5;
+        int lon_end = gpx_str.Find("\"", lon_start);
         wxString lon_str = gpx_str.Mid(lon_start, lon_end - lon_start);
         
         // Convert to double

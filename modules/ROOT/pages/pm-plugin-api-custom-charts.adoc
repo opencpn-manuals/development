@@ -81,7 +81,7 @@ Your plugin must register its chart classes with OpenCPN by implementing the `Ge
 ----
 wxArrayString MyPlugin::GetDynamicChartClassNameArray(void) {
     wxArrayString array;
-    array.Add(_T("MyCustomChart"));  // Class name as a string
+    array.Add("MyCustomChart");  // Class name as a string
     return array;
 }
 ----
@@ -94,7 +94,7 @@ You also need to provide a factory function that creates instances of your chart
 ----
 // In your plugin's global scope
 extern "C" DECL_EXP PlugInChartBase *CreatePlugInChart(const wxString &chart_class, const wxString &full_path) {
-    if (chart_class == _T("MyCustomChart")) {
+    if (chart_class == "MyCustomChart") {
         return new MyCustomChart();
     }
     return NULL;
@@ -112,7 +112,7 @@ This method returns a wildcard pattern for files that your chart class can handl
 [source,cpp]
 ----
 wxString MyCustomChart::GetFileSearchMask(void) {
-    return _T("*.mchart");  // Custom chart file extension
+    return "*.mchart";  // Custom chart file extension
 }
 ----
 
@@ -149,10 +149,10 @@ int MyCustomChart::Init(const wxString &full_path, int init_flags) {
     m_Name = GetChartTitle();
     m_Description = GetChartDescription();
     m_ID = GetChartID();
-    m_DepthUnits = _T("Meters");
-    m_SoundingsDatum = _T("MLLW");
-    m_datum_str = _T("WGS84");
-    m_SE = _T("1.0");
+    m_DepthUnits = "Meters";
+    m_SoundingsDatum = "MLLW";
+    m_datum_str = "WGS84";
+    m_SE = "1.0";
     m_EdDate = wxDateTime::Now();
     
     // Mark as ready to render

@@ -60,7 +60,7 @@ To actually add a button to the toolbar, use the `InsertPlugInTool()` function. 
 [source,cpp]
 ----
 m_toolbar_item_id = InsertPlugInTool(
-    _T("MyPlugin"),                    // Label
+    "MyPlugin",                    // Label
     _img_plugin_normal,                // Normal bitmap
     _img_plugin_rollover,              // Rollover bitmap
     wxITEM_CHECK,                      // Kind (normal, check, radio)
@@ -85,10 +85,10 @@ For better scaling across different display densities, you can use SVG icons for
 [source,cpp]
 ----
 m_toolbar_item_id = InsertPlugInToolSVG(
-    _T("MyPlugin"),                    // Label
-    _T("icons/my_plugin_normal.svg"),  // Normal SVG
-    _T("icons/my_plugin_rollover.svg"),// Rollover SVG
-    _T("icons/my_plugin_toggled.svg"), // Toggled SVG
+    "MyPlugin",                    // Label
+    "icons/my_plugin_normal.svg",  // Normal SVG
+    "icons/my_plugin_rollover.svg",// Rollover SVG
+    "icons/my_plugin_toggled.svg", // Toggled SVG
     wxITEM_CHECK,                      // Kind (normal, check, radio)
     _("My Plugin"),                    // Short help text
     _("Long help text for my plugin"), // Long help text
@@ -116,9 +116,9 @@ SetToolbarToolViz(m_toolbar_item_id, true);   // Show
 // Update button icons
 SetToolbarToolBitmaps(m_toolbar_item_id, new_bitmap, new_rollover);
 SetToolbarToolBitmapsSVG(m_toolbar_item_id, 
-                        _T("icons/new_normal.svg"),
-                        _T("icons/new_rollover.svg"),
-                        _T("icons/new_toggled.svg"));
+                        "icons/new_normal.svg",
+                        "icons/new_rollover.svg",
+                        "icons/new_toggled.svg");
 ----
 
 === Removing Toolbar Buttons
@@ -401,7 +401,7 @@ void MyPlugin::CreateDockableWindow() {
     
     // Add panel to AUI manager
     wxAuiPaneInfo pane;
-    pane.Name(_T("MyPluginPane"));
+    pane.Name("MyPluginPane");
     pane.Caption(_("My Plugin"));
     pane.Float();
     pane.FloatingPosition(100, 100);
@@ -507,7 +507,7 @@ Use the `GetGlobalColor()` function to get colors from OpenCPN's color scheme:
 [source,cpp]
 ----
 wxColour color;
-if (GetGlobalColor(_T("DILG0"), &color)) {
+if (GetGlobalColor("DILG0", &color)) {
     // Use color for dialog background
     dialog->SetBackgroundColour(color);
 }
@@ -519,7 +519,7 @@ Use the `OCPNGetFont()` function to get fonts from OpenCPN's font system:
 
 [source,cpp]
 ----
-wxFont *font = OCPNGetFont(_T("Dialog"), 0);
+wxFont *font = OCPNGetFont("Dialog", 0);
 if (font) {
     // Use font for dialog text
     text_ctrl->SetFont(*font);

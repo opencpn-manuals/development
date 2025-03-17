@@ -23,13 +23,13 @@ Example to get the api's:
             writer.Write( jMsg, MsgString );
             SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
             if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() ==  wxS("GetAPIAddresses")) {
-                wxString sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindPointInAnyBoundary")].AsString();
-                if(sptr != _T("null")) {
+                wxString sptr = g_ReceivedODAPIJSONMsg["OD_FindPointInAnyBoundary"].AsString();
+                if(sptr != "null") {
                     sscanf(sptr.To8BitData().data(), "%p", &pOD_FindPointInAnyBoundary);
                     l_bUseODAPI_FPIAB = true;
                 }
-                sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindClosestBoundaryLineCrossing")].AsString();
-                if(sptr != _T("null")) {
+                sptr = g_ReceivedODAPIJSONMsg["OD_FindClosestBoundaryLineCrossing"].AsString();
+                if(sptr != "null") {
                     sscanf(sptr.To8BitData().data(), "%p", &pODFindClosestBoundaryLineCrossing);
                     l_bUseODAPI_FCBLC = true;
                 }
