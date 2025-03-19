@@ -1,0 +1,614 @@
+= Navigation Data Access
+
+This chapter explains how plugins can access navigation data from OpenCPN, including position fixes, NMEA data, AIS information, routes, waypoints, and tracks.
+
+== Overview
+
+One of the primary purposes of many plugins is to process and display navigation data. OpenCPN provides several mechanisms for plugins to receive this data:
+
+* Position fixes (parsed navigation data)
+* Raw NMEA sentences
+* AIS target information
+* Active route details
+* Access to waypoints, routes, and tracks
+
+== Position Data
+
+=== Basic Position Updates
+
+To receive basic position updates, your plugin should declare the `WANTS_NMEA_EVENTS` capability and implement the `SetPositionFix()` method:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_NMEA_EVENTS;
+}
+
+void MyPlugin::SetPositionFix(PlugIn_Position_Fix &pfix) {
+    // Store position data
+    m_current_lat = pfix.Lat;
+    m_current_lon = pfix.Lon;
+    m_current_sog = pfix.Sog;
+    m_current_cog = pfix.Cog;
+    m_current_var = pfix.Var;
+    m_fix_time = pfix.FixTime;
+    m_num_sats = pfix.nSats;
+    
+    // Process position data
+    UpdateDisplay();
+}
+----
+
+The `PlugIn_Position_Fix` structure contains parsed navigation data:
+
+[source,cpp]
+----
+class PlugIn_Position_Fix {
+public:
+    double Lat;      // Latitude in decimal degrees
+    double Lon;      // Longitude in decimal degrees
+    double Cog;      // Course over ground in degrees true
+    double Sog;      // Speed over ground in knots
+    double Var;      // Magnetic variation in degrees
+    time_t FixTime;  // UTC time of fix as time_t value
+    int nSats;       // Number of satellites used in the fix
+};
+----
+
+=== Extended Position Updates
+
+For API version 1.8 and later, you can receive extended position data including heading information by implementing the `SetPositionFixEx()` method:
+
+[source,cpp]
+----
+void MyPlugin::SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix) {
+    // Basic position data
+    m_current_lat = pfix.Lat;
+    m_current_lon = pfix.Lon;
+    m_current_sog = pfix.Sog;
+    m_current_cog = pfix.Cog;
+    m_current_var = pfix.Var;
+    m_fix_time = pfix.FixTime;
+    m_num_sats = pfix.nSats;
+    
+    // Extended heading data
+    m_hdm = pfix.Hdm;  // Heading magnetic
+    m_hdt = pfix.Hdt;  // Heading true
+    
+    // Process position data
+    UpdateDisplay();
+}
+----
+
+The `PlugIn_Position_Fix_Ex` structure extends `PlugIn_Position_Fix` with heading information:
+
+[source,cpp]
+----
+class PlugIn_Position_Fix_Ex {
+public:
+    double Lat;      // Latitude in decimal degrees
+    double Lon;      // Longitude in decimal degrees
+    double Cog;      // Course over ground in degrees true
+    double Sog;      // Speed over ground in knots
+    double Var;      // Magnetic variation in degrees
+    double Hdm;      // Heading magnetic in degrees
+    double Hdt;      // Heading true in degrees
+    time_t FixTime;  // UTC time of fix
+    int nSats;       // Number of satellites used in the fix
+};
+----
+
+=== Active Leg Information
+
+For API version 1.17 and later, you can receive information about the active route leg by implementing the `SetActiveLegInfo()` method:
+
+[source,cpp]
+----
+void MyPlugin::SetActiveLegInfo(Plugin_Active_Leg_Info &leg_info) {
+    // Store leg information
+    m_xte = leg_info.Xte;          // Cross-track error in NM
+    m_bearing = leg_info.Btw;      // Bearing to waypoint in degrees true
+    m_range = leg_info.Dtw;        // Distance to waypoint in NM
+    m_waypoint_name = leg_info.wp_name;  // Destination waypoint name
+    m_arrival = leg_info.arrival;  // Within arrival circle
+    
+    // Process leg data
+    UpdateNavigation();
+}
+----
+
+The `Plugin_Active_Leg_Info` structure contains information about the active route leg:
+
+[source,cpp]
+----
+class Plugin_Active_Leg_Info {
+public:
+    double Xte;        // Cross track error in nautical miles
+    double Btw;        // Bearing to waypoint in degrees true
+    double Dtw;        // Distance to waypoint in nautical miles
+    wxString wp_name;  // Name of destination waypoint
+    bool arrival;      // True when vessel is within arrival circle
+};
+----
+
+== Raw NMEA Data
+
+If your plugin needs access to the raw NMEA data stream, declare the `WANTS_NMEA_SENTENCES` capability and implement the `SetNMEASentence()` method:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_NMEA_SENTENCES;
+}
+
+void MyPlugin::SetNMEASentence(wxString &sentence) {
+    // Process NMEA sentence
+    ParseNMEASentence(sentence);
+}
+----
+
+[IMPORTANT]
+====
+The `SetNMEASentence()` method can be called very frequently. Keep processing fast and efficient to avoid performance issues.
+====
+
+=== Example NMEA Parser
+
+Here's a simple example of parsing a few common NMEA sentences:
+
+[source,cpp]
+----
+void MyPlugin::ParseNMEASentence(wxString &sentence) {
+    wxString token;
+    wxStringTokenizer tokenizer(sentence, wxT(","));
+    
+    token = tokenizer.GetNextToken();
+    
+    if (token.StartsWith("$GPRMC")) || token.StartsWith(_T("$GNRMC")) {
+        // RMC sentence (Recommended Minimum Navigation Information)
+        
+        // Skip time field
+        tokenizer.GetNextToken();
+        
+        // Status (A = valid, V = invalid)
+        wxString status = tokenizer.GetNextToken();
+        if (status == "A") {
+            // Valid fix - parse position
+            
+            // Latitude
+            wxString lat = tokenizer.GetNextToken();
+            wxString ns = tokenizer.GetNextToken();
+            double latitude = ParseNMEALatLon(lat);
+            if (ns == "S") latitude = -latitude;
+            
+            // Longitude
+            wxString lon = tokenizer.GetNextToken();
+            wxString ew = tokenizer.GetNextToken();
+            double longitude = ParseNMEALatLon(lon);
+            if (ew == "W") longitude = -longitude;
+            
+            // Speed over ground in knots
+            wxString sog_str = tokenizer.GetNextToken();
+            double sog = 0.0;
+            sog_str.ToDouble(&sog);
+            
+            // Course over ground in degrees true
+            wxString cog_str = tokenizer.GetNextToken();
+            double cog = 0.0;
+            cog_str.ToDouble(&cog);
+            
+            // Store and process position data
+            // ...
+        }
+    }
+    else if (token.StartsWith("$GPGGA")) || token.StartsWith(_T("$GNGGA")) {
+        // GGA sentence (Global Positioning System Fix Data)
+        // ...
+    }
+    // Other sentence types...
+}
+
+double MyPlugin::ParseNMEALatLon(wxString &str) {
+    // Format for lat: DDMM.MMMM, lon: DDDMM.MMMM
+    double val = 0.0;
+    
+    if (str.Length() > 2) {
+        wxString degs = str.Left(str.Length() - 7);
+        wxString mins = str.Right(str.Length() - degs.Length());
+        
+        double deg = 0.0;
+        double min = 0.0;
+        
+        degs.ToDouble(&deg);
+        mins.ToDouble(&min);
+        
+        val = deg + (min / 60.0);
+    }
+    
+    return val;
+}
+----
+
+=== Single VDO Message Parsing
+
+For parsing vessel position from VDO (own-ship AIS) messages, OpenCPN provides a helper function:
+
+[source,cpp]
+----
+bool DecodeSingleVDOMessage(const wxString &str, PlugIn_Position_Fix_Ex *pos, wxString *acc);
+----
+
+Usage example:
+
+[source,cpp]
+----
+PlugIn_Position_Fix_Ex pos;
+wxString accuracy;
+
+if (DecodeSingleVDOMessage(nmea_sentence, &pos, &accuracy)) {
+    // VDO message successfully decoded
+    // Position data is in pos
+}
+----
+
+== AIS Information
+
+To receive AIS information, your plugin should declare the `WANTS_AIS_SENTENCES` capability:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_AIS_SENTENCES;
+}
+
+void MyPlugin::SetAISSentence(wxString &sentence) {
+    // Process AIS sentence (AIVDM/AIVDO)
+    ParseAISSentence(sentence);
+}
+----
+
+=== AIS Target Array
+
+You can also access the array of all currently tracked AIS targets:
+
+[source,cpp]
+----
+void MyPlugin::UpdateAISTargets() {
+    ArrayOfPlugIn_AIS_Targets *targets = GetAISTargetArray();
+    
+    if (targets) {
+        for (unsigned int i = 0; i < targets->GetCount(); i++) {
+            PlugIn_AIS_Target *target = targets->Item(i);
+            
+            // Process target information
+            int mmsi = target->MMSI;
+            int aisClass = target->Class;  // 0=Class A, 1=Class B
+            double lat = target->Lat;
+            double lon = target->Lon;
+            double sog = target->SOG;
+            double cog = target->COG;
+            double hdg = target->HDG;
+            int navStatus = target->NavStatus;
+            wxString shipName = wxString(target->ShipName, wxConvUTF8);
+            wxString callSign = wxString(target->CallSign, wxConvUTF8);
+            
+            // Target collision parameters
+            if (target->bCPA_Valid) {
+                double tcpa = target->TCPA;  // Time to CPA in minutes
+                double cpa = target->CPA;    // Closest Point of Approach in NM
+                
+                // Process CPA/TCPA
+                // ...
+            }
+            
+            // Process target data
+            // ...
+        }
+    }
+}
+----
+
+The `PlugIn_AIS_Target` structure contains information about an AIS target:
+
+[source,cpp]
+----
+class PlugIn_AIS_Target {
+public:
+    int MMSI;                // Maritime Mobile Service Identity
+    int Class;               // AIS class (Class A: 0, Class B: 1)
+    int NavStatus;           // Navigational status (0-15)
+    double SOG;              // Speed over ground in knots
+    double COG;              // Course over ground in degrees true
+    double HDG;              // Heading in degrees true
+    double Lon;              // Longitude in decimal degrees
+    double Lat;              // Latitude in decimal degrees
+    int ROTAIS;              // Rate of turn as per AIS message
+    char CallSign[8];        // Call sign, includes NULL terminator
+    char ShipName[21];       // Ship name, includes NULL terminator
+    unsigned char ShipType;  // Ship type as per ITU-R M.1371
+    int IMO;                 // IMO ship identification number
+
+    double Range_NM;         // Range to target in nautical miles
+    double Brg;              // Bearing to target in degrees true
+
+    // Collision parameters
+    bool bCPA_Valid;         // True if CPA calculation is valid
+    double TCPA;             // Time to Closest Point of Approach in minutes
+    double CPA;              // Closest Point of Approach in nautical miles
+
+    plugin_ais_alarm_type alarm_state;  // Current alarm state for this target
+};
+----
+
+[NOTE]
+====
+The AIS target array is owned by OpenCPN. Do not delete any targets in the array.
+====
+
+== Route, Waypoint, and Track Information
+
+The OpenCPN plugin API provides structures and methods for accessing route, waypoint, and track information.
+
+=== Waypoints
+
+The `PlugIn_Waypoint` class represents both standalone waypoints and waypoints within routes or tracks:
+
+[source,cpp]
+----
+class PlugIn_Waypoint {
+public:
+    PlugIn_Waypoint();
+    PlugIn_Waypoint(double lat, double lon, const wxString &icon_ident,
+                  const wxString &wp_name, const wxString &GUID = "");
+    ~PlugIn_Waypoint();
+
+    double m_lat;                // Latitude in decimal degrees
+    double m_lon;                // Longitude in decimal degrees
+    wxString m_GUID;             // Globally unique identifier
+    wxString m_MarkName;         // Display name
+    wxString m_MarkDescription;  // Optional description
+    wxDateTime m_CreateTime;     // Creation timestamp
+    bool m_IsVisible;            // Visibility state
+    wxString m_IconName;         // Icon identifier
+
+    Plugin_HyperlinkList *m_HyperlinkList;  // List of associated hyperlinks
+};
+----
+
+=== Routes
+
+The `PlugIn_Route` class represents a route consisting of an ordered list of waypoints:
+
+[source,cpp]
+----
+class PlugIn_Route {
+public:
+    PlugIn_Route(void);
+    ~PlugIn_Route(void);
+
+    wxString m_NameString;   // Route name
+    wxString m_StartString;  // Name/description of starting point
+    wxString m_EndString;    // Name/description of ending point
+    wxString m_GUID;         // Globally unique identifier
+
+    // List of waypoints in this route
+    Plugin_WaypointList *pWaypointList;
+};
+----
+
+=== Tracks
+
+The `PlugIn_Track` class represents a track (vessel's recorded path) consisting of an ordered list of track points:
+
+[source,cpp]
+----
+class PlugIn_Track {
+public:
+    PlugIn_Track(void);
+    ~PlugIn_Track(void);
+
+    wxString m_NameString;   // Display name of the track
+    wxString m_StartString;  // Description of track start point/time
+    wxString m_EndString;    // Description of track end point/time
+    wxString m_GUID;         // Globally unique identifier
+
+    // List of waypoints making up this track
+    Plugin_WaypointList *pWaypointList;
+};
+----
+
+=== Active Route Waypoint
+
+To get information about the current active route waypoint, use the `GetActiveRoutepointGPX()` function:
+
+[source,cpp]
+----
+void MyPlugin::GetCurrentDestination() {
+    char gpx_buffer[4096];
+    
+    if (GetActiveRoutepointGPX(gpx_buffer, sizeof(gpx_buffer))) {
+        wxString gpx_str(gpx_buffer, wxConvUTF8);
+        
+        // Parse the GPX data
+        // This can be done using a simple XML parser or string operations
+        // The GPX data contains lat/lon, name, and other waypoint attributes
+        
+        // Example of simple string extraction (not robust)
+        int lat_start = gpx_str.Find("lat=\"") + 5;
+        int lat_end = gpx_str.Find("\"", lat_start);
+        wxString lat_str = gpx_str.Mid(lat_start, lat_end - lat_start);
+        
+        int lon_start = gpx_str.Find("lon=\"") + 5;
+        int lon_end = gpx_str.Find("\"", lon_start);
+        wxString lon_str = gpx_str.Mid(lon_start, lon_end - lon_start);
+        
+        // Convert to double
+        double lat = 0.0, lon = 0.0;
+        lat_str.ToDouble(&lat);
+        lon_str.ToDouble(&lon);
+        
+        // Process destination waypoint
+        // ...
+    }
+}
+----
+
+== Vector Chart Object Information
+
+If your plugin needs information about vector chart objects (such as S-57 chart features), declare the `WANTS_VECTOR_CHART_OBJECT_INFO` capability and implement the `SendVectorChartObjectInfo()` method:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // Return capabilities
+    return WANTS_VECTOR_CHART_OBJECT_INFO;
+}
+
+void MyPlugin::SendVectorChartObjectInfo(wxString &chart, wxString &feature,
+                                        wxString &objname, double lat,
+                                        double lon, double scale,
+                                        int nativescale) {
+    // Process vector chart object information
+    m_last_feature_type = feature;
+    m_last_feature_name = objname;
+    m_last_feature_lat = lat;
+    m_last_feature_lon = lon;
+    m_last_chart_scale = scale;
+    m_last_native_scale = nativescale;
+    
+    // Process object information
+    // ...
+}
+----
+
+This method is called when the user selects a vector chart object in OpenCPN.
+
+== Data Processing Tips
+
+When working with navigation data, consider these tips for efficient and reliable processing:
+
+=== Data Validation
+
+Always validate incoming data before using it:
+
+[source,cpp]
+----
+// Check for valid lat/lon
+if (fabs(lat) <= 90.0 && fabs(lon) <= 180.0) {
+    // Valid coordinates
+    // ...
+}
+
+// Check for valid COG
+if (cog >= 0.0 && cog < 360.0) {
+    // Valid course
+    // ...
+}
+
+// Check for valid fix time
+if (fix_time > 0) {
+    // Valid time
+    // ...
+}
+----
+
+=== Data Smoothing
+
+For display purposes, it can be helpful to smooth data to reduce noise:
+
+[source,cpp]
+----
+// Simple moving average filter
+void MyPlugin::AddToHeadingFilter(double heading) {
+    // Add to circular buffer
+    m_heading_buffer[m_heading_index] = heading;
+    m_heading_index = (m_heading_index + 1) % HEADING_BUFFER_SIZE;
+    
+    // Calculate average
+    double sum = 0.0;
+    for (int i = 0; i < HEADING_BUFFER_SIZE; i++) {
+        sum += m_heading_buffer[i];
+    }
+    
+    m_filtered_heading = sum / HEADING_BUFFER_SIZE;
+}
+----
+
+=== Geographic Calculations
+
+Use the provided geographic calculation functions for accurate navigation:
+
+[source,cpp]
+----
+// Calculate distance and bearing to a waypoint
+double bearing, distance;
+DistanceBearingMercator_Plugin(
+    current_lat, current_lon,  // Current position
+    waypoint_lat, waypoint_lon,  // Waypoint position
+    &bearing, &distance);  // Output parameters
+
+// Calculate a position at a given distance and bearing
+double dest_lat, dest_lon;
+PositionBearingDistanceMercator_Plugin(
+    current_lat, current_lon,  // Current position
+    bearing_degrees,  // Bearing in degrees true
+    distance_nm,  // Distance in nautical miles
+    &dest_lat, &dest_lon);  // Output parameters
+----
+
+=== Performance Considerations
+
+Navigation data processing can impact performance. Keep these tips in mind:
+
+* **Limit processing frequency**: Not every NMEA sentence needs to be processed
+* **Use efficient data structures**: Choose appropriate containers for your data
+* **Minimize memory allocations**: Reuse objects where possible
+* **Batch updates**: Collect data before updating the display
+* **Prioritize important data**: Focus on the most critical information
+
+Example of batching updates:
+
+[source,cpp]
+----
+void MyPlugin::SetNMEASentence(wxString &sentence) {
+    // Process NMEA sentence
+    bool update_needed = ParseNMEASentence(sentence);
+    
+    // Only update display periodically
+    if (update_needed) {
+        m_update_count++;
+        
+        // Update every 5 sentences, or if important data changed
+        if (m_update_count >= 5 || m_important_data_changed) {
+            UpdateDisplay();
+            m_update_count = 0;
+            m_important_data_changed = false;
+        }
+    }
+}
+----
+
+== Best Practices
+
+* **Data consistency**: Be consistent in handling units (degrees, knots, NM, etc.)
+* **Error handling**: Gracefully handle missing or invalid data
+* **Respect frequency**: Don't overwhelm the system with unnecessary processing
+* **Provide feedback**: Let the user know if data is missing or stale
+* **Handle edge cases**: Consider dateline crossing, polar regions, etc.
+* **Time zones**: Be careful with time zone conversions
+* **Data storage**: Consider if you need to log or persist navigation data

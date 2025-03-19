@@ -1,0 +1,572 @@
+= Custom Chart Types
+
+This chapter explains how plugins can implement support for custom chart formats in OpenCPN. The plugin API allows you to extend OpenCPN with new chart types beyond those natively supported.
+
+== Overview
+
+OpenCPN natively supports several chart formats including S-57 ENC, BSB/KAP, and CM93. The plugin system allows third-party developers to add support for additional proprietary or specialized formats.
+
+Implementing a custom chart type is one of the most complex capabilities in the plugin API. It requires implementing the `PlugInChartBase` class and handling chart loading, rendering, and coordinate transformations.
+
+== Chart Type Capabilities
+
+To implement a custom chart type, your plugin must declare the appropriate capabilities:
+
+[source,cpp]
+----
+int MyPlugin::Init(void) {
+    // Initialize resources
+    // ...
+    
+    // For standard view only
+    return INSTALLS_PLUGIN_CHART;
+    
+    // For OpenGL view support as well
+    // return INSTALLS_PLUGIN_CHART | INSTALLS_PLUGIN_CHART_GL;
+}
+----
+
+== Implementing PlugInChartBase
+
+The `PlugInChartBase` class is the foundation for custom chart types. Your plugin must create a derived class that implements all required methods:
+
+[source,cpp]
+----
+class MyCustomChart : public PlugInChartBase {
+public:
+    MyCustomChart();
+    ~MyCustomChart();
+    
+    // Required methods
+    wxString GetFileSearchMask(void) override;
+    int Init(const wxString &full_path, int init_flags) override;
+    void SetColorScheme(int cs, bool bApplyImmediate) override;
+    double GetNormalScaleMin(double canvas_scale_factor, bool b_allow_overzoom) override;
+    double GetNormalScaleMax(double canvas_scale_factor, int canvas_width) override;
+    double GetNearestPreferredScalePPM(double target_scale_ppm) override;
+    bool GetChartExtent(ExtentPI *pext) override;
+    wxBitmap &RenderRegionView(const PlugIn_ViewPort &VPoint, const wxRegion &Region) override;
+    bool AdjustVP(PlugIn_ViewPort &vp_last, PlugIn_ViewPort &vp_proposed) override;
+    void GetValidCanvasRegion(const PlugIn_ViewPort &VPoint, wxRegion *pValidRegion) override;
+    wxBitmap *GetThumbnail(int tnx, int tny, int cs) override;
+    
+    // Optional coverage methods
+    int GetCOVREntries() override;
+    int GetCOVRTablePoints(int iTable) override;
+    int GetCOVRTablenPoints(int iTable) override;
+    float *GetCOVRTableHead(int iTable) override;
+    
+    // Optional raster methods (if your chart is raster-based)
+    void ComputeSourceRectangle(const PlugIn_ViewPort &vp, wxRect *pSourceRect) override;
+    double GetRasterScaleFactor() override;
+    bool GetChartBits(wxRect &source, unsigned char *pPix, int sub_samp) override;
+    int GetSize_X() override;
+    int GetSize_Y() override;
+    void latlong_to_chartpix(double lat, double lon, double &pixx, double &pixy) override;
+    void chartpix_to_latlong(double pixx, double pixy, double *plat, double *plon) override;
+    
+private:
+    // Chart-specific data members
+    wxString m_full_path;
+    wxBitmap m_rendered_chart;
+    // ... other chart data
+};
+----
+
+== Registering Chart Classes
+
+Your plugin must register its chart classes with OpenCPN by implementing the `GetDynamicChartClassNameArray()` method:
+
+[source,cpp]
+----
+wxArrayString MyPlugin::GetDynamicChartClassNameArray(void) {
+    wxArrayString array;
+    array.Add("MyCustomChart");  // Class name as a string
+    return array;
+}
+----
+
+== Creating Chart Factory
+
+You also need to provide a factory function that creates instances of your chart class:
+
+[source,cpp]
+----
+// In your plugin's global scope
+extern "C" DECL_EXP PlugInChartBase *CreatePlugInChart(const wxString &chart_class, const wxString &full_path) {
+    if (chart_class == "MyCustomChart") {
+        return new MyCustomChart();
+    }
+    return NULL;
+}
+----
+
+== Implementing Required Methods
+
+Let's look at the key methods you need to implement in your chart class:
+
+=== GetFileSearchMask
+
+This method returns a wildcard pattern for files that your chart class can handle:
+
+[source,cpp]
+----
+wxString MyCustomChart::GetFileSearchMask(void) {
+    return "*.mchart";  // Custom chart file extension
+}
+----
+
+=== Init
+
+The `Init` method loads a chart file and initializes the chart object:
+
+[source,cpp]
+----
+int MyCustomChart::Init(const wxString &full_path, int init_flags) {
+    // Store the path
+    m_full_path = full_path;
+    
+    // Check init flags to determine how much to load
+    if (init_flags == PI_HEADER_ONLY) {
+        // Load only chart metadata (for chart database)
+        if (!LoadChartHeader(full_path)) {
+            return INIT_FAIL_REMOVE;  // Failed to load chart header
+        }
+    } else {
+        // Load full chart data
+        if (!LoadFullChart(full_path)) {
+            return INIT_FAIL_REMOVE;  // Failed to load chart
+        }
+    }
+    
+    // Initialize chart properties
+    m_Chart_Scale = 50000;  // Example scale 1:50000
+    m_Chart_Skew = 0.0;     // No skew
+    m_projection = PI_PROJECTION_MERCATOR;  // Mercator projection
+    
+    // Set basic metadata
+    m_FullPath = full_path;
+    m_Name = GetChartTitle();
+    m_Description = GetChartDescription();
+    m_ID = GetChartID();
+    m_DepthUnits = "Meters";
+    m_SoundingsDatum = "MLLW";
+    m_datum_str = "WGS84";
+    m_SE = "1.0";
+    m_EdDate = wxDateTime::Now();
+    
+    // Mark as ready to render
+    m_bReadyToRender = true;
+    
+    return INIT_OK;
+}
+----
+
+=== SetColorScheme
+
+This method updates the chart colors based on OpenCPN's color scheme:
+
+[source,cpp]
+----
+void MyCustomChart::SetColorScheme(int cs, bool bApplyImmediate) {
+    // Store the color scheme
+    m_ColorScheme = cs;
+    
+    // Apply color scheme to chart elements
+    UpdateChartColors(cs);
+    
+    // If immediate application requested, invalidate any cached rendering
+    if (bApplyImmediate) {
+        m_rendered_chart = wxBitmap();  // Clear cached rendering
+    }
+}
+----
+
+=== GetChartExtent
+
+This method returns the geographic boundaries of the chart:
+
+[source,cpp]
+----
+bool MyCustomChart::GetChartExtent(ExtentPI *pext) {
+    if (!pext)
+        return false;
+    
+    // Fill in the extent structure with chart boundaries
+    pext->NLAT = m_max_lat;  // Northern boundary
+    pext->SLAT = m_min_lat;  // Southern boundary
+    pext->ELON = m_max_lon;  // Eastern boundary
+    pext->WLON = m_min_lon;  // Western boundary
+    
+    return true;
+}
+----
+
+=== RenderRegionView
+
+This is the most important method, responsible for rendering the chart:
+
+[source,cpp]
+----
+wxBitmap &MyCustomChart::RenderRegionView(const PlugIn_ViewPort &VPoint, const wxRegion &Region) {
+    // Check if we have a cached rendering that's still valid
+    if (m_rendered_chart.IsOk() && 
+        m_last_vp_scale == VPoint.view_scale_ppm &&
+        m_last_vp_rotation == VPoint.rotation &&
+        m_last_vp.Contains(VPoint.clat, VPoint.clon)) {
+        // Return cached bitmap if viewport hasn't changed significantly
+        return m_rendered_chart;
+    }
+    
+    // Create a new bitmap for rendering
+    m_rendered_chart = wxBitmap(VPoint.pix_width, VPoint.pix_height);
+    
+    // Create memory DC for drawing
+    wxMemoryDC dc;
+    dc.SelectObject(m_rendered_chart);
+    
+    // Clear the background
+    dc.SetBackground(wxBrush(GetBackgroundColor()));
+    dc.Clear();
+    
+    // Set up drawing parameters
+    dc.SetFont(GetChartFont());
+    
+    // For each chart element...
+    // 1. Convert from geographic to screen coordinates
+    // 2. Check if it's in the visible region
+    // 3. Draw it with appropriate style
+    
+    // Example: Draw land areas
+    dc.SetPen(wxPen(GetLandOutlineColor(), 1));
+    dc.SetBrush(wxBrush(GetLandFillColor()));
+    for (auto &landArea : m_land_areas) {
+        // Convert polygon points from lat/lon to screen coords
+        wxPoint *points = new wxPoint[landArea.size()];
+        for (size_t i = 0; i < landArea.size(); i++) {
+            GetCanvasPixLL(&VPoint, &points[i], landArea[i].lat, landArea[i].lon);
+        }
+        
+        // Draw the polygon
+        dc.DrawPolygon(landArea.size(), points);
+        delete[] points;
+    }
+    
+    // Draw depth contours
+    dc.SetPen(wxPen(GetDepthColor(10), 1));  // 10m contour
+    // ... similar drawing code for contours
+    
+    // Draw text labels
+    dc.SetTextForeground(GetTextColor());
+    for (auto &label : m_labels) {
+        wxPoint pos;
+        GetCanvasPixLL(&VPoint, &pos, label.lat, label.lon);
+        dc.DrawText(label.text, pos);
+    }
+    
+    // Clean up
+    dc.SelectObject(wxNullBitmap);
+    
+    // Store viewport for cache validation
+    m_last_vp = ViewPortRegion(VPoint);
+    m_last_vp_scale = VPoint.view_scale_ppm;
+    m_last_vp_rotation = VPoint.rotation;
+    
+    return m_rendered_chart;
+}
+----
+
+=== Scale Methods
+
+These methods define the scaling behavior of your chart:
+
+[source,cpp]
+----
+double MyCustomChart::GetNormalScaleMin(double canvas_scale_factor, bool b_allow_overzoom) {
+    // Return minimum scale factor (maximum zoom in)
+    if (b_allow_overzoom)
+        return 0.125;  // Allow up to 8x zoom
+    else
+        return 0.5;    // Allow up to 2x zoom
+}
+
+double MyCustomChart::GetNormalScaleMax(double canvas_scale_factor, int canvas_width) {
+    // Return maximum scale factor (maximum zoom out)
+    return 2.0;  // Allow 2x zoom out
+}
+
+double MyCustomChart::GetNearestPreferredScalePPM(double target_scale_ppm) {
+    // If you have preferred scales, snap to the nearest one
+    // For most charts, just return the requested scale
+    return target_scale_ppm;
+}
+----
+
+=== Viewport Management
+
+These methods help OpenCPN manage the chart viewport:
+
+[source,cpp]
+----
+bool MyCustomChart::AdjustVP(PlugIn_ViewPort &vp_last, PlugIn_ViewPort &vp_proposed) {
+    // Make any necessary adjustments to the proposed viewport
+    // For example, constrain to chart boundaries
+    
+    // Most charts don't need special handling, so return false
+    return false;
+}
+
+void MyCustomChart::GetValidCanvasRegion(const PlugIn_ViewPort &VPoint, wxRegion *pValidRegion) {
+    // Define the region on screen where this chart has valid data
+    
+    // For rectangular charts, this is often the entire viewport
+    pValidRegion->Clear();
+    pValidRegion->Union(0, 0, VPoint.pix_width, VPoint.pix_height);
+    
+    // For charts with irregular boundaries, compute the actual valid region
+    // by transforming coverage polygons to screen coordinates
+}
+----
+
+=== Thumbnail Generation
+
+This method generates a small preview of the chart for the chart manager:
+
+[source,cpp]
+----
+wxBitmap *MyCustomChart::GetThumbnail(int tnx, int tny, int cs) {
+    // Create a small bitmap for the thumbnail
+    wxBitmap *thumbnail = new wxBitmap(tnx, tny);
+    
+    // Set up a memory DC
+    wxMemoryDC dc;
+    dc.SelectObject(*thumbnail);
+    
+    // Clear with background color
+    wxColour backColor;
+    if (cs == PI_GLOBAL_COLOR_SCHEME_DAY)
+        backColor = wxColour(255, 255, 255);  // White for day
+    else if (cs == PI_GLOBAL_COLOR_SCHEME_DUSK)
+        backColor = wxColour(80, 80, 80);     // Dark gray for dusk
+    else
+        backColor = wxColour(30, 30, 30);     // Very dark gray for night
+        
+    dc.SetBackground(wxBrush(backColor));
+    dc.Clear();
+    
+    // Set up a simplified viewport for thumbnail rendering
+    PlugIn_ViewPort vp;
+    vp.pix_width = tnx;
+    vp.pix_height = tny;
+    vp.clat = (m_max_lat + m_min_lat) / 2;  // Center latitude
+    vp.clon = (m_max_lon + m_min_lon) / 2;  // Center longitude
+    vp.rotation = 0;
+    vp.skew = 0;
+    
+    // Calculate scale to fit chart in thumbnail
+    double lat_range = m_max_lat - m_min_lat;
+    double lon_range = m_max_lon - m_min_lon;
+    double xscale = tnx / (lon_range * 60 * 1852);  // Lon degrees to pixels
+    double yscale = tny / (lat_range * 60 * 1852);  // Lat degrees to pixels
+    vp.view_scale_ppm = std::min(xscale, yscale);   // Use smaller scale to fit
+    
+    // Draw simplified chart elements
+    // ... similar to RenderRegionView but with less detail
+    
+    // Clean up
+    dc.SelectObject(wxNullBitmap);
+    
+    return thumbnail;
+}
+----
+
+== Coverage Tables
+
+Coverage tables define the exact area covered by the chart, which is especially important for non-rectangular charts or charts with multiple coverage areas.
+
+[source,cpp]
+----
+int MyCustomChart::GetCOVREntries() {
+    // Return the number of coverage areas
+    return m_coverage_areas.size();
+}
+
+int MyCustomChart::GetCOVRTablePoints(int iTable) {
+    // Return the number of points in coverage polygon iTable
+    if (iTable >= 0 && iTable < (int)m_coverage_areas.size())
+        return m_coverage_areas[iTable].size();
+    return 0;
+}
+
+int MyCustomChart::GetCOVRTablenPoints(int iTable) {
+    // Alternative method for backward compatibility
+    return GetCOVRTablePoints(iTable);
+}
+
+float *MyCustomChart::GetCOVRTableHead(int iTable) {
+    // Return pointer to coverage polygon point array
+    if (iTable >= 0 && iTable < (int)m_coverage_areas.size())
+        return &m_coverage_tables[iTable][0];
+    return NULL;
+}
+----
+
+== Raster Chart Methods
+
+If your chart is raster-based (like a bitmap image with georeferencing), you'll need to implement these additional methods:
+
+[source,cpp]
+----
+void MyCustomChart::ComputeSourceRectangle(const PlugIn_ViewPort &vp, wxRect *pSourceRect) {
+    // Compute the rectangle within the source chart image that
+    // corresponds to the current viewport
+    
+    // Convert viewport corners to chart pixel coordinates
+    double xmin, ymin, xmax, ymax;
+    latlong_to_chartpix(vp.lat_min, vp.lon_min, xmin, ymin);
+    latlong_to_chartpix(vp.lat_max, vp.lon_max, xmax, ymax);
+    
+    // Create the source rectangle
+    pSourceRect->x = (int)xmin;
+    pSourceRect->y = (int)ymin;
+    pSourceRect->width = (int)(xmax - xmin);
+    pSourceRect->height = (int)(ymax - ymin);
+}
+
+double MyCustomChart::GetRasterScaleFactor() {
+    // Return the scaling factor for raster charts
+    return m_raster_scale_factor;
+}
+
+bool MyCustomChart::GetChartBits(wxRect &source, unsigned char *pPix, int sub_samp) {
+    // Copy pixel data from chart image to the provided buffer
+    
+    // The source rect specifies the region to extract
+    // sub_samp is the subsampling factor (1 = every pixel, 2 = every second pixel, etc.)
+    
+    // For an image-based chart:
+    int stride = m_image_width * 3;  // RGB image, 3 bytes per pixel
+    
+    for (int y = 0; y < source.height; y += sub_samp) {
+        int source_y = source.y + y;
+        if (source_y >= 0 && source_y < m_image_height) {
+            for (int x = 0; x < source.width; x += sub_samp) {
+                int source_x = source.x + x;
+                if (source_x >= 0 && source_x < m_image_width) {
+                    // Get pixel from source image
+                    unsigned char *src_pixel = m_image_data + (source_y * stride) + (source_x * 3);
+                    
+                    // Put pixel in destination buffer
+                    int dest_idx = ((y / sub_samp) * (source.width / sub_samp) + (x / sub_samp)) * 3;
+                    pPix[dest_idx] = src_pixel[0];     // Red
+                    pPix[dest_idx + 1] = src_pixel[1]; // Green
+                    pPix[dest_idx + 2] = src_pixel[2]; // Blue
+                }
+            }
+        }
+    }
+    
+    return true;
+}
+
+int MyCustomChart::GetSize_X() {
+    // Return width of chart in pixels
+    return m_image_width;
+}
+
+int MyCustomChart::GetSize_Y() {
+    // Return height of chart in pixels
+    return m_image_height;
+}
+
+void MyCustomChart::latlong_to_chartpix(double lat, double lon, double &pixx, double &pixy) {
+    // Convert lat/lon to chart pixel coordinates
+    
+    // For a simple Mercator projection:
+    double x_origin = m_ref_lon;
+    double y_origin = m_ref_lat;
+    
+    // Convert lon to x
+    pixx = (lon - x_origin) * m_pix_per_lon_degree;
+    
+    // Convert lat to y (Mercator projection)
+    double lat_in_radians = lat * M_PI / 180.0;
+    double y = log(tan(lat_in_radians) + 1/cos(lat_in_radians));
+    
+    double ref_lat_in_radians = y_origin * M_PI / 180.0;
+    double y_ref = log(tan(ref_lat_in_radians) + 1/cos(ref_lat_in_radians));
+    
+    pixy = (y_ref - y) * m_pix_per_mercator_unit;
+}
+
+void MyCustomChart::chartpix_to_latlong(double pixx, double pixy, double *plat, double *plon) {
+    // Convert chart pixel coordinates to lat/lon
+    
+    // For a simple Mercator projection:
+    double x_origin = m_ref_lon;
+    double y_origin = m_ref_lat;
+    
+    // Convert x to lon
+    *plon = x_origin + (pixx / m_pix_per_lon_degree);
+    
+    // Convert y to lat (Mercator projection)
+    double ref_lat_in_radians = y_origin * M_PI / 180.0;
+    double y_ref = log(tan(ref_lat_in_radians) + 1/cos(ref_lat_in_radians));
+    
+    double y = y_ref - (pixy / m_pix_per_mercator_unit);
+    double lat_in_radians = atan(sinh(y));
+    *plat = lat_in_radians * 180.0 / M_PI;
+}
+----
+
+== OpenGL Chart Support
+
+If your plugin declares the `INSTALLS_PLUGIN_CHART_GL` capability, you'll need to provide OpenGL-specific rendering methods in addition to the standard rendering methods.
+
+OpenGL chart rendering is more complex and beyond the scope of this basic documentation, but it generally involves:
+
+1. Creating and managing OpenGL textures for chart data
+2. Implementing specialized rendering methods for OpenGL
+3. Handling different zoom levels and LOD (Level of Detail)
+4. Managing OpenGL resources efficiently
+
+== Testing and Debugging
+
+Testing a custom chart implementation requires:
+
+1. Verifying that OpenCPN correctly identifies and loads your chart files
+2. Checking rendering at different zoom levels and rotations
+3. Confirming coordinate transformations are accurate
+4. Testing with different color schemes
+5. Verifying chart selection and quilting behavior
+6. Testing performance with large charts
+
+=== Debugging Tips
+
+* Use log messages to track chart loading and rendering
+* Create a simple test chart with known coordinates for validation
+* Implement a debug mode that shows coordinate grids or boundaries
+* Test edge cases: chart edges, dateline crossing, polar regions
+* Check resource usage, especially for large charts
+
+== Best Practices
+
+* **Performance**: Optimize rendering for smooth navigation
+* **Memory usage**: Be careful with memory, especially for large charts
+* **Caching**: Cache rendered results to improve performance
+* **Scalability**: Handle charts of various sizes efficiently
+* **Standards compliance**: Follow applicable chart standards
+* **Error handling**: Provide clear error messages for users
+* **Fallbacks**: Implement graceful degradation when resources are limited
+* **Documentation**: Document your chart format and parameters
+
+== Real-World Examples
+
+Several existing OpenCPN plugins implement custom chart types:
+
+* **oeSENC Plugin**: Supports encrypted S-63 charts
+* **BSB4 Plugin**: Adds support for BSB version 4 charts
+* **ChartdldrPI**: Downloads and installs charts from various sources
+* **Vfkaps**: Supports VentureFarther KAP charts
+
+Studying these plugins can provide valuable insights for your own implementation.

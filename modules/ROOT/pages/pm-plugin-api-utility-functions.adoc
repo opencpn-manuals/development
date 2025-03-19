@@ -1,0 +1,688 @@
+= Utility Functions
+
+This chapter covers the various utility functions provided by the OpenCPN Plugin API. These functions help with common tasks such as configuration management, UI integration, and geographic calculations.
+
+== Configuration Management
+
+OpenCPN provides functions for plugins to access and modify configuration settings.
+
+=== Accessing the Configuration Object
+
+To access OpenCPN's configuration object:
+
+[source,cpp]
+----
+wxFileConfig *pConf = GetOCPNConfigObject();
+----
+
+=== Reading and Writing Configuration Settings
+
+Using the configuration object to read and write settings:
+
+[source,cpp]
+----
+void MyPlugin::LoadConfig() {
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    
+    if (pConf) {
+        pConf->SetPath("/PlugIns/MyPlugin");
+        
+        // Read settings with defaults
+        m_option1 = pConf->Read("Option1", 42);
+        m_option2 = pConf->Read("Option2"), _T("default");
+        m_enabled = pConf->Read("Enabled", true);
+        
+        // Read array of values
+        int count = pConf->Read("WaypointCount", 0);
+        m_waypoints.clear();
+        
+        for (int i = 0; i < count; i++) {
+            wxString key = wxString::Format("Waypoint%d", i);
+            wxString value = pConf->Read(key, wxEmptyString);
+            
+            if (!value.IsEmpty()) {
+                // Parse waypoint string and add to list
+                // ...
+            }
+        }
+    }
+}
+
+void MyPlugin::SaveConfig() {
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    
+    if (pConf) {
+        pConf->SetPath("/PlugIns/MyPlugin");
+        
+        // Write settings
+        pConf->Write("Option1", m_option1);
+        pConf->Write("Option2", m_option2);
+        pConf->Write("Enabled", m_enabled);
+        
+        // Write array of values
+        pConf->Write("WaypointCount", (int)m_waypoints.size());
+        
+        for (size_t i = 0; i < m_waypoints.size(); i++) {
+            wxString key = wxString::Format("Waypoint%d", (int)i);
+            wxString value = SerializeWaypoint(m_waypoints[i]);
+            
+            pConf->Write(key, value);
+        }
+        
+        pConf->Flush();
+    }
+}
+----
+
+=== Configuration Best Practices
+
+* **Use namespaced paths**: Always set your path to `/PlugIns/YourPluginName` to avoid conflicts
+* **Provide defaults**: Always specify default values when reading settings
+* **Call Flush()**: To ensure settings are saved to disk
+* **Version your settings**: Include a version number in your configuration to handle format changes
+* **Clean up old settings**: Remove obsolete settings when formats change
+
+== UI Utility Functions
+
+OpenCPN provides several functions to help with user interface integration.
+
+=== Window Management
+
+Request a refresh of a window:
+
+[source,cpp]
+----
+RequestRefresh(GetOCPNCanvasWindow());
+----
+
+Get OpenCPN's main canvas window:
+
+[source,cpp]
+----
+wxWindow *canvas = GetOCPNCanvasWindow();
+----
+
+=== Color Management
+
+Get a color from OpenCPN's color scheme:
+
+[source,cpp]
+----
+wxColour color;
+if (GetGlobalColor("BLUE1", &color)) {
+    // Use the color
+    m_textCtrl->SetForegroundColour(color);
+}
+----
+
+Apply OpenCPN's color scheme to a window:
+
+[source,cpp]
+----
+DimeWindow(m_dialog);
+----
+
+=== Font Management
+
+Get a font from OpenCPN's font system:
+
+[source,cpp]
+----
+wxFont *font = OCPNGetFont("Dialog", 0);
+if (font) {
+    // Use the font
+    m_textCtrl->SetFont(*font);
+}
+----
+
+=== System Paths
+
+Get the path to OpenCPN's shared data directory:
+
+[source,cpp]
+----
+wxString *dataLocation = GetpSharedDataLocation();
+wxString myDataPath = *dataLocation + "plugins/myPlugin/";
+----
+
+== Chart Display Functions
+
+These functions help with integrating with the chart display.
+
+=== Coordinate Transformations
+
+Convert between latitude/longitude and screen coordinates:
+
+[source,cpp]
+----
+// Geographic to screen
+wxPoint point;
+GetCanvasPixLL(&vp, &point, 47.6062, -122.3321);
+
+// Screen to geographic
+double lat, lon;
+GetCanvasLLPix(&vp, wxPoint(100, 100), &lat, &lon);
+----
+
+=== Chart Navigation
+
+Center the chart display on a specific position:
+
+[source,cpp]
+----
+JumpToPosition(47.6062, -122.3321, 50000);  // Lat, Lon, Scale
+----
+
+== Geographic Calculation Functions
+
+These functions provide common cartographic calculations.
+
+=== Distance and Bearing Calculations
+
+Calculate bearing and distance between two points:
+
+[source,cpp]
+----
+double bearing, distance;
+DistanceBearingMercator_Plugin(
+    start_lat, start_lon,  // Starting position
+    end_lat, end_lon,      // Ending position
+    &bearing,              // Output bearing in degrees true
+    &distance              // Output distance in nautical miles
+);
+----
+
+Calculate destination point given starting point, bearing, and distance:
+
+[source,cpp]
+----
+double dest_lat, dest_lon;
+PositionBearingDistanceMercator_Plugin(
+    start_lat, start_lon,     // Starting position
+    bearing_degrees,          // Bearing in degrees true
+    distance_nautical_miles,  // Distance in nautical miles
+    &dest_lat, &dest_lon      // Output destination position
+);
+----
+
+Calculate great circle distance:
+
+[source,cpp]
+----
+double distance_nm = DistGreatCircle_Plugin(
+    start_lat, start_lon,  // Starting position
+    end_lat, end_lon       // Ending position
+);
+----
+
+=== Projection Conversions
+
+Convert between geographic and projected coordinates:
+
+[source,cpp]
+----
+// Geographic to Transverse Mercator
+double x, y;
+toTM_Plugin(lat, lon, ref_lat, ref_lon, &x, &y);
+
+// Transverse Mercator to geographic
+double lat, lon;
+fromTM_Plugin(x, y, ref_lat, ref_lon, &lat, &lon);
+
+// Geographic to Simple Mercator
+double x, y;
+toSM_Plugin(lat, lon, ref_lat, ref_lon, &x, &y);
+
+// Simple Mercator to geographic
+double lat, lon;
+fromSM_Plugin(x, y, ref_lat, ref_lon, &lat, &lon);
+
+// Geographic to Elliptical Simple Mercator
+double x, y;
+toSM_ECC_Plugin(lat, lon, ref_lat, ref_lon, &x, &y);
+
+// Elliptical Simple Mercator to geographic
+double lat, lon;
+fromSM_ECC_Plugin(x, y, ref_lat, ref_lon, &lat, &lon);
+----
+
+== NMEA Data Functions
+
+=== VDO Message Parsing
+
+Parse a single VDO (Own Ship AIS) message:
+
+[source,cpp]
+----
+PlugIn_Position_Fix_Ex pos;
+wxString accuracy;
+
+if (DecodeSingleVDOMessage(nmea_sentence, &pos, &accuracy)) {
+    // VDO message successfully decoded
+    // Position data is in pos
+}
+----
+
+=== Pushing NMEA Data
+
+Send an NMEA sentence to OpenCPN:
+
+[source,cpp]
+----
+PushNMEABuffer("$GPGLL,4915.21,N,12314.32,W,225444,A");
+----
+
+== Localization Functions
+
+Add a locale catalog for translations:
+
+[source,cpp]
+----
+AddLocaleCatalog("opencpn-myPlugin");
+----
+
+== Chart Database Functions
+
+Get chart database entry as XML:
+
+[source,cpp]
+----
+wxXmlDocument chart_doc = GetChartDatabaseEntryXML(chart_index, true);
+----
+
+Update the chart database:
+
+[source,cpp]
+----
+wxArrayString directories;
+directories.Add("/path/to/charts");
+directories.Add("/path/to/more/charts");
+
+bool success = UpdateChartDBInplace(directories, true, true);
+----
+
+Get the list of chart directories:
+
+[source,cpp]
+----
+wxArrayString chart_dirs = GetChartDBDirArrayString();
+----
+
+== Utility Classes and Structures
+
+=== Hyperlinks
+
+Create and manage hyperlinks for waypoints or routes:
+
+[source,cpp]
+----
+Plugin_Hyperlink *link = new Plugin_Hyperlink();
+link->DescrText = "OpenCPN Website";
+link->Link = "https://opencpn.org";
+link->Type = "Website";
+
+// Add to waypoint
+waypoint->m_HyperlinkList->Append(link);
+----
+
+=== Waypoints
+
+Create waypoints:
+
+[source,cpp]
+----
+PlugIn_Waypoint *waypoint = new PlugIn_Waypoint(
+    lat, lon,                  // Position
+    "triangle",            // Icon name
+    "My Waypoint",         // Waypoint name
+    wxEmptyString              // GUID (empty for auto-generated)
+);
+
+// Set additional properties
+waypoint->m_MarkDescription = "An important waypoint";
+waypoint->m_IsVisible = true;
+----
+
+=== Routes
+
+Create routes with waypoints:
+
+[source,cpp]
+----
+PlugIn_Route *route = new PlugIn_Route();
+route->m_NameString = "My Route";
+route->m_StartString = "Start Point";
+route->m_EndString = "End Point";
+
+// Add waypoints to route
+route->pWaypointList->Append(start_waypoint);
+route->pWaypointList->Append(middle_waypoint);
+route->pWaypointList->Append(end_waypoint);
+----
+
+=== Tracks
+
+Create tracks with points:
+
+[source,cpp]
+----
+PlugIn_Track *track = new PlugIn_Track();
+track->m_NameString = "My Track";
+track->m_StartString = "Track Start";
+track->m_EndString = "Track End";
+
+// Add track points
+track->pWaypointList->Append(point1);
+track->pWaypointList->Append(point2);
+track->pWaypointList->Append(point3);
+----
+
+== Common Utility Implementations
+
+The following examples demonstrate implementations of common utility functions that aren't directly provided by the API but are useful for many plugins.
+
+=== Parse Latitude/Longitude String
+
+[source,cpp]
+----
+bool ParseLatLon(const wxString& str, double *lat, double *lon) {
+    // Various formats:
+    // - 12°34.56'N 123°45.67'W
+    // - 12 34.56N 123 45.67W
+    // - 12.3456 -123.4567
+    
+    wxString work = str;
+    work.Trim(true).Trim(false);  // Remove leading/trailing whitespace
+    
+    // Try decimal format first
+    wxRegEx reDec("(-?[0-9]+\\.[0-9]+)\\s+(-?[0-9]+\\.[0-9]+)");
+    if (reDec.Matches(work)) {
+        wxString sLat = reDec.GetMatch(work, 1);
+        wxString sLon = reDec.GetMatch(work, 2);
+        
+        sLat.ToDouble(lat);
+        sLon.ToDouble(lon);
+        return true;
+    }
+    
+    // Try degrees-decimal minutes format
+    wxRegEx reDDM("([0-9]+)\\s*[°\\s]\\s*([0-9]+\\.[0-9]+)[′'\\s]\\s*([NS])\\s+([0-9]+)\\s*[°\\s]\\s*([0-9]+\\.[0-9]+)[′'\\s]\\s*([EW])");
+    if (reDDM.Matches(work)) {
+        wxString sLatDeg = reDDM.GetMatch(work, 1);
+        wxString sLatMin = reDDM.GetMatch(work, 2);
+        wxString sLatDir = reDDM.GetMatch(work, 3);
+        wxString sLonDeg = reDDM.GetMatch(work, 4);
+        wxString sLonMin = reDDM.GetMatch(work, 5);
+        wxString sLonDir = reDDM.GetMatch(work, 6);
+        
+        double latDeg, latMin, lonDeg, lonMin;
+        sLatDeg.ToDouble(&latDeg);
+        sLatMin.ToDouble(&latMin);
+        sLonDeg.ToDouble(&lonDeg);
+        sLonMin.ToDouble(&lonMin);
+        
+        *lat = latDeg + (latMin / 60.0);
+        *lon = lonDeg + (lonMin / 60.0);
+        
+        if (sLatDir.Upper() == "S")
+            *lat = -(*lat);
+        if (sLonDir.Upper() == "W")
+            *lon = -(*lon);
+            
+        return true;
+    }
+    
+    // More formats could be added here...
+    
+    return false;
+}
+----
+
+=== Format Latitude/Longitude as String
+
+[source,cpp]
+----
+wxString FormatLatLon(double lat, double lon, int format = 0) {
+    // Format:
+    // 0: Decimal degrees: 12.3456 -123.4567
+    // 1: Degrees decimal minutes: 12° 34.56' N 123° 45.67' W
+    // 2: Degrees, minutes, seconds: 12° 34' 56" N 123° 45' 67" W
+    
+    wxString result;
+    
+    switch (format) {
+        case 0: {
+            // Decimal degrees
+            result = wxString::Format("%.6f %.6f", lat, lon);
+            break;
+        }
+        case 1: {
+            // Degrees decimal minutes
+            int latDeg = (int)fabs(lat);
+            double latMin = (fabs(lat) - latDeg) * 60.0;
+            int lonDeg = (int)fabs(lon);
+            double lonMin = (fabs(lon) - lonDeg) * 60.0;
+            
+            result = wxString::Format("%d° %.5f' %c %d° %.5f' %c",
+                latDeg, latMin, (lat >= 0) ? 'N' : 'S',
+                lonDeg, lonMin, (lon >= 0) ? 'E' : 'W');
+            break;
+        }
+        case 2: {
+            // Degrees, minutes, seconds
+            int latDeg = (int)fabs(lat);
+            double latMinFull = (fabs(lat) - latDeg) * 60.0;
+            int latMin = (int)latMinFull;
+            double latSec = (latMinFull - latMin) * 60.0;
+            
+            int lonDeg = (int)fabs(lon);
+            double lonMinFull = (fabs(lon) - lonDeg) * 60.0;
+            int lonMin = (int)lonMinFull;
+            double lonSec = (lonMinFull - lonMin) * 60.0;
+            
+            result = wxString::Format("%d° %d' %.2f\" %c %d° %d' %.2f\" %c",
+                latDeg, latMin, latSec, (lat >= 0) ? 'N' : 'S',
+                lonDeg, lonMin, lonSec, (lon >= 0) ? 'E' : 'W');
+            break;
+        }
+    }
+    
+    return result;
+}
+----
+
+=== Calculate Rhumb Line Distance and Bearing
+
+[source,cpp]
+----
+void RhumbDistanceAndBearing(double lat1, double lon1, double lat2, double lon2,
+                            double *distance, double *bearing) {
+    // Convert to radians
+    double lat1Rad = lat1 * M_PI / 180.0;
+    double lon1Rad = lon1 * M_PI / 180.0;
+    double lat2Rad = lat2 * M_PI / 180.0;
+    double lon2Rad = lon2 * M_PI / 180.0;
+    
+    double dLon = lon2Rad - lon1Rad;
+    
+    // If crossing the anti-meridian, adjust longitude
+    if (fabs(dLon) > M_PI) {
+        if (dLon > 0) {
+            dLon = -(2 * M_PI - dLon);
+        } else {
+            dLon = 2 * M_PI + dLon;
+        }
+    }
+    
+    // Calculate projection factor for latitude difference
+    double dPhi = log(tan(lat2Rad / 2 + M_PI / 4) / tan(lat1Rad / 2 + M_PI / 4));
+    
+    // Calculate q, the east-west component of the displacement
+    double q = (fabs(dPhi) > 1e-10) ? (lat2Rad - lat1Rad) / dPhi : cos(lat1Rad);
+    
+    // Calculate distance (in radians)
+    double distRad = sqrt(pow(lat2Rad - lat1Rad, 2) + pow(q * dLon, 2));
+    
+    // Convert to nautical miles
+    *distance = distRad * 60 * 180 / M_PI;
+    
+    // Calculate bearing
+    *bearing = atan2(dLon, dPhi) * 180 / M_PI;
+    if (*bearing < 0) {
+        *bearing += 360;
+    }
+}
+----
+
+=== Create a Rhumb Line Route
+
+[source,cpp]
+----
+PlugIn_Route *CreateRhumbLineRoute(double startLat, double startLon,
+                                 double endLat, double endLon,
+                                 double interval, const wxString &routeName) {
+    // Create route
+    PlugIn_Route *route = new PlugIn_Route();
+    route->m_NameString = routeName;
+    route->m_StartString = "Start";
+    route->m_EndString = "End";
+    
+    // Calculate route length
+    double distance, bearing;
+    RhumbDistanceAndBearing(startLat, startLon, endLat, endLon, &distance, &bearing);
+    
+    // Create waypoints
+    int numPoints = (int)(distance / interval) + 1;
+    
+    for (int i = 0; i <= numPoints; i++) {
+        double fraction = (numPoints > 0) ? (double)i / numPoints : 0;
+        double lat, lon;
+        
+        if (i == 0) {
+            lat = startLat;
+            lon = startLon;
+        } else if (i == numPoints) {
+            lat = endLat;
+            lon = endLon;
+        } else {
+            // Calculate intermediate point
+            double d = fraction * distance;
+            double b = bearing * M_PI / 180.0;
+            
+            // Convert to radians
+            double lat1 = startLat * M_PI / 180.0;
+            double lon1 = startLon * M_PI / 180.0;
+            
+            // Calculate intermediate point
+            double latRad = lat1 + (d / 60) * cos(b) * M_PI / 180.0;
+            double dPhi = log(tan(latRad / 2 + M_PI / 4) / tan(lat1 / 2 + M_PI / 4));
+            double q = (fabs(dPhi) > 1e-10) ? (latRad - lat1) / dPhi : cos(lat1);
+            double dLon = (d / 60) * sin(b) * M_PI / 180.0 / q;
+            double lonRad = lon1 + dLon;
+            
+            // Convert back to degrees
+            lat = latRad * 180.0 / M_PI;
+            lon = lonRad * 180.0 / M_PI;
+            
+            // Normalize longitude to -180 to 180
+            if (lon > 180) lon -= 360;
+            if (lon < -180) lon += 360;
+        }
+        
+        // Create waypoint
+        wxString name = (i == 0) ? "Start" : 
+                       (i == numPoints) ? "End" :
+                       wxString::Format("Point %d", i);
+        
+        PlugIn_Waypoint *wp = new PlugIn_Waypoint(
+            lat, lon,
+            (i == 0 || i == numPoints) ? "triangle") : _T("circle",
+            name
+        );
+        
+        // Add to route
+        route->pWaypointList->Append(wp);
+    }
+    
+    return route;
+}
+----
+
+=== Calculate Sun Rise/Set Times
+
+[source,cpp]
+----
+void CalculateSunRiseSet(double lat, double lon, int year, int month, int day,
+                       double *sunrise, double *sunset) {
+    // Ported from NOAA Solar Calculator
+    // http://www.esrl.noaa.gov/gmd/grad/solcalc/
+    
+    // Convert to Julian Day
+    int a = (month > 2) ? 0 : -1;
+    int b = year + 4800 + a;
+    int c = month + 12 * a - 3;
+    int jd = day + (153 * c + 2) / 5 + 365 * b + b / 4 - b / 100 + b / 400 - 32045;
+    
+    // Calculate solar position
+    double d = jd - 2451545.0;
+    
+    // Solar Mean Anomaly
+    double g = 357.529 + 0.98560028 * d;
+    g = fmod(g, 360.0);
+    
+    // Ecliptic Longitude
+    double q = 280.459 + 0.98564736 * d;
+    q = fmod(q, 360.0);
+    
+    // Solar Transit
+    double L = q + 1.915 * sin(g * M_PI / 180.0) + 0.020 * sin(2 * g * M_PI / 180.0);
+    L = fmod(L, 360.0);
+    
+    // Sun's declination
+    double e = 23.439 - 0.00000036 * d;
+    double sinDec = sin(e * M_PI / 180.0) * sin(L * M_PI / 180.0);
+    double cosDec = sqrt(1 - sinDec * sinDec);
+    
+    // Hour angle for given sun elevation
+    double elevation = -0.83; // -0.83 for sun rise/set
+    double cosH = (sin(elevation * M_PI / 180.0) - sin(lat * M_PI / 180.0) * sinDec) / 
+                  (cos(lat * M_PI / 180.0) * cosDec);
+    
+    // No sunrise/sunset if |cosH| > 1
+    if (cosH > 1.0) {
+        // Sun never rises
+        *sunrise = -1;
+        *sunset = -1;
+        return;
+    } else if (cosH < -1.0) {
+        // Sun never sets
+        *sunrise = 0;
+        *sunset = 24;
+        return;
+    }
+    
+    // Hour angle
+    double H = acos(cosH) * 180.0 / M_PI;
+    
+    // Solar transit (noon)
+    double T = 12.0 - lon / 15.0;
+    
+    // Sunrise and sunset in hours (UTC)
+    *sunrise = (T - H / 15.0);
+    *sunset = (T + H / 15.0);
+    
+    // Ensure values are in 0-24 range
+    while (*sunrise < 0) *sunrise += 24;
+    while (*sunrise >= 24) *sunrise -= 24;
+    while (*sunset < 0) *sunset += 24;
+    while (*sunset >= 24) *sunset -= 24;
+}
+----
+
+== Best Practices
+
+* **Error handling**: Always check function return values and handle errors gracefully
+* **Parameter validation**: Validate input parameters before calling utility functions
+* **Performance**: Be mindful of performance implications, especially for functions called frequently
+* **Resource management**: Properly clean up resources when they're no longer needed
+* **Consistency**: Use consistent conventions for geographic coordinates and units
