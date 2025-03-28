@@ -1,0 +1,336 @@
+= High DPI Plugin Development Guide
+
+== Introduction
+
+This section aims to help OpenCPN plugin developers implement proper high DPI display support. Providing a consistent user experience across platforms with different display resolutions and scaling factors is crucial for usability. This document explains how to use the OpenCPN API to handle high DPI displays properly, while minimizing trial and error across all supported platforms.
+
+== Understanding DPI Scaling Terminology
+
+Before diving into implementation details, it's important to understand the key concepts related to DPI scaling:
+
+=== Key Terms
+
+DPI (Dots Per Inch):: The number of display pixels contained within one inch of physical screen space. Higher DPI values mean more detailed display.
+Physical Pixels:: The actual hardware pixels on the screen. A 4K monitor has 3840×2160 physical pixels. These are never scaled.
+Logical Pixels:: Coordinate system used by the application and most `wxWidget` operations. It is automatically scaled by the operating system. For example, a 500×500 window in logical pixels might use 1000×1000 physical pixels on a 200% scaled display.
+DIP (Device Independent Pixels):: Measurement unit that represents the same physical size across different devices and resolutions. 1 DIP equals 1 pixel at 96 DPI (standard resolution).
+Content Scale Factor:: Ratio of physical pixels to logical pixels (e.g., 2.0 for "Retina" displays). A value of 2.0 means 2×2 physical pixels are used to represent 1×1 logical pixel.
+DPI Scale Factor:: Windows-specific display scaling percentage (e.g., 125%, 150%) expressed as a decimal. Windows uses this factor to scale UI elements proportionally to the display.
+
+== Plugin API Functions
+
+OpenCPN provides two main functions for handling high DPI displays:
+
+[source,cpp]
+----
+/**
+ * Gets content scaling factor for current display.
+ *
+ * Returns the display scaling factor used for scaling UI content on high DPI
+ * displays. Common on GTK3 and Mac Retina displays.
+ *
+ * @return Display content scale factor:
+ *         1.0 = Standard/100% scaling
+ *         2.0 = 200% scaling/Retina
+ *         etc.
+ *
+ * @note Used for proper scaling on high DPI displays
+ * @note Different from WinDIPScaleFactor()
+ */
+extern DECL_EXP double OCPN_GetDisplayContentScaleFactor();
+
+/**
+ * Gets Windows-specific DPI scaling factor.
+ *
+ * Returns Windows DPI scaling factor configured in display settings.
+ *
+ * @return Windows DPI scale factor:
+ *         1.0 = 96 DPI (100%)
+ *         1.25 = 120 DPI (125%)
+ *         1.5 = 144 DPI (150%)
+ *         etc.
+ *
+ * @note Windows-specific scaling mechanism
+ * @note Used in conjunction with ContentScaleFactor
+ */
+extern DECL_EXP double OCPN_GetWinDIPScaleFactor();
+----
+
+== Understanding Logical vs. Physical Pixels in wxWidgets
+
+The wxWidgets library uses of two different coordinate systems. Most wxWidgets operations use logical pixels, while some contexts (like OpenGL) use physical pixels. This distinction is important for plugin developers to understand when implementing high DPI support. See https://docs.wxwidgets.org/3.2/overview_high_dpi.html[wxWidgets High DPI Documentation] for more details.
+
+== Drawing Context Types and Scaling Behavior
+
+Different wxWidgets drawing contexts handle DPI scaling differently:
+
+=== wxDC and wxGraphicsContext
+
+* Use *logical pixels* for coordinates
+* Automatically convert to physical pixels during drawing
+* Example: `dc.DrawLine(10, 10, 100, 100)` - these coordinates are in logical pixels
+
+[source,cpp]
+----
+void DrawOnDC(wxDC& dc) {
+    // Coordinates are in logical pixels and will be scaled automatically
+    dc.DrawCircle(50, 50, 25);
+}
+----
+
+=== wxGLCanvas
+
+* Uses *physical pixels* for coordinates
+* *No automatic scaling* is performed
+* Manual conversion from logical to physical pixels is required
+
+[source,cpp]
+----
+// Correct usage with OpenGL - manual scaling needed
+void DrawWithOpenGL() {
+    double scaleFactor = OCPN_GetDisplayContentScaleFactor();
+
+    #ifdef __WXMSW__
+    scaleFactor *= OCPN_GetWinDIPScaleFactor();
+    #endif
+
+    // Apply scaling to convert logical positions to physical pixels
+    float x = logicalX * scaleFactor;
+    float y = logicalY * scaleFactor;
+    float radius = logicalRadius * scaleFactor;
+
+    // Now use the scaled values in OpenGL drawing calls
+    // glVertex2f(x, y); etc.
+}
+----
+
+== Key Principles
+
+The key principle is that `GetContentScaleFactor()`` returns a scaling factor (typically >1.0) for high DPI/Retina displays. This needs to be:
+
+1. Multiplied when converting from logical/screen coordinates to physical/device pixels
+2. Divided when converting from physical/device pixels to logical/screen coordinates
+
+This maintains proper scaling between the logical coordinate system used for UI layout and the physical pixels needed for actual rendering, especially important on high DPI displays where there may be multiple physical pixels per logical pixel.
+
+=== When to Apply Scaling Manually
+
+Even with wxDC and wxGraphicsContext, there are cases where manual scaling is needed:
+
+1. *Bitmap and Image Operations*
+   * Image dimensions are inherently physical
+   * Loading and scaling images always needs manual scaling
+
+2. *Cross-Platform Consistency*
+   * Some platforms may handle automatic scaling differently
+   * Manual scaling ensures consistent appearance across platforms
+
+3. *Custom UI Elements*
+   * Custom-drawn controls may need manual scaling for consistent sizing
+
+=== DO NOT Apply Scaling For
+
+1. *Standard wxWidgets Controls*
+   * wxButton, wxCheckBox, wxTextCtrl, etc. already handle scaling
+   * Sizers and layout managers handle scaled dimensions
+
+2. *Values Already Scaled by the OS*
+   * Mouse coordinates from events
+   * Window dimensions reported by GetSize()
+
+== Platform-Specific Implementation Details
+
+=== macOS
+
+On macOS, the content scale factor varies depending on the display and user settings:
+
+* Modern MacBook Pro models with Retina or Liquid Retina XDR displays (such as those with 3456×2234 resolution) typically use a scale factor of 2.0 by default
+* Different resolution options in Display preferences change the effective logical resolution while maintaining the same physical resolution
+* Each display can have its own scale factor, and the system lets users select from "Default for display" or various "Scaled" options
+
+Although macOS abstracts much of the scaling complexity via its Cocoa framework, OpenCPN plugins still need to explicitly account for scaling because:
+
+1. OpenCPN uses wxWidgets, which needs to translate between macOS's scaling system and its own platform-independent approach
+2. Custom drawing operations and bitmap handling require manual scaling
+3. Mixed-DPI environments (multiple monitors with different scale factors) need special handling
+
+The `OCPN_GetDisplayContentScaleFactor()` function correctly retrieves the appropriate scaling factor on macOS, making it the primary API function to use on this platform.
+
+=== Windows
+
+Windows uses a percentage-based scaling system. Common values include:
+
+* 100% (factor: 1.0)
+* 125% (factor: 1.25)
+* 150% (factor: 1.5)
+* 200% (factor: 2.0)
+
+On Windows, you typically need to apply both scaling factors by multiplying them together:
+[source,cpp]
+----
+double totalScaleFactor = OCPN_GetDisplayContentScaleFactor() * OCPN_GetWinDIPScaleFactor();
+----
+
+Windows requires special handling with both `OCPN_GetDisplayContentScaleFactor()` and `OCPN_GetWinDIPScaleFactor()` because of Windows' unique dual-layer scaling approach:
+
+==== Why Windows Has Two Scaling Systems
+
+Windows' dual scaling system evolved for historical compatibility reasons:
+
+1. *Primary DPI Scaling (OCPN_GetWinDIPScaleFactor)*:
+   * This is the original Windows scaling system that dates back to Windows XP/Vista
+   * It's based on changing the system DPI setting (96 DPI at 100%, 120 DPI at 125%, etc.)
+   * This setting affects the entire Windows environment including fonts, window metrics, and system UI
+   * When a user changes the scaling in Windows Display Settings, this is the factor that changes
+
+2. *Content Scaling (OCPN_GetDisplayContentScaleFactor)*:
+   * This newer layer was added to handle modern high-DPI displays more effectively
+   * It's more similar to how macOS and mobile platforms handle scaling
+   * It's typically enabled for applications that declare themselves as "DPI-aware"
+   * This layer helps with rendering sharper UI elements on high-resolution displays
+
+==== How The Two Systems Interact
+
+The two scaling systems work together in a multiplicative relationship:
+
+* *Total effective scaling = WinDIPScaleFactor × ContentScaleFactor*
+* For example, on a Surface Pro with 200% Windows scaling (WinDIPScaleFactor = 2.0) and standard content scaling (ContentScaleFactor = 1.0), the total scaling would be 2.0
+* On the same device with an application that implements its own content scaling (say ContentScaleFactor = 1.5), the total scaling would be 3.0
+
+wxWidgets (which OpenCPN uses) handles these factors differently depending on the Windows version and application DPI awareness mode. This is why OpenCPN provides both functions to ensure proper scaling in all scenarios.
+
+==== When To Use Both Factors
+
+You should multiply both factors together when:
+
+1. Drawing custom graphics or setting explicit sizes for UI elements
+2. Implementing custom controls that need precise pixel measurements
+3. Setting spacing, margins, or padding values that should be consistent across platforms
+4. Working with images or icons that need to scale properly on high-DPI displays
+
+The OpenCPN implementation follows this approach to ensure consistent UI scaling behavior across all supported Windows versions and display configurations.
+
+=== Linux/GTK
+
+Linux desktop environments handle high DPI scaling in various ways depending on the display server (X11 or Wayland), desktop environment (GNOME, KDE, etc.), and toolkit version:
+
+* *GTK3/GTK4:* Modern versions of GTK have built-in support for high DPI displays and fractional scaling
+* *X11:* Traditional X11 environments may have more limited high DPI support
+* *Wayland:* Generally offers better high DPI and fractional scaling support than X11
+
+In OpenCPN with wxWidgets on Linux, DPI handling depends on the wxWidgets build:
+
+* *GTK3 builds:* When wxWidgets is built with GTK3 (defined by `__WXGTK3__`), display scaling is mostly handled automatically, and `OCPN_GetDisplayContentScaleFactor()` returns the appropriate scale factor
+* *GTK2 builds:* With older GTK2 builds, high DPI support is more limited, and manual scaling may be required
+
+Key Linux-specific considerations:
+
+1. *Fractional scaling:* Linux environments sometimes use fractional scaling factors (125%, 150%, 175%) which can cause rounding issues with integer-based pixel calculations
+2. *Desktop environment variety:* Different desktop environments (GNOME, KDE, Xfce) implement scaling differently, so testing on multiple environments is helpful
+3. *Configuration settings:* Users can set system-wide scaling or application-specific scaling, which may interact with OpenCPN's scaling
+4. *Mixed DPI setups:* Multiple monitors with different DPI values are common and may cause scaling inconsistencies
+
+In OpenCPN's implementation, Linux GTK3 builds define `wxHAVE_DPI_INDEPENDENT_PIXELS` which affects how the scaling functions behave. For plugin developers, using `OCPN_GetDisplayContentScaleFactor()` is still the recommended approach as it handles the platform differences correctly.
+
+== Implementation Guidelines
+
+=== Recommended Scaling Approach
+
+For consistent results across all platforms, use this approach:
+
+[source,cpp]
+----
+// Get the appropriate scaling factors
+double scaleFactor = OCPN_GetDisplayContentScaleFactor();
+
+#ifdef __WXMSW__
+    // On Windows, multiply by the Windows-specific DPI factor
+    scaleFactor *= OCPN_GetWinDIPScaleFactor();
+#endif
+
+// Apply scaling to your values
+int scaledSize = standardSize * scaleFactor;
+----
+
+=== Common Scaling Scenarios
+
+==== Standard wxWidgets Controls (Important Clarification)
+
+Most standard wxWidgets controls (buttons, checkboxes, dropdown lists, etc.) automatically handle DPI scaling and use logical pixels internally. For these elements, manual scaling adjustments are generally *not* needed when:
+
+* Using default sizes (wxDefaultSize)
+* Using layout managers and sizers
+* Setting proportional sizes relative to content
+
+For example, this code does *not* need manual scaling:
+
+[source,cpp]
+----
+// No manual scaling needed with standard controls using default sizes
+wxButton* button = new wxButton(parent, wxID_ANY, "Label");
+wxCheckBox* checkbox = new wxCheckBox(parent, wxID_ANY, "Option");
+wxChoice* dropdown = new wxChoice(parent, wxID_ANY);
+----
+
+Manual scaling is primarily needed for:
+
+* Custom drawing operations
+* Custom UI components
+* Explicit pixel dimensions that need to be consistent across platforms
+* Margin and padding values used with sizers
+* Creating pixel-perfect layouts
+
+The examples below demonstrate when manual scaling is necessary.
+
+==== Drawing Operations (Canvas, Graphics)
+
+wxWidgets drawing functions (like `DrawCircle``, `DrawLine``, etc.) use logical pixels as input parameters. These values are automatically scaled by the operating system on high DPI displays, but the scaling can be inconsistent across platforms. To ensure consistent visual appearance across all platforms and display configurations, manual scaling is still necessary.
+
+[source,cpp]
+----
+// Example: Drawing a circle with scaled radius
+void DrawCircle(wxDC& dc, wxPoint center, int standardRadius) {
+    // wxDC drawing functions take logical pixels as input
+    // but we need to manually scale for consistency across platforms
+    double scaleFactor = OCPN_GetDisplayContentScaleFactor();
+    
+    #ifdef __WXMSW__
+    // Windows-specific additional scaling
+    scaleFactor *= OCPN_GetWinDIPScaleFactor();
+    #endif
+    
+    // Convert our standard size to scaled logical pixels
+    int scaledRadius = standardRadius * scaleFactor;
+
+    // dc.DrawCircle expects logical pixels, which will be
+    // automatically mapped to physical pixels by the OS
+    dc.DrawCircle(center, scaledRadius);
+}
+----
+
+This approach ensures that:
+1. The circle has the same apparent size across all devices
+2. The line thickness and smoothness are appropriate for the display resolution
+3. The drawing looks consistent even with different system scaling settings
+
+==== Icons and Images
+
+[source,cpp]
+----
+// Example: Loading and scaling an icon
+wxBitmap LoadAndScaleIcon(const wxString& path, wxSize standardSize) {
+    double scaleFactor = OCPN_GetDisplayContentScaleFactor();
+    
+    #ifdef __WXMSW__
+    // Windows-specific additional scaling
+    scaleFactor *= OCPN_GetWinDIPScaleFactor();
+    #endif
+    
+    wxSize scaledSize(standardSize.x * scaleFactor, standardSize.y * scaleFactor);
+    
+    // For bitmap scaling
+    wxImage img(path);
+    wxBitmap bmp(img.Scale(scaledSize.x, scaledSize.y, wxIMAGE_QUALITY_HIGH));
+    return bmp;
+}
+----

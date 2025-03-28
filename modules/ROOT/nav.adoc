@@ -20,6 +20,7 @@
 *** xref:pm-plugin-api-utility-functions.adoc[Utility Functions]
 ** xref:pm-overview-deployment.adoc[Deployment overview]
 ** xref:pm-overview-workflow.adoc[Workflow overview]
+** xref:pm-plugin-high-dpi.adoc[High DPI Displays]
 ** xref:plugin-compat.adoc[Compatibility and tweaks]
 ** xref:dm-i18n.adoc[Translations]
 ** xref:Plugin-Pi-Adaptation.adoc[Plugin Installer Code Adaptation]
