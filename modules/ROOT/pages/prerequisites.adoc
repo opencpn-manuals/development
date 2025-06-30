@@ -81,10 +81,10 @@ Be aware that this is not a Git tutorial at all. To know how to use Git,
 consult the Git book at http://book.git-scm.com/ or any other tutorials
 on the net.
 
-== Code formatting
+== Coding rules
 
 Please read the page on
-xref:opencpn-dev::code-formatting.adoc[Code Formatting] before writing
+xref:opencpn-dev::coding-guidelines.adoc[Code Formatting] before writing
 new code for OpenCPN.
 
 == Publishing your code
