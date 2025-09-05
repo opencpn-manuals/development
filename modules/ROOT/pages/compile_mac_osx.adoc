@@ -247,6 +247,23 @@ bundles not intended to be distributed. A kludgey fix:
 
   $ sudo rm /usr/local/bin/OpenCPN.app/Contents/MacOS/libwx*dylib
 
+=== Code Signing for Local Development
+
+After installing OpenCPN, you need to sign the application bundle to run it locally on macOS. Some MacOS versions require code signing to execute applications.
+
+* Sign the application with an ad-hoc signature for local development:
++
+If you used the default install location:
+
+  $ codesign --force --deep --sign - /usr/local/bin/OpenCPN.app
+
++
+If you used a custom install prefix (e.g., `CMAKE_INSTALL_PREFIX=/Users/dsr/tmp`):
+
+  $ codesign --force --deep --sign - /Users/dsr/tmp/bin/OpenCPN.app
+
++
+Replace the path with your actual install location. The `--deep` flag ensures all nested code gets signed, and the `-` (dash) creates an ad-hoc signature suitable for local development without requiring a developer certificate.
 
 * Build the installable DMG:
 
