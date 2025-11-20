@@ -10,6 +10,9 @@
 ** xref:pm-plugin-dependencies.adoc[Dependencies]
 ** xref:pm-plugin-api-overview.adoc[Plugin API]
 *** xref:pm-plugin-api-versions.adoc[Plugin API and ABI]
+*** xref:using-the-api.adoc[Using the API]
+*** xref:system-events.adoc[Using API system events]
+
 *** xref:pm-plugin-api-core-classes.adoc[Core Plugin Classes and Lifecycle]
 *** xref:pm-plugin-api-capabilities.adoc[Plugin Capabilities System]
 *** xref:pm-plugin-api-ui-integration.adoc[UI Integration]

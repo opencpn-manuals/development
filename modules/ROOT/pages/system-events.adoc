@@ -1,0 +1,44 @@
+= Handling system events in plugins.
+
+From 5.16 there are new plugin interfaces for handling system events.
+At the time of writing this is implemented for the list of available message
+types. More events are expected to be added.
+
+== Handling list of available messages.
+
+The system maintains a list of currently known message types which could
+be useful for example when listening for all message types or there is a
+need to check if a specific type is "live" so to speak.
+
+This is handled by two functions which both live in api122 and thus needs
+an `api_122` pointer. See xref::using-the-api.adoc[New plugin API]
+
+The first retrieves the current list, a set of `<bus>::<key>` strings.
+Typical usage
+
+    const std::set<string>& msg_types = api_122->GetActiveMessages();
+    ... do something with mgs_types
+
+Typical strings includes `nmea0183::GSGGA` and `nmea2000::521289`.
+
+The second function is used to register a callback so the local list owned
+by the plugin can be updated when a new message type is detected (types are
+never removed). Typical usage :
+
+```
+    void OnApiEvent(HostApi122::EventType et) {
+①     if (et != HostApi122::EventType::kNewMessageType) return;
+       m_msg_types = api_122->GetActiveMessages();
+       ... do something interesting
+    }
+
+②  auto name = GetCommonName().ToStdString();
+    auto callback = [&](HostApi122::EventType et) { OnApiEvent(et); };
+    api_122->RegisterApiEventCallback(name, callback);
+```
+
+① The interface will be expanded with other events, so check what actually
+  occurred before proceeding
+
+② Typically in Init(). Cannot be used in the constructor, the lambda expression
+  is not valid there.

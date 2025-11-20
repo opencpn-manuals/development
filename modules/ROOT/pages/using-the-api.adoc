@@ -1,0 +1,61 @@
+
+=  Using the API
+
+Up to version API 1.20 (OpenCPN 5.12) the API is just a collection of functions,
+types, etc. in the global namespace.
+Using these methods is just a matter of adding `#include ocpn_plugin.h` to source
+files and then call the functions.
+
+== Using the 1.21 API
+
+From plugin API 1.21 (OpenCPN 5.14) different system is used.
+Using these API levels requires some boilerplate code in the plugin header:
+```
+   std::shared_ptr<HostApi> m_host_api;
+   std::shared_ptr<HostApi121> m_api_121;
+```
+and in the cpp file, typically in `Init()`
+```
+   m_host_api = std::move(GetHostApi());
+   m_api_121 = std::dynamic_pointer_cast<HostApi121>(m_host_api);
+```
+With this in place, AP1 1.21 functions can be invoked using
+```
+   bool result = m_api_121->IsMeasureActive(canvas_id);
+```
+
+For version 1.21 of the API this is it
+
+== Using the 1.22 API
+
+Using the 1.22 API is initiated the same way as using 1.21, see above.
+Then add to the header:
+```
+   std::shared_ptr<HostApi122> m_api_122;
+```
+and to the cpp file:
+```
+   m_api_122 = std::dynamic_pointer_cast<HostApi122>(m_host_api);
+```
+
+The usage of 1.22 methods can be done in two ways.
+The first is to declare that the plugin requires API level 1.22.
+This means that it can only be used with OpenCPN 5.16 or higher, and
+methods can be invoked like `m_api_122->Foo()`.
+
+The other way is to declare that the plugin can  be loaded by a 1.21
+host i. e., OpenCPN 5.14.
+This means that 1.22 functions might or might not be supported by the host.
+To handle this the plugin makes a simple check like:
+```
+   if (m_api_122) {
+      ... do 1.22 things i. e., call m_api_122->Foo() like methods
+   }
+```
+The basic advantage is that the plugin can take advantage of more
+recent hosts while still run on older versions.
+
+The details how to declare which version the plugin requires are at time
+time of writing up in the air tracked by
+https://github.com/Rasbats/shipdriver_pi/issues/632[shipdriver]   and
+https://github.com/jongough/testplugin_pi/issues/459[testplugin] issues.
